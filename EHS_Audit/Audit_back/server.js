@@ -30,6 +30,7 @@ const db = require("./app/models");
 db.sequelize.sync();
 
 // simple route
+/*
 app.get("/", (req, res) => {
   res.sendFile(path + "index.html");
 });
@@ -37,6 +38,7 @@ app.get("/", (req, res) => {
 app.get("/callback", (req, res) => {
   res.sendFile(path + "index.html");
 });
+*/
 
 require("./app/routes/partner.routes")(app);
 require("./app/routes/contact.routes")(app);
@@ -61,7 +63,7 @@ require("./app/routes/rules/tdt_rule.routes")(app);
 require("./app/routes/file.routes")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   logger.debug(`Server is running on port ${PORT}.`);
 });

@@ -1,6 +1,6 @@
-import Axios from 'axios'
+import Axios from "axios"
+import { url } from './axiosUrl'
 
-const url = 'https://conformite.engie-homeservices.fr/'
 const state = () => ({
   employees: []
 })

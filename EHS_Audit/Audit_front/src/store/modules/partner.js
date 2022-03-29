@@ -1,6 +1,5 @@
+import { url } from './axiosUrl'
 import Axios from 'axios'
-
-const url = 'https://conformite.engie-homeservices.fr/'
 
 const state = () => ({
   partners: [],
@@ -10,15 +9,10 @@ const state = () => ({
 
 const actions = {
   getPartners: ({ commit }) => {
-    Axios.get(url + 'api/partners/', {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
+    Axios.get(url + 'api/partners/')
     .then(response => {
       commit('GET_PARTNERS', response.data)
     })
-    .catch(err => console.log(err))
   },
   getOnePartner: ({ commit }, payload) => {
     Axios.get(url + 'api/partners/' + payload)

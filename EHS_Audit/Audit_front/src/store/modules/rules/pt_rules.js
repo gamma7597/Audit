@@ -1,6 +1,5 @@
-import Axios from 'axios'
-
-const url = 'https://conformite.engie-homeservices.fr/'
+import Axios from "axios"
+import { url } from '../axiosUrl'
 
 const state = () => ({
   pt_rules: {},
