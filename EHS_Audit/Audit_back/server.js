@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-//const helmet = require("helmet");
+const helmet = require("helmet");
 
 const path = __dirname + '/app/views/';
 
@@ -8,9 +8,15 @@ const logger = require("./app/middleware/logger");
 
 const app = express();
 
+/*const OktaJwtVerifier = require('@okta/jwt-verifier');
+const oktaJwtVerifier = new OktaJwtVerifier({
+    issuer: 'https://dev-46549604.okta.com/oauth2/default'
+});
+const audience = 'api://0oa2pf2uaeW95u4VH5d7';*/
+
 app.use(express.static(path));
 
-//app.use(helmet());
+app.use(helmet());
 
 //global.__basedir = __dirname;
 
@@ -28,6 +34,29 @@ app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
 db.sequelize.sync();
+
+/*const authenticationRequired = async (req, res, next) => {
+  const authHeader = req.headers.authorization || '';
+  const match = authHeader.match(/Bearer (.+)/);
+  if (!match) {
+    return res.status(401).send();
+  }
+
+  try {
+    const accessToken = match[1];
+    if (!accessToken) {
+      return res.status(401, 'Not authorized').send();
+    }
+    req.jwt = await oktaJwtVerifier.verifyAccessToken(accessToken, audience);
+    next();
+  } catch (err) {
+    return res.status(401).send(err.message);
+  }
+};
+
+app.get('/api/employees/EHS', authenticationRequired, (req, res) => {
+  res.json(req.jwt?.claims);
+});*/
 
 // simple route
 /*
