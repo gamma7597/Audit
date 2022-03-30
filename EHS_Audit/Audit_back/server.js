@@ -1,18 +1,35 @@
 const express = require("express");
 const cors = require("cors");
-//const helmet = require("helmet");
 
 const path = __dirname + '/app/views/';
 
 const logger = require("./app/middleware/logger");
 
-const app = express();
+var app = express();
+
+/*const OktaJwtVerifier = require('@okta/jwt-verifier');
+const oktaJwtVerifier = new OktaJwtVerifier({
+    issuer: 'https://dev-46549604.okta.com/oauth2/default'
+});
+const audience = 'api://0oa2pf2uaeW95u4VH5d7';*/
+
+app.use(function (req, res, next) {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; connect-src 'self' https://dev-46549604.okta.com/oauth2/default/v1/token https://dev-46549604.okta.com/oauth2/default/v1/userinfo; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; frame-src 'self'"
+  );
+  res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Permissions-Policy', "accelerometer=(), geolocation=(self), fullscreen=(self), autoplay=(), camera=(), display-capture=(self)");
+  res.setHeader('referrer-policy', 'no-referrer');
+  res.setHeader('X-XSS-Protection', '0');
+  return next();
+});
 
 app.use(express.static(path));
 
-//app.use(helmet());
-
-//global.__basedir = __dirname;
+global.__basedir = __dirname;
 
 var corsOptions = {
   origin: "*"
@@ -29,7 +46,31 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("./app/models");
 db.sequelize.sync();
 
+/*const authenticationRequired = async (req, res, next) => {
+  const authHeader = req.headers.authorization || '';
+  const match = authHeader.match(/Bearer (.+)/);
+  if (!match) {
+    return res.status(401).send();
+  }
+
+  try {
+    const accessToken = match[1];
+    if (!accessToken) {
+      return res.status(401, 'Not authorized').send();
+    }
+    req.jwt = await oktaJwtVerifier.verifyAccessToken(accessToken, audience);
+    next();
+  } catch (err) {
+    return res.status(401).send(err.message);
+  }
+};
+
+app.get('/api/employees/EHS', authenticationRequired, (req, res) => {
+  res.json(req.jwt?.claims);
+});*/
+
 // simple route
+
 app.get("/", (req, res) => {
   res.sendFile(path + "index.html");
 });
@@ -37,6 +78,7 @@ app.get("/", (req, res) => {
 app.get("/callback", (req, res) => {
   res.sendFile(path + "index.html");
 });
+
 
 require("./app/routes/partner.routes")(app);
 require("./app/routes/contact.routes")(app);
