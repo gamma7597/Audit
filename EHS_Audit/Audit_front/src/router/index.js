@@ -32,7 +32,7 @@ const oktaAuth = new OktaAuth({
   issuer: 'https://dev-46549604.okta.com/oauth2/default',
   clientId: '0oa2pf2uaeW95u4VH5d7',
   redirectUri: window.location.origin + '/callback',
-  scopes: ['openid']
+  scopes: ['openid', 'profile', 'email']
 })
 
 function matchPartner(to) {

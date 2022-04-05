@@ -5,13 +5,28 @@ const path = __dirname + '/app/views/';
 
 const logger = require("./app/middleware/logger");
 
+const OktaJwtVerifier = require('@okta/jwt-verifier');
+const oktaJwtVerifier = new OktaJwtVerifier({
+  clientId: '0oa2pf2uaeW95u4VH5d7',
+  issuer: 'https://dev-46549604.okta.com/oauth2/default'
+    
+});
+
 var app = express();
 
-/*const OktaJwtVerifier = require('@okta/jwt-verifier');
-const oktaJwtVerifier = new OktaJwtVerifier({
-    issuer: 'https://dev-46549604.okta.com/oauth2/default'
-});
-const audience = 'api://0oa2pf2uaeW95u4VH5d7';*/
+global.__basedir = __dirname;
+
+var corsOptions = {
+  origin: "*"
+}
+
+app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
+app.use(express.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 
 app.use(function (req, res, next) {
   res.setHeader(
@@ -29,45 +44,24 @@ app.use(function (req, res, next) {
 
 app.use(express.static(path));
 
-global.__basedir = __dirname;
-
-var corsOptions = {
-  origin: "*"
-}
-
-app.use(cors(corsOptions));
-
-// parse requests of content-type - application/json
-app.use(express.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
-
-const db = require("./app/models");
-db.sequelize.sync();
-
-/*const authenticationRequired = async (req, res, next) => {
-  const authHeader = req.headers.authorization || '';
-  const match = authHeader.match(/Bearer (.+)/);
-  if (!match) {
-    return res.status(401).send();
+// verify JWT token middleware
+app.use((req, res, next) => {
+  // require every request to have an authorization header
+  if (!req.headers.authorization) {
+    return next(new Error('Authorization header is required'))
   }
-
-  try {
-    const accessToken = match[1];
-    if (!accessToken) {
-      return res.status(401, 'Not authorized').send();
-    }
-    req.jwt = await oktaJwtVerifier.verifyAccessToken(accessToken, audience);
-    next();
-  } catch (err) {
-    return res.status(401).send(err.message);
-  }
-};
-
-app.get('/api/employees/EHS', authenticationRequired, (req, res) => {
-  res.json(req.jwt?.claims);
-});*/
+  let parts = req.headers.authorization.trim().split(' ')
+  let accessToken = parts.pop()
+  oktaJwtVerifier.verifyAccessToken(accessToken, 'api://default')
+    .then(jwt => {
+      req.user = {
+        uid: jwt.claims.uid,
+        email: jwt.claims.sub
+      }
+      next()
+    })
+    .catch(next) // jwt did not verify!
+})
 
 // simple route
 
@@ -79,6 +73,8 @@ app.get("/callback", (req, res) => {
   res.sendFile(path + "index.html");
 });
 
+const db = require("./app/models");
+db.sequelize.sync();
 
 require("./app/routes/partner.routes")(app);
 require("./app/routes/contact.routes")(app);

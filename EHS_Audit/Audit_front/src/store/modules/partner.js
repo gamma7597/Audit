@@ -1,5 +1,6 @@
 import { url } from './axiosUrl'
 import Axios from 'axios'
+import Vue from 'vue'
 
 const state = () => ({
   partners: [],
@@ -9,7 +10,13 @@ const state = () => ({
 
 const actions = {
   getPartners: ({ commit }) => {
-    Axios.get(url + 'api/partners/')
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    console.log(accessToken)
+    Axios.get(url + 'api/partners/', {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then(response => {
       commit('GET_PARTNERS', response.data)
     })
