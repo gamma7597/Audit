@@ -4,8 +4,8 @@
       <img id="nav-logo" src="./assets/images/logo_ehs.png" alt="logo ehs"/>
       <nav>
         <ul class="menu">
-          <li class="item"><a href="/">Accueil</a></li>
-          <li class="item"><a href="/partnerList/" v-if="activeUser">Liste des partenaires</a></li>
+          <li class="item"><router-link to="/">Accueil</router-link></li>
+          <li class="item"><router-link to="/partnerList/" v-if="activeUser">Liste des partenaires</router-link></li>
           <li class="item" v-if="!activeUser"><a href="#" @click.prevent="login">Connexion</a></li>
           <li class="item" v-else><a href="#" @click.prevent="logout">Deconnexion</a></li>
         </ul>

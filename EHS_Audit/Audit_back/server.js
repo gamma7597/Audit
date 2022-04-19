@@ -28,11 +28,10 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-/*app.use(function (req, res, next) {
+app.use(function (req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; connect-src 'self' https://dev-46549604.okta.com/oauth2/default/v1/token https://dev-46549604.okta.com/oauth2/default/v1/userinfo; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
-    "default-src 'self'; connect-src 'self' https://dev-46549604.okta.com/oauth2/default/v1/token https://dev-46549604.okta.com/oauth2/default/v1/userinfo; font-src 'self'; img-src 'self' https: data:; script-src 'self'; style-src 'self' 'unsafe-inline'; frame-src 'self'"
+    "default-src 'self'; connect-src 'self' https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7/v1/token https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7/v1/userinfo https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7/v1/revoke https://engie.okta-emea.com/api/v1/sessions/me; font-src 'self' https://fonts.gstatic.com; img-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; frame-src 'self'"
   );
   res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
@@ -40,9 +39,9 @@ app.use(express.urlencoded({ extended: true }));
   res.setHeader('Permissions-Policy', "accelerometer=(), geolocation=(self), fullscreen=(self), autoplay=(), camera=(), display-capture=(self)");
   res.setHeader('referrer-policy', 'no-referrer');
   res.setHeader('X-XSS-Protection', '0');
+  res.setHeader('Access-Control-Allow-Origin', "no-cors");
   return next();
 });
-*/
 
 app.use(express.static(path));
 
