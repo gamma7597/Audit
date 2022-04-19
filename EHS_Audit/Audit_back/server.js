@@ -8,7 +8,12 @@ const logger = require("./app/middleware/logger");
 /*const OktaJwtVerifier = require('@okta/jwt-verifier');
 const oktaJwtVerifier = new OktaJwtVerifier({
   clientId: '0oa2pf2uaeW95u4VH5d7',
+<<<<<<< HEAD
   issuer: 'https://dev-46549604.okta.com/oauth2/aus4gbwz3qR3wa0v75d7'
+=======
+  issuer: 'https://dev-46549604.okta.com/oauth2/default'
+    
+>>>>>>> 67794a6636699bfe7fab2d6c6b5c3211d33da7d1
 });*/
 
 var app = express();
@@ -27,10 +32,14 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-app.use(function (req, res, next) {
+/*app.use(function (req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
+<<<<<<< HEAD
     "default-src 'self'; connect-src 'self' https://dev-46549604.okta.com/oauth2/default/v1/token https://dev-46549604.okta.com/oauth2/default/v1/userinfo; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
+=======
+    "default-src 'self'; connect-src 'self' https://dev-46549604.okta.com/oauth2/default/v1/token https://dev-46549604.okta.com/oauth2/default/v1/userinfo; font-src 'self'; img-src 'self' https: data:; script-src 'self'; style-src 'self' 'unsafe-inline'; frame-src 'self'"
+>>>>>>> 67794a6636699bfe7fab2d6c6b5c3211d33da7d1
   );
   res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
@@ -40,6 +49,7 @@ app.use(function (req, res, next) {
   res.setHeader('X-XSS-Protection', '0');
   return next();
 });
+*/
 
 app.use(express.static(path));
 
@@ -60,7 +70,12 @@ app.use(express.static(path));
       next()
     })
     .catch(next) // jwt did not verify!
+<<<<<<< HEAD
 })*/
+=======
+})
+*/
+>>>>>>> 67794a6636699bfe7fab2d6c6b5c3211d33da7d1
 
 // simple route
 
