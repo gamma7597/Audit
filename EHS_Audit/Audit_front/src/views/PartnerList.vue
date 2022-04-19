@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Partners</h1>
+        <h3 id="title">Les partenaires Engie Home Services</h3>
         <AddPartner />
         <PartnerTable />
     </div>

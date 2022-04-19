@@ -5,12 +5,11 @@ const path = __dirname + '/app/views/';
 
 const logger = require("./app/middleware/logger");
 
-const OktaJwtVerifier = require('@okta/jwt-verifier');
+/*const OktaJwtVerifier = require('@okta/jwt-verifier');
 const oktaJwtVerifier = new OktaJwtVerifier({
   clientId: '0oa2pf2uaeW95u4VH5d7',
-  issuer: 'https://dev-46549604.okta.com/oauth2/default'
-    
-});
+  issuer: 'https://dev-46549604.okta.com/oauth2/aus4gbwz3qR3wa0v75d7'
+});*/
 
 var app = express();
 
@@ -31,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(function (req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; connect-src 'self' https://dev-46549604.okta.com/oauth2/default/v1/token https://dev-46549604.okta.com/oauth2/default/v1/userinfo; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; frame-src 'self'"
+    "default-src 'self'; connect-src 'self' https://dev-46549604.okta.com/oauth2/default/v1/token https://dev-46549604.okta.com/oauth2/default/v1/userinfo; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
   );
   res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
@@ -45,14 +44,14 @@ app.use(function (req, res, next) {
 app.use(express.static(path));
 
 // verify JWT token middleware
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
   // require every request to have an authorization header
   if (!req.headers.authorization) {
     return next(new Error('Authorization header is required'))
   }
   let parts = req.headers.authorization.trim().split(' ')
   let accessToken = parts.pop()
-  oktaJwtVerifier.verifyAccessToken(accessToken, 'api://default')
+  oktaJwtVerifier.verifyAccessToken(accessToken, 'custom_audit')
     .then(jwt => {
       req.user = {
         uid: jwt.claims.uid,
@@ -61,17 +60,17 @@ app.use((req, res, next) => {
       next()
     })
     .catch(next) // jwt did not verify!
-})
+})*/
 
 // simple route
 
-app.get("/", (req, res) => {
+/*app.get("/", (req, res) => {
   res.sendFile(path + "index.html");
 });
 
 app.get("/callback", (req, res) => {
   res.sendFile(path + "index.html");
-});
+});*/
 
 const db = require("./app/models");
 db.sequelize.sync();
@@ -99,7 +98,7 @@ require("./app/routes/rules/tdt_rule.routes")(app);
 require("./app/routes/file.routes")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   logger.debug(`Server is running on port ${PORT}.`);
 });

@@ -1,47 +1,44 @@
 <template>
   <div class="addpartner">
 
-    <button @click="togglePartnerForm" class="btn btn-primary">Add New Partner</button>
-    <b-form @submit.prevent="handleSubmit" v-if="showPartnerForm">
-      <b-form-group id="exampleInputGroup" label="Company name : " label-for="companyInput">
-        <b-form-input
-          id="companyInput"
-          type="text"
-          v-model="formData.company"
-          required
-          placeholder="Enter company" />
-      </b-form-group>
+    <button class="button_blue" @click="togglePartnerForm" type="button">Ajouter un partenaire</button>
 
-      <b-form-group id="exampleInputGroup" label="Contract number : " label-for="contract_numberInput">
-        <b-form-input
-          id="contract_numberInput"
-          type="number"
-          v-model="formData.contract_number"
-          required
-          placeholder="Enter contract number" />
-      </b-form-group>
-
-      <b-form-group id="exampleInputGroup" label="location : " label-for="locationInput">
-        <b-form-input
-          id="locationInput"
-          type="text"
-          v-model="formData.location"
-          required
-          placeholder="Enter location" />
-      </b-form-group>
-
-      <b-form-group id="exampleInputGroup" label="description : " label-for="descriptionInput">
-        <b-form-input
-          id="descriptionInput"
-          type="text"
-          v-model="formData.description"
-          required
-          placeholder="Enter description" />
-      </b-form-group>
-
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
-    </b-form>
+    <form @submit.prevent="handleSubmit" v-if="showPartnerForm">
+      <label for="companyInput">
+        <input type="text" 
+          id="companyInput" 
+          placeholder="Nom du partenaire" 
+          v-model="formData.company" 
+          required />
+        <span>Nom du partenaire</span>
+      </label>
+      <label for="contract_numberInput">
+        <input type="number" 
+          id="contract_numberInput" 
+          placeholder="Numero de contrat" 
+          v-model="formData.contract_number" 
+          required />
+        <span>Numero de contrat</span>
+      </label>
+      <label for="locationInput">
+        <input type="text" 
+          id="locationInput" 
+          placeholder="Localisation" 
+          v-model="formData.location" 
+          required />
+        <span>Localisation</span>
+      </label>
+      <label for="descriptionInput">
+        <input type="text" 
+          id="descriptionInput" 
+          placeholder="Description" 
+          v-model="formData.description" 
+          required />
+        <span>Description</span>
+      </label>
+      <button class="button_blue" type="submit">Ajouter</button>
+      <button class="button_blue" type="reset">Réinitialiser le formulaire</button>
+    </form>
   </div>
 </template>
 

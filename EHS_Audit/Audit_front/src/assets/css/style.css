@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css?family=Material+Icons|Lato:300,400,700,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Lato, Arial, Helvetica;
+}
+
+#container {
+  text-align: center;
+}
+
+.button_blue {
+  margin: 0% 0% 2% 10%;
+  background-color: white;
+  border: solid 1px #00aaff;
+  color: #00aaff;
+  border-radius: 5px;
+  padding: 4px;
+}
+.button_blue:hover {
+  background-color: #00aaff;
+  color: white;
+}
+
+#title {
+  text-align: center;
+}
+
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px 50px;
+  box-shadow: 0 1px 8px #ddd;
+  margin-bottom: 30px;
+}
+header #nav-logo {
+  max-width: 100px;
+  margin-right: auto;
+}
+header li {
+  list-style: none;
+  display: inline-block;
+  padding: 0 20px;
+}
+header li a {
+  text-decoration: none;
+  color: #00aaff;
+  transition: all 0.3s ease 0s;
+  font-size: 1.2em;
+}
+header li a:hover {
+  padding-bottom: 15px;
+  border-bottom: 2px solid #00aaff;
+}
+
+.table_style {
+  text-align: center;
+  border-collapse: collapse;
+  margin: auto;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  width: 80%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.table_style thead tr {
+  background-color: #00aaff;
+  color: #ffffff;
+}
+.table_style th, .table_style td {
+  padding: 12px 15px;
+}
+.table_style tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+.table_style tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+.table_style tbody tr:last-of-type {
+  border-bottom: 2px solid #00aaff;
+}
+
+form {
+  width: 90vw;
+  max-width: 768px;
+  border: 1px solid #ddd;
+  padding: 3vw;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+label {
+  margin-bottom: 15px;
+  position: relative;
+  border-bottom: 1px solid #ddd;
+}
+
+input {
+  width: 100%;
+  padding: 10px 0px;
+  margin-top: 20px;
+  border: none;
+  outline: none;
+}
+input:focus, input:hover {
+  border-bottom: 1px solid #00aaff;
+}
+
+input::placeholder {
+  opacity: 0;
+}
+
+span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(30px);
+  font-size: 0.825em;
+  transition-duration: 300ms;
+}
+
+label:focus-within > span,
+input:not(:placeholder-shown) + span {
+  color: #00aaff;
+  transform: translateY(0px);
+}
+
+/*# sourceMappingURL=style.css.map */
