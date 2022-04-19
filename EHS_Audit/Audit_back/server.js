@@ -5,12 +5,12 @@ const path = __dirname + '/app/views/';
 
 const logger = require("./app/middleware/logger");
 
-const OktaJwtVerifier = require('@okta/jwt-verifier');
+/*const OktaJwtVerifier = require('@okta/jwt-verifier');
 const oktaJwtVerifier = new OktaJwtVerifier({
   clientId: '0oa2pf2uaeW95u4VH5d7',
   issuer: 'https://dev-46549604.okta.com/oauth2/default'
     
-});
+});*/
 
 var app = express();
 
@@ -28,10 +28,10 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-app.use(function (req, res, next) {
+/*app.use(function (req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; connect-src 'self' https://dev-46549604.okta.com/oauth2/default/v1/token https://dev-46549604.okta.com/oauth2/default/v1/userinfo; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; frame-src 'self'"
+    "default-src 'self'; connect-src 'self' https://dev-46549604.okta.com/oauth2/default/v1/token https://dev-46549604.okta.com/oauth2/default/v1/userinfo; font-src 'self'; img-src 'self' https: data:; script-src 'self'; style-src 'self' 'unsafe-inline'; frame-src 'self'"
   );
   res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
@@ -41,11 +41,12 @@ app.use(function (req, res, next) {
   res.setHeader('X-XSS-Protection', '0');
   return next();
 });
+*/
 
 app.use(express.static(path));
 
 // verify JWT token middleware
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
   // require every request to have an authorization header
   if (!req.headers.authorization) {
     return next(new Error('Authorization header is required'))
@@ -62,6 +63,7 @@ app.use((req, res, next) => {
     })
     .catch(next) // jwt did not verify!
 })
+*/
 
 // simple route
 

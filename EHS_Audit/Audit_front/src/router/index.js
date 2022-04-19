@@ -29,8 +29,8 @@ import OktaVue, { LoginCallback } from '@okta/okta-vue'
 import { OktaAuth } from '@okta/okta-auth-js'
 
 const oktaAuth = new OktaAuth({
-  issuer: 'https://dev-46549604.okta.com/oauth2/default',
-  clientId: '0oa2pf2uaeW95u4VH5d7',
+  issuer: 'https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7',
+  clientId: '0oa7n4gwwkvQiWODq0i7',
   redirectUri: window.location.origin + '/callback',
   scopes: ['openid', 'profile', 'email']
 })
@@ -40,7 +40,8 @@ function matchPartner(to) {
   const path = to.path
   const test = []
   groups.forEach(function(item) {
-    const x = "/partner/" + item 
+    const g = item.split("-")
+    const x = "/partner/" + g[3]
     test.push(x)
   })
   return test.includes(path)
@@ -51,7 +52,8 @@ function matchRules(to) {
   const path = to.path
   const test = []
   groups.forEach(function(item) {
-    const x = "/rules/" + item 
+    const g = item.split("-")
+    const x = "/rules/" + g[3]
     test.push(x)
   })
   return test.includes(path)
@@ -62,7 +64,8 @@ function matchFiles(to) {
   const path = to.path
   const test = []
   groups.forEach(function(item) {
-    const x = "/partner/"+ item + "/files/"
+    const g = item.split("-")
+    const x = "/partner/"+ g[3] + "/files/"
     test.push(x)
   })
   return test.includes(path)
@@ -73,7 +76,8 @@ function matchOneRule(to, rule) {
   const path = to.path
   const test = []
   groups.forEach(function(item) {
-    const x = "/rules/" + item + "/" + rule 
+    const g = item.split("-")
+    const x = "/rules/" + g[3] + "/" + rule 
     test.push(x)
   })
   return test.includes(path)
