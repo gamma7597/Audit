@@ -1,57 +1,57 @@
 <template>
   <div class="addContact">
 
-    <button @click="toggleContactForm" class="btn btn-primary">Add New Contact</button>
-    <b-form @submit.prevent="handleSubmit" v-if="showContactForm">
+    <button class="button_blue" @click="toggleContactForm">Ajouter un contact</button>
+    <form @submit.prevent="handleSubmit" v-if="showContactForm">
 
-      <b-form-group id="exampleInputGroup" label="Last name : " label-for="last_nameInput">
-        <b-form-input
-          id="last_nameInput"
-          type="text"
-          v-model="formData.last_name"
-          required
-          placeholder="Enter last name" />
-      </b-form-group>
+      <label for="last_nameInput">
+        <input type="text" 
+          id="last_nameInput" 
+          placeholder="Nom du contact" 
+          v-model="formData.last_name" 
+          required />
+        <span>Nom du contact</span>
+      </label>
 
-      <b-form-group id="exampleInputGroup" label="First name : " label-for="first_nameInput">
-        <b-form-input
-          id="first_nameInput"
-          type="text"
-          v-model="formData.first_name"
-          required
-          placeholder="Enter first name" />
-      </b-form-group>
+      <label for="first_nameInput">
+        <input type="text" 
+          id="first_nameInput" 
+          placeholder="Prenom du contact" 
+          v-model="formData.first_name" 
+          required />
+        <span>Prenom du contact</span>
+      </label>
 
-      <b-form-group id="exampleInputGroup" label="Phone : " label-for="phoneInput">
-        <b-form-input
-          id="phoneInput"
-          type="number"
-          v-model="formData.phone"
-          required
-          placeholder="Enter phone" />
-      </b-form-group>
+      <label for="phoneInput">
+        <input type="number" 
+          id="phoneInput" 
+          placeholder="Telephone du contact" 
+          v-model="formData.phone" 
+          required />
+        <span>Telephone du contact</span>
+      </label>
 
-      <b-form-group id="exampleInputGroup" label="Mail : " label-for="mailInput">
-        <b-form-input
-          id="mailInput"
-          type="text"
-          v-model="formData.mail"
-          required
-          placeholder="Enter mail" />
-      </b-form-group>
+      <label for="mailInput">
+        <input type="text" 
+          id="mailInput" 
+          placeholder="Mail du contact" 
+          v-model="formData.mail" 
+          required />
+        <span>Mail du contact</span>
+      </label>
 
-      <b-form-group id="exampleInputGroup" label="Job : " label-for="jobInput">
-        <b-form-input
-          id="jobInput"
-          type="text"
-          v-model="formData.job"
-          required
-          placeholder="Enter job" />
-      </b-form-group>
+      <label for="jobInput">
+        <input type="text" 
+          id="jobInput" 
+          placeholder="Fonction du contact" 
+          v-model="formData.job" 
+          required />
+        <span>Fonction du contact</span>
+      </label>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
-    </b-form>
+      <button class="button_form" type="submit">Ajouter</button>
+      <button class="button_form" type="reset">Réinitialiser le formulaire</button>
+    </form>
   </div>
 </template>
 

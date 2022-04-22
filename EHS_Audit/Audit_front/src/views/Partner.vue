@@ -1,22 +1,35 @@
 <template>
     <div>
         
-        <h1>Bienvenue sur le compte {{ partner.company }}</h1>
+        <h3 id="title">Bienvenue sur le compte {{ partner.company }}</h3>
 
-        <p>Voici vos informations : </p>
-        <h5>Numéro de contrat : {{ partner.contract_number }}</h5>
-        <h5>Localisation : {{ partner.location }}</h5>
-        <h5>Description : {{ partner.description }}</h5>
+        <EditPartner :partner="partner" />
+        <button class="button_blue" v-on:click="removePartner()">Supprimer le partenaire</button>
 
-        <h4>A partir de cette page, vous pouvez : </h4>
-        <ul>
-            <li>Modifier vos règles cybersécurité.</li>
-            <li>Ajouter des fichiers / images.</li>
-            <li>Visualiser votre maturité.</li>
-            <li>Modifier vos contacts.</li>
-            <li>Ajouter vos employes.</li>
-        </ul>
-        <p>
+        <table class="table_style">
+            <caption>Informations {{partner.company}}</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Partenaire</th>
+                    <th scope="col">Numéro de contrat</th>
+                    <th scope="col">Localisation</th>
+                    <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{partner.company}}</td>
+                    <td>{{partner.contract_number}}</td>
+                    <td>{{partner.location}}</td>
+                    <td>{{partner.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="button_blue" @click="goToRules(partner.company)">Règles</button>
+        <button class="button_blue" @click="goToFiles(partner.company)" :to="partner.company+'/files/'">Fichiers</button>
+
+        <p id="container">
             Cet audit cybersécurité permet un suivi de votre maturité sur la durée. <br />
             Des indications sont présentes pour vous aider à comprendre les actions qui vous sont demandés.<br />
             Nous insistons sur le fait que l'ajout ou la modifications des informations est à votre initiative, <br />
@@ -24,16 +37,10 @@
             Nous restons bien evidemment disponible pour vous aider à le maintenir à jour et pour répondre à vos questions.
         </p>
 
-        
         <AddContact />
         <ContactTable />
         <AddEmployee />
         <EmployeeTable />
-        <b-button :to="'/rules/'+partner.company" variant="success">Règles</b-button>
-        <b-button :to="partner.company+'/files/'" variant="success">Fichiers</b-button>
-
-        <EditPartner :partner="partner" />
-        <b-button v-on:click="removePartner()" to="/partnerList" variant="danger">Supprimer le partenaire</b-button>
 
     </div>
 </template>
@@ -59,6 +66,13 @@
         methods: {
             removePartner() {
                 this.$store.dispatch('partner/removePartner', this.partner.company)
+                this.$router.push("/partnerList")
+            },
+            goToRules(partner){
+                this.$router.push("/rules/"+partner)
+            },
+            goToFiles(partner){
+                this.$router.push(partner.company+"/files/")
             }
         },
         mounted() {

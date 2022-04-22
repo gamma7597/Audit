@@ -9,23 +9,6 @@
   text-align: center;
 }
 
-.button_blue {
-  margin: 0% 0% 2% 10%;
-  background-color: white;
-  border: solid 1px #00aaff;
-  color: #00aaff;
-  border-radius: 5px;
-  padding: 4px;
-}
-.button_blue:hover {
-  background-color: #00aaff;
-  color: white;
-}
-
-#title {
-  text-align: center;
-}
-
 header {
   display: flex;
   justify-content: flex-end;
@@ -54,6 +37,23 @@ header li a:hover {
   border-bottom: 2px solid #00aaff;
 }
 
+.button_blue {
+  margin: 0% 0% 2% 10%;
+  background-color: white;
+  border: solid 1px #00aaff;
+  color: #00aaff;
+  border-radius: 5px;
+  padding: 4px;
+}
+.button_blue:hover {
+  background-color: #00aaff;
+  color: white;
+}
+
+#title {
+  text-align: center;
+}
+
 .table_style {
   text-align: center;
   border-collapse: collapse;
@@ -62,6 +62,7 @@ header li a:hover {
   font-family: sans-serif;
   width: 80%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  margin-bottom: 30px;
 }
 .table_style thead tr {
   background-color: #00aaff;
@@ -81,19 +82,38 @@ header li a:hover {
 }
 
 form {
+  margin: auto;
   width: 90vw;
   max-width: 768px;
   border: 1px solid #ddd;
-  padding: 3vw;
+  padding: 10px 30px 10px 30px;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
+  margin-bottom: 20px;
+}
+form .button_form {
+  margin: auto;
+  margin-bottom: 5px;
+  background-color: white;
+  border: solid 1px #00aaff;
+  color: #00aaff;
+  border-radius: 5px;
+  padding: 4px;
+  width: 40%;
+}
+form .button_form:hover {
+  background-color: #00aaff;
+  color: white;
 }
 
 label {
   margin-bottom: 15px;
   position: relative;
   border-bottom: 1px solid #ddd;
+}
+label:focus, label:hover {
+  border: none;
 }
 
 input {

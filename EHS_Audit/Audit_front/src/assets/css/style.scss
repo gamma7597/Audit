@@ -11,24 +11,6 @@
   text-align: center;
 }
 
-.button_blue {
-  margin: 0% 0% 2% 10%;
-  background-color: white;
-  border: solid 1px color.$blue-engie;
-  color: color.$blue-engie;
-  border-radius: 5px;
-  padding: 4px;
-
-  &:hover {
-    background-color: color.$blue-engie;
-    color: white;
-  }
-}
-
-#title {
-  text-align: center;
-}
-
 header {
   display: flex;
   justify-content: flex-end;
@@ -61,6 +43,24 @@ header {
   }
 }
 
+.button_blue {
+  margin: 0% 0% 2% 10%;
+  background-color: white;
+  border: solid 1px color.$blue-engie;
+  color: color.$blue-engie;
+  border-radius: 5px;
+  padding: 4px;
+
+  &:hover {
+    background-color: color.$blue-engie;
+    color: white;
+  }
+}
+
+#title {
+  text-align: center;
+}
+
 .table_style {
   text-align: center;
   border-collapse: collapse;
@@ -69,6 +69,7 @@ header {
   font-family: sans-serif;
   width: 80%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  margin-bottom: 30px;
 
   thead tr {
     background-color: color.$blue-engie;
@@ -92,20 +93,43 @@ header {
   }
 }
 
+
 form{
-  width:90vw;
-  max-width:768px;
-  border:1px solid #ddd;
-  padding:3vw;
-  display:flex;
-  flex-direction:column;
-  border-radius:5px;
+  margin: auto;
+  width: 90vw;
+  max-width: 768px;
+  border: 1px solid #ddd;
+  padding: 10px 30px 10px 30px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  margin-bottom: 20px;
+
+  .button_form {
+    margin: auto;
+    margin-bottom: 5px;
+    background-color: white;
+    border: solid 1px color.$blue-engie;
+    color: color.$blue-engie;
+    border-radius: 5px;
+    padding: 4px;
+    width: 40%;
+  
+    &:hover {
+      background-color: color.$blue-engie;
+      color: white;
+    }
+  }
 }
 
 label{
   margin-bottom:15px;
   position:relative;
   border-bottom:1px solid #ddd;
+
+  &:focus, &:hover{
+    border: none;
+  }
 }
 
 input{

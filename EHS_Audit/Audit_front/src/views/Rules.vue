@@ -1,6 +1,8 @@
 <template>
   <div>
-    <b-button :to="'/partner/'+partner.company" variant="success">Retour</b-button>
+
+    <button class="button_blue" @click="goToPartner(partner.company)">Retour</button>
+
     <Overview/>
     <b-container class="bv-example-row">
       <b-row>
@@ -322,7 +324,10 @@ export default {
       if (this.spe_longueur === 0) {
         this.add_spe_rules(payload);
       }
-    }
+    },
+    goToPartner(partner){
+      this.$router.push("/partner/" + partner.company)
+    },
   },
   mounted() {
     this.addRules()

@@ -29,17 +29,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(function (req, res, next) {
-  res.setHeader(
+  /*res.setHeader(
     "Content-Security-Policy",
     "default-src 'self'; connect-src 'self' https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7/v1/token https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7/v1/userinfo https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7/v1/revoke https://engie.okta-emea.com/api/v1/sessions/me; font-src 'self' https://fonts.gstatic.com; img-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; frame-src 'self'"
-  );
+  );*/
   res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Permissions-Policy', "accelerometer=(), geolocation=(self), fullscreen=(self), autoplay=(), camera=(), display-capture=(self)");
   res.setHeader('referrer-policy', 'no-referrer');
   res.setHeader('X-XSS-Protection', '0');
-  res.setHeader('Access-Control-Allow-Origin', "no-cors");
   return next();
 });
 
@@ -100,6 +99,7 @@ require("./app/routes/rules/tdt_rule.routes")(app);
 require("./app/routes/file.routes")(app);
 
 // set port, listen for requests
+//const PORT = process.env.PORT || 8080;
 const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
   logger.debug(`Server is running on port ${PORT}.`);
