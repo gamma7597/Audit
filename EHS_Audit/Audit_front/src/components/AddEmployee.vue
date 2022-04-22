@@ -1,274 +1,201 @@
 <template>
   <div class="addEmployee">
-    <button @click="toggleEmployeeForm" class="btn btn-primary">
-      Add New Employee
-    </button>
-    <b-form @submit.prevent="handleSubmit" v-if="showEmployeeForm">
-      <b-form-group
-        id="exampleInputGroup"
-        label="Last name : "
-        label-for="last_nameInput"
-      >
-        <b-form-input
-          id="last_nameInput"
-          type="text"
-          v-model="formData.last_name"
-          required
-          placeholder="Enter last name"
-        />
-      </b-form-group>
+    <button class="button_blue" @click="toggleEmployeeForm">Ajouter un employe</button>
+    <form @submit.prevent="handleSubmit" v-if="showEmployeeForm">
 
-      <b-form-group
-        id="exampleInputGroup"
-        label="First name : "
-        label-for="first_nameInput"
-      >
-        <b-form-input
-          id="first_nameInput"
-          type="text"
-          v-model="formData.first_name"
-          required
-          placeholder="Enter first name"
-        />
-      </b-form-group>
+      <label for="last_nameInput">
+        <input type="text" 
+          id="last_nameInput" 
+          placeholder="Nom de l'employe" 
+          v-model="formData.last_name" 
+          required />
+        <span>Nom de l'employe</span>
+      </label>
 
-      <b-form-group id="exampleInputGroup" label="Job : " label-for="jobInput">
-        <b-form-input
-          id="jobInput"
-          type="text"
-          v-model="formData.job"
-          required
-          placeholder="Enter job"
-        />
-      </b-form-group>
+      <label for="first_nameInput">
+        <input type="text" 
+          id="first_nameInput" 
+          placeholder="Prenom de l'employe" 
+          v-model="formData.first_name" 
+          required />
+        <span>Prenom de l'employe</span>
+      </label>
 
-      <b-form-group
-        id="exampleInputGroup"
-        label="Mail : "
-        label-for="mailInput"
-      >
-        <b-form-input
-          id="mailInput"
-          type="text"
-          v-model="formData.mail"
-          required
-          placeholder="Enter mail"
-        />
-      </b-form-group>
+      <label for="jobInput">
+        <input type="text" 
+          id="jobInput" 
+          placeholder="Fonction de l'employe" 
+          v-model="formData.job" 
+          required />
+        <span>Fonction de l'employe</span>
+      </label>
 
-      <b-form-group
-        id="exampleInputGroup"
-        label="Phone : "
-        label-for="phoneInput"
-      >
-        <b-form-input
-          id="phoneInput"
-          type="number"
-          v-model="formData.phone"
-          required
-          placeholder="Enter phone"
-        />
-      </b-form-group>
+      <label for="mailInput">
+        <input type="text" 
+          id="mailInput" 
+          placeholder="Mail de l'employe" 
+          v-model="formData.mail" 
+          required />
+        <span>Mail de l'employe</span>
+      </label>
 
-      <b-form-group
-        id="exampleInputGroup"
-        label="Work place : "
-        label-for="work_placeInput"
-      >
-        <b-form-input
-          id="work_placeInput"
-          type="text"
-          v-model="formData.work_place"
-          required
-          placeholder="Enter work place"
-        />
-      </b-form-group>
+      <label for="phoneInput">
+        <input type="number" 
+          id="phoneInput" 
+          placeholder="Telephone de l'employe" 
+          v-model="formData.phone" 
+          required />
+        <span>Telephone de l'employe</span>
+      </label>
 
-      <b-form-group
-        id="exampleInputGroup"
-        label="Start date : "
-        label-for="start_dateInput"
-      >
-        <b-form-input
-          id="start_dateInput"
-          type="date"
-          v-model="formData.start_date"
-          required
-          placeholder="Enter start date"
-        />
-      </b-form-group>
+      <label for="work_placeInput">
+        <input type="text" 
+          id="work_placeInput" 
+          placeholder="Lieu de travail de l'employe" 
+          v-model="formData.work_place" 
+          required />
+        <span>Lieu de travail de l'employe</span>
+      </label>
 
-      <b-form-group
-        id="exampleInputGroup"
-        label="End date : "
-        label-for="end_dateInput"
-      >
-        <b-form-input
-          id="end_dateInput"
-          type="date"
-          v-model="formData.end_date"
-          required
-          placeholder="Enter end date"
-        />
-      </b-form-group>
+      <label for="start_dateInput">
+        <input type="date" 
+          id="start_dateInput" 
+          placeholder="Date d'entrée de l'employe" 
+          v-model="formData.start_date" 
+          required />
+        <span>Date d'entrée de l'employe</span>
+      </label>
 
-      <b-form-group
-        id="exampleInputGroup"
-        label="Laptop : "
-        label-for="laptopInput"
-      >
-        <b-form-input
-          id="laptopInput"
-          type="text"
-          v-model="formData.laptop"
-          required
-          placeholder="Enter laptop"
-        />
-      </b-form-group>
+      <label for="end_dateInput">
+        <input type="date" 
+          id="end_dateInput" 
+          placeholder="Date de sortie de l'employe" 
+          v-model="formData.end_date" 
+          required />
+        <span>Date de sortie de l'employe</span>
+      </label>
 
-      <b-form-group
-        id="exampleInputGroup"
-        label="Desktop : "
-        label-for="desktopInput"
-      >
-        <b-form-input
-          id="desktopInput"
-          type="text"
-          v-model="formData.desktop"
-          required
-          placeholder="Enter desktop"
-        />
-      </b-form-group>
+      <label for="laptopInput">
+        <input type="text" 
+          id="laptopInput" 
+          placeholder="Ordinateur portable" 
+          v-model="formData.laptop" 
+          required />
+        <span>Ordinateur portable</span>
+      </label>
 
-      <b-form-checkbox
-        id="checkbox-1"
-        v-model="formData.office_admin_user"
-        name="checkbox-1"
-        value= 1
-        unchecked-value= 0
-      >
-        office_admin_user
-      </b-form-checkbox>
+      <label for="desktopInput">
+        <input type="text" 
+          id="desktopInput" 
+          placeholder="Ordinateur de bureau" 
+          v-model="formData.desktop" 
+          required />
+        <span>Ordinateur de bureau</span>
+      </label>
 
-      <b-form-group
-        id="exampleInputGroup"
-        label="GID : "
-        label-for="gidInput"
-      >
-        <b-form-input
-          id="gidInput"
-          type="number"
-          v-model="formData.gid"
-          required
-          placeholder="Enter gid"
-        />
-      </b-form-group>
+      <label for="checkbox-1">
+        <input type="checkbox" 
+          id="checkbox-1" 
+          v-model="formData.office_admin_user" 
+          value= 1
+          unchecked-value= 0 />
+        <span>Office Admin User</span>
+      </label>
 
-      <b-form-checkbox
-        id="checkbox-1"
-        v-model="formData.office_account_d79"
-        name="checkbox-1"
-        value= 1
-        unchecked-value= 0
-      >
-        office_account_d79
-      </b-form-checkbox>
+      <label for="gidInput">
+        <input type="number" 
+          id="gidInput" 
+          placeholder="GID de l'employe" 
+          v-model="formData.gid" 
+          required />
+        <span>GID de l'employe</span>
+      </label>
 
-      <b-form-checkbox
-        id="checkbox-1"
-        v-model="formData.functional_access"
-        name="checkbox-1"
-        value= 1
-        unchecked-value= 0
-      >
-        functional_access
-      </b-form-checkbox>
+      <label for="checkbox-1">
+        <input type="checkbox" 
+          id="checkbox-1" 
+          v-model="formData.office_account_d79" 
+          value= 1
+          unchecked-value= 0 />
+        <span>Office Account D79</span>
+      </label>
 
-      <b-form-checkbox
-        id="checkbox-1"
-        v-model="formData.technical_access"
-        name="checkbox-1"
-        value= 1
-        unchecked-value= 0
-      >
-        technical_access
-      </b-form-checkbox>
+      <label for="checkbox-1">
+        <input type="checkbox" 
+          id="checkbox-1" 
+          v-model="formData.functional_access" 
+          value= 1
+          unchecked-value= 0 />
+        <span>Accès fonctionnel</span>
+      </label>
 
-      <b-form-checkbox
-        id="checkbox-1"
-        v-model="formData.salesforce_access"
-        name="checkbox-1"
-        value= 1
-        unchecked-value= 0
-      >
-        salesforce_access
-      </b-form-checkbox>
+      <label for="checkbox-1">
+        <input type="checkbox" 
+          id="checkbox-1" 
+          v-model="formData.technical_access" 
+          value= 1
+          unchecked-value= 0 />
+        <span>Accès technique</span>
+      </label>
 
-      <b-form-checkbox
-        id="checkbox-1"
-        v-model="formData.gazelle_erp_access"
-        name="checkbox-1"
-        value= 1
-        unchecked-value= 0
-      >
-        gazelle_erp_access
-      </b-form-checkbox>
+      <label for="checkbox-1">
+        <input type="checkbox" 
+          id="checkbox-1" 
+          v-model="formData.salesforce_access" 
+          value= 1
+          unchecked-value= 0 />
+        <span>Accès SalesForce</span>
+      </label>
 
-      <b-form-group
-        id="exampleInputGroup"
-        label="Other access : "
-        label-for="other_accessInput"
-      >
-        <b-form-input
-          id="other_accessInput"
-          type="text"
-          v-model="formData.other_access"
-          required
-          placeholder="Enter other access"
-        />
-      </b-form-group>
+      <label for="checkbox-1">
+        <input type="checkbox" 
+          id="checkbox-1" 
+          v-model="formData.gazelle_erp_access" 
+          value= 1
+          unchecked-value= 0 />
+        <span>Accès Gazelle ERP</span>
+      </label>
 
-      <b-form-group
-        id="exampleInputGroup"
-        label="Comment : "
-        label-for="commentInput"
-      >
-        <b-form-input
-          id="commentInput"
-          type="text"
-          v-model="formData.comment"
-          required
-          placeholder="Enter comment"
-        />
-      </b-form-group>
+      <label for="other_accessInput">
+        <input type="text" 
+          id="other_accessInput" 
+          placeholder="Autres accès de l'employe" 
+          v-model="formData.other_access" 
+          required />
+        <span>Autres accès de l'employe</span>
+      </label>
 
-      <b-form-group
-        id="exampleInputGroup"
-        label="Vpn access : "
-        label-for="vpn_accessInput"
-      >
-        <b-form-input
-          id="vpn_accessInput"
-          type="text"
-          v-model="formData.vpn_access"
-          required
-          placeholder="Enter vpn access"
-        />
-      </b-form-group>
+      <label for="commentInput">
+        <input type="text" 
+          id="commentInput" 
+          placeholder="Commentaire" 
+          v-model="formData.comment" 
+          required />
+        <span>Commentaire</span>
+      </label>
 
-      <b-form-checkbox
-        id="checkbox-1"
-        v-model="formData.okta_mfa_access"
-        name="checkbox-1"
-        value= 1
-        unchecked-value= 0
-      >
-        okta_mfa_access
-      </b-form-checkbox>
+      <label for="vpn_accessInput">
+        <input type="text" 
+          id="vpn_accessInput" 
+          placeholder="Accès VPN" 
+          v-model="formData.vpn_access" 
+          required />
+        <span>Accès VPN</span>
+      </label>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
-    </b-form>
+      <label for="checkbox-1">
+        <input type="checkbox" 
+          id="checkbox-1" 
+          v-model="formData.okta_mfa_access"
+          unchecked 
+          value= 1
+          unchecked-value= 0 />
+        <span>Accès Okta MFA</span>
+      </label>
+
+      <button class="button_form" type="submit">Ajouter</button>
+      <button class="button_form" type="reset">Réinitialiser le formulaire</button>
+    </form>
   </div>
 </template>
 

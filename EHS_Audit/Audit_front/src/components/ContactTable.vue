@@ -1,11 +1,31 @@
 <template>
   <div>
-    <b-table striped hover :items="contacts" :fields="fields">
-      <template #cell(edit)="data">
-          <b-button @click="editContact(data)">Modifier</b-button>
-          <b-button v-on:click="removeContact(data.item.company, data.item.last_name)" variant="danger">Supprimer</b-button>
-      </template>
-    </b-table>
+    <table class="table_style">
+      <thead>
+        <tr>
+          <th scope="col">Partenaire</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Prenom</th>
+          <th scope="col">Telephone</th>
+          <th scope="col">Mail</th>
+          <th scope="col">Fonction</th>
+          <th scope="col">Modifier</th>
+          <th scope="col">Supprimer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(contact, index) in contacts" :key="index">
+          <td>{{contact.company}}</td>
+          <td>{{contact.last_name}}</td>
+          <td>{{contact.first_name}}</td>
+          <td>{{contact.phone}}</td>
+          <td>{{contact.mail}}</td>
+          <td>{{contact.job}}</td>
+          <td><button class="button_blue" @click="editContact(contact)">Modifier</button></td>
+          <td><button class="button_blue" v-on:click="removeContact(contact.company, contact.last_name)">Supprimer</button></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -14,15 +34,6 @@
   export default {
     data() {
       return {
-        fields: [
-          { key: "company", label: "Partenaire", type: "text" },
-          { key: "last_name", label: "Nom", type: "text" },
-          { key: "first_name", label: "Prenom", type: "text" },
-          { key: "phone", label: "Telephone", type: "text" },
-          { key: "mail", label: "Mail", type: "email" },
-          { key: "job", label: "Fonction", type: "text" },
-          { key: "edit", label: "", type: "edit" }
-        ]
       }
     },
     computed: {    

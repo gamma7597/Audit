@@ -12,6 +12,7 @@
           required />
         <span>Nom du partenaire</span>
       </label>
+      
       <label for="contract_numberInput">
         <input type="number" 
           id="contract_numberInput" 
@@ -20,6 +21,7 @@
           required />
         <span>Numero de contrat</span>
       </label>
+
       <label for="locationInput">
         <input type="text" 
           id="locationInput" 
@@ -28,6 +30,7 @@
           required />
         <span>Localisation</span>
       </label>
+
       <label for="descriptionInput">
         <input type="text" 
           id="descriptionInput" 
@@ -36,8 +39,8 @@
           required />
         <span>Description</span>
       </label>
-      <button class="button_blue" type="submit">Ajouter</button>
-      <button class="button_blue" type="reset">Réinitialiser le formulaire</button>
+      <button class="button_form" type="submit">Ajouter</button>
+      <button class="button_form" type="reset">Réinitialiser le formulaire</button>
     </form>
   </div>
 </template>
@@ -51,7 +54,7 @@
         showPartnerForm: false,
         formData: {
           company: '',
-          contract_number: 0,
+          contract_number: null,
           location: '',
           description: ''
         },

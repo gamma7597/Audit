@@ -26,6 +26,8 @@
           <th scope="row">Acces VPN</th>
           <th scope="row">Acces Okta MFA</th>
           <th scope="row">Autres acces</th>
+          <th scope="row">Modifier</th>
+          <th scope="row">Supprimer</th>
         </tr>
       </thead>
       <tbody>
@@ -52,15 +54,11 @@
           <td>{{employee.comment}}</td>
           <td>{{employee.vpn_access}}</td>
           <td>{{employee.okta_mfa_access}}</td>
+          <td><button class="button_blue" @click="editEmployee(employee)">Modifier</button></td>
+          <td><button class="button_blue" v-on:click="removeEmployee(employee.company, employee.last_name)">Supprimer</button></td>
         </tr>
       </tbody>
     </table>
-    <b-table striped hover :items="employees" :fields="fields">
-      <template #cell(edit)="data">
-          <b-button @click="editEmployee(data)">Modifier</b-button>
-          <b-button v-on:click="removeEmployee(data.item.company, data.item.last_name)" variant="danger">Supprimer</b-button>
-      </template>
-    </b-table>
   </div>
 </template>
 
@@ -69,15 +67,6 @@
   export default {
     data() {
       return {
-        fields: [
-          { key: "company", label: "Partenaire", type: "text" },
-          { key: "last_name", label: "Nom", type: "text" },
-          { key: "first_name", label: "Prenom", type: "text" },
-          { key: "phone", label: "Telephone", type: "text" },
-          { key: "mail", label: "Mail", type: "email" },
-          { key: "job", label: "Fonction", type: "text" },
-          { key: "edit", label: "", type: "edit" }
-        ]
       }
     },
     computed: {    

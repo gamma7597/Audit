@@ -39,7 +39,6 @@ app.use(function (req, res, next) {
   res.setHeader('Permissions-Policy', "accelerometer=(), geolocation=(self), fullscreen=(self), autoplay=(), camera=(), display-capture=(self)");
   res.setHeader('referrer-policy', 'no-referrer');
   res.setHeader('X-XSS-Protection', '0');
-  res.setHeader('Access-Control-Allow-Origin', "no-cors");
   return next();
 });
 
@@ -100,6 +99,7 @@ require("./app/routes/rules/tdt_rule.routes")(app);
 require("./app/routes/file.routes")(app);
 
 // set port, listen for requests
+//const PORT = process.env.PORT || 8080;
 const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
   logger.debug(`Server is running on port ${PORT}.`);
