@@ -3,7 +3,7 @@
     <b-button :to="'/rules/' + partner.company" variant="success"
       >Retour</b-button
     >
-    <b-form @submit.prevent="handleSubmit">
+    <form @submit.prevent="handleSubmit">
       <b-form-group
         id="co_rules_1"
         label="Accès applicatif (ex : filtrage applicatif)"
@@ -143,9 +143,9 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Envoyer</b-button>
-      <b-button type="reset" variant="danger">Reinitialiser</b-button>
-    </b-form>
+      <button class="button_blue" type="submit">Envoyer</button>
+      <button class="button_blue" type="reset">Reinitialiser</button>
+    </form>
   </div>
 </template>
 

@@ -161,4 +161,39 @@ input:not(:placeholder-shown) + span{
     transform:translateY(0px);
 }
 
+.cards {
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 10px;
+  margin-top: 20px;
+
+  .card_item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    text-align: center;
+    width: 30%;
+    margin-bottom: 20px;
+
+    .card_title {
+      text-align: center;
+      font-size: 24px;
+      border-bottom: 1px solid color.$blue-engie;
+    }
+
+    .card_text {
+      padding-top: 5px;
+    }
+
+    .button_blue {
+      margin: 10px;
+      padding: 0;
+      width: 30%;
+    }
+  }
+}
+
 

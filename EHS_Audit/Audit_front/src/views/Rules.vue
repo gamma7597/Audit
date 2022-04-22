@@ -4,220 +4,176 @@
     <button class="button_blue" @click="goToPartner(partner.company)">Retour</button>
 
     <Overview/>
-    <b-container class="bv-example-row">
-      <b-row>
-        <b-col>
-          <b-card title="Connexion" style="max-width: 20rem" class="mb-2">
-            <b-card-text>
-              Indiquez quel(s) accès avec le SI d'EHS est actuellement utilisé
-            </b-card-text>
-            <b-button
-              :to="`/rules/` + partner.company + `/co_rules`"
-              variant="primary"
-              >Voir</b-button
-            >
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card
-            title="Type de données traitées"
-            style="max-width: 20rem"
-            class="mb-2"
-          >
-            <b-card-text>
-              Indiquez quel genre type de données d'EHS est traitées dans le cadre
-              de la prestation.
-            </b-card-text>
-            <b-button
-              :to="`/rules/` + partner.company + `/tdt_rules`"
-              variant="primary"
-              >Voir</b-button
-            >
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card title="Gouvernance" style="max-width: 20rem" class="mb-2">
-            <b-card-text>
-              Il faut s'assurer que le top management comprenne les enjeux liés à
-              la cybersécurité.
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/g_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card title="Ressource Humaine" style="max-width: 20rem" class="mb-2">
-            <b-card-text>
-              Il faut s'assurer que les entreprises et leurs employés comprennent
-              les risques, leurs responsabilités et s'engagent sur leur rôle en
-              matière de cybersécurité.
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/rh_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <b-card title="Audit" style="max-width: 20rem" class="mb-2">
-            <b-card-text>
-              S'assurer que le partenaire autorise EHS a effectuer des audits sur
-              la partie en rapport avec la prestation.
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/pt_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card title="Actifs" style="max-width: 20rem" class="mb-2">
-            <b-card-text>
-              S'assurer de la sécurité de l'ensemble des actifs immatériels
-              (informations, organisations, procédures, services) et matériels
-              (documents papiers ou électroniques, hardware, software).
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/a_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card title="Contôle d'accès" style="max-width: 20rem" class="mb-2">
-            <b-card-text>
-              S'assurer que les process, les moyens techniques et l'organisation
-              permettent une gestion rigoureuse des identités et des droits sur
-              les employés du partenaire
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/ca_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card
-            title="Sécurité physique et environnementale"
-            style="max-width: 20rem"
-            class="mb-2"
-          >
-            <b-card-text>
-              S'assurer de la sécurité physique des bâtiments envers les personne
-              et les actifs.
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/spe_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <b-card
-            title="Accès aux données et flux réseaux"
-            style="max-width: 20rem"
-            class="mb-2"
-          >
-            <b-card-text>
-              S'assurer que les flux et transferts de données sont sécurisés et
-              que les accès aux réseaux et au données sont protégés
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/c_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card
-            title="Acquisition, développement et maintenance des SI"
-            style="max-width: 20rem"
-            class="mb-2"
-          >
-            <b-card-text>
-              S'assurer de la sécurité du SI et de la protection des documents de
-              développement (code source, données de test, …).
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/adm_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card
-            title="Sécurité liée à l'exploitation"
-            style="max-width: 20rem"
-            class="mb-2"
-          >
-            <b-card-text>
-              S'assurer de la sécurité lors de l'exploitation de la solution
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/se_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card
-            title="Gestion des incidents"
-            style="max-width: 20rem"
-            class="mb-2"
-          >
-            <b-card-text>
-              S'assurer de la sécurité de l'information dans les relations avec les tiers ainsi que de la présence d'une politique de sécurité.
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/rf_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card
-            title="Gestion des incidents"
-            style="max-width: 20rem"
-            class="mb-2"
-          >
-            <b-card-text>
-              S'assurer de la présence d'un processus de gestion des incidents de
-              sécurité et d'alerte du RSSI.
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/gi_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <b-card
-            title="Gestion de la continuité d'activité"
-            style="max-width: 20rem"
-            class="mb-2"
-          >
-            <b-card-text>
-              S'assurer qu'il existe des mesures mises en place pour assurer la
-              continuer d'activité et de garder les données disponibles.
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/gca_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card
-            title="Inventaire des équipements on-prem/cloud"
-            style="max-width: 20rem"
-            class="mb-2"
-          >
-            <b-card-text>
-              S'assurer que les équipements on-prem/cloud utilisés dans le cadre
-              de la prestation soient listés dans un inventaire
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/ie_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card
-            title="Analyse des risques RGPD"
-            style="max-width: 20rem"
-            class="mb-2"
-          >
-            <b-card-text>
-              Déterminer si la nature des données, leur niveau de confidentialité
-              et de sensibilité justifie une étude d'impact GDPR
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/rgpd_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card
-            title="Classification des données"
-            style="max-width: 20rem"
-            class="mb-2"
-          >
-            <b-card-text>
-              Identifier les actifs et définir le niveau de protection requis
-            </b-card-text>
-            <b-button :to="`/rules/`+partner.company+`/cd_rules`" variant="primary">Voir</b-button>
-          </b-card>
-        </b-col>
-      </b-row>
-    </b-container>
+
+    <ul class="cards">
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Connexion</div>
+          <p class="card_text">
+            Indiquez quel(s) accès avec le SI d'EHS est actuellement utilisé.
+          </p>
+          <button class="button_blue" @click="goToCo(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Type de données traitées</div>
+          <p class="card_text">
+            Indiquez quel genre type de données d'EHS est traitées dans le cadre de la prestation.
+          </p>
+          <button class="button_blue" @click="goToTdt(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Gouvernance</div>
+          <p class="card_text">
+            Il faut s'assurer que le top management comprenne les enjeux liés à la cybersécurité.
+          </p>
+          <button class="button_blue" @click="goToG(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Ressource Humaine</div>
+          <p class="card_text">
+            Il faut s'assurer que les entreprises et leurs employés comprennent les risques, 
+            leurs responsabilités et s'engagent sur leur rôle en matière de cybersécurité.
+          </p>
+          <button class="button_blue" @click="goToRh(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Audit</div>
+          <p class="card_text">
+            S'assurer que le partenaire autorise EHS a effectuer des audits sur
+            la partie en rapport avec la prestation.
+          </p>
+          <button class="button_blue" @click="goToPt(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Actifs</div>
+          <p class="card_text">
+            S'assurer de la sécurité de l'ensemble des actifs immatériels
+            (informations, organisations, procédures, services) et matériels
+            (documents papiers ou électroniques, hardware, software).
+          </p>
+          <button class="button_blue" @click="goToA(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Contôle d'accès</div>
+          <p class="card_text">
+            S'assurer que les process, les moyens techniques et l'organisation
+            permettent une gestion rigoureuse des identités et des droits sur
+            les employés du partenaire
+          </p>
+          <button class="button_blue" @click="goToCa(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Sécurité physique et environnementale</div>
+          <p class="card_text">
+            S'assurer de la sécurité physique des bâtiments envers les personne
+            et les actifs.
+          </p>
+          <button class="button_blue" @click="goToSpe(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Accès aux données et flux réseaux</div>
+          <p class="card_text">
+            S'assurer que les flux et transferts de données sont sécurisés et
+            que les accès aux réseaux et au données sont protégés
+          </p>
+          <button class="button_blue" @click="goToC(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Acquisition, développement et maintenance des SI</div>
+          <p class="card_text">
+            S'assurer de la sécurité du SI et de la protection des documents de
+            développement (code source, données de test, …).
+          </p>
+          <button class="button_blue" @click="goToAdm(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Sécurité liée à l'exploitation</div>
+          <p class="card_text">
+            S'assurer de la sécurité lors de l'exploitation de la solution
+          </p>
+          <button class="button_blue" @click="goToSe(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title"></div>
+          <p class="card_text">
+            S'assurer de la sécurité de l'information dans les relations
+            avec les tiers ainsi que de la présence d'une politique de sécurité.
+          </p>
+          <button class="button_blue" @click="goToRf(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Gestion des incidents</div>
+          <p class="card_text">
+            S'assurer de la présence d'un processus de gestion des incidents de
+            sécurité et d'alerte du RSSI.
+          </p>
+          <button class="button_blue" @click="goToGi(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Gestion de la continuité d'activité</div>
+          <p class="card_text">
+            S'assurer qu'il existe des mesures mises en place pour assurer la
+            continuer d'activité et de garder les données disponibles.
+          </p>
+          <button class="button_blue" @click="goToGca(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Inventaire des équipements on-prem/cloud</div>
+          <p class="card_text">
+            S'assurer que les équipements on-prem/cloud utilisés dans le cadre
+            de la prestation soient listés dans un inventaire
+          </p>
+          <button class="button_blue" @click="goToIe(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Analyse des risques RGPD</div>
+          <p class="card_text">
+            Déterminer si la nature des données, leur niveau de confidentialité
+            et de sensibilité justifie une étude d'impact GDPR
+          </p>
+          <button class="button_blue" @click="goToRgpd(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Classification des données</div>
+          <p class="card_text">
+            Identifier les actifs et définir le niveau de protection requis
+          </p>
+          <button class="button_blue" @click="goToCd(partner.company)">Voir</button>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -326,7 +282,58 @@ export default {
       }
     },
     goToPartner(partner){
-      this.$router.push("/partner/" + partner.company)
+      this.$router.push("/partner/" + partner)
+    },
+    goToCo(company){
+      this.$router.push("/rules/" + company + "/co_rules")
+    },
+    goToTdt(company){
+      this.$router.push("/rules/" + company + "/tdt_rules")
+    },
+    goToG(company){
+      this.$router.push("/rules/" + company + "/g_rules")
+    },
+    goToRh(company){
+      this.$router.push("/rules/" + company + "/rh_rules")
+    },
+    goToPt(company){
+      this.$router.push("/rules/" + company + "/pt_rules")
+    },
+    goToA(company){
+      this.$router.push("/rules/" + company + "/a_rules")
+    },
+    goToCa(company){
+      this.$router.push("/rules/" + company + "/ca_rules")
+    },
+    goToSpe(company){
+      this.$router.push("/rules/" + company + "/spe_rules")
+    },
+    goToC(company){
+      this.$router.push("/rules/" + company + "/c_rules")
+    },
+    goToAdm(company){
+      this.$router.push("/rules/" + company + "/Adm_rules")
+    },
+    goToSe(company){
+      this.$router.push("/rules/" + company + "/se_rules")
+    },
+    goToRf(company){
+      this.$router.push("/rules/" + company + "/rf_rules")
+    },
+    goToGi(company){
+      this.$router.push("/rules/" + company + "/gi_rules")
+    },
+    goToGca(company){
+      this.$router.push("/rules/" + company + "/gca_rules")
+    },
+    goToIe(company){
+      this.$router.push("/rules/" + company + "/ie_rules")
+    },
+    goToRgpd(company){
+      this.$router.push("/rules/" + company + "/rgpd_rules")
+    },
+    goToCd(company){
+      this.$router.push("/rules/" + company + "/cd_rules")
     },
   },
   mounted() {
