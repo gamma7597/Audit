@@ -9,9 +9,9 @@ module.exports = app => {
   
     //router.get("/:partnerId/:contactId", contacts.findOne);
   
-    //router.put("/:partnerId/:contactId", contacts.update);
+    router.put("/:partnerId/:last_name", contacts.update);
   
-    //router.delete("/:partnerId/:contactId", contacts.delete);
+    router.delete("/:partnerId/:last_name", contacts.delete);
   
     app.use('/api/contacts', router);
   };

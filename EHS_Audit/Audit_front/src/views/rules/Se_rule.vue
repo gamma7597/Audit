@@ -1,83 +1,224 @@
 <template>
   <div>
-    <b-button :to="'/rules/'+partner.company" variant="success">Retour</b-button>
-    <b-form @submit.prevent="handleSubmit">
-      <b-form-group id="se_rules_1" label="Le partenaire doit appliquer une procédure de durcissement des équipements et des OS (Operating System) " label-for="se_rules_1-select">
-        <b-form-select id="se_rules_1-select" v-model="formData.se_1" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="se_rules_1_comment" label="Commentaire du partenaire" label-for="se_rules_1_comment-select">
-        <b-form-input id="se_rules_1_comment-input" v-model="formData.se_1_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="se_rules_1_impact" label="Impact" label-for="se_rules_1_impact-select">
-        <b-form-select id="se_rules_1_impact-select" v-model="formData.se_1_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="se_rules_1_engie" label="Commentaire EHS" label-for="se_rules_1_engie-select">
-        <b-form-input id="se_rules_1_engie-input" v-model="formData.se_1_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="se_rules_2" label="Le partenaire doit appliquer une politique antivirale sur tous les composants hébergeant le service fourni à EHS. 
-Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions et la fréquences de leur mise à jour " label-for="se_rules_2-select">
-        <b-form-select id="se_rules_2-select" v-model="formData.se_2" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="se_rules_2_comment" label="Commentaire du partenaire" label-for="se_rules_2_comment-select">
-        <b-form-input id="se_rules_2_comment-input" v-model="formData.se_2_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="se_rules_2_impact" label="Impact" label-for="se_rules_2_impact-select">
-        <b-form-select id="se_rules_2_impact-select" v-model="formData.se_2_impact" :options="options2" required></b-form-select>
-      </b-form-group>d
-      <b-form-group id="se_rules_2_engie" label="Commentaire EHS" label-for="se_rules_2_engie-select">
-        <b-form-input id="se_rules_2_engie-input" v-model="formData.se_2_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="se_rules_3" label="Le partenaire doit appliquer une procédure de patch management lui permettant de déployer rapidement les correctifs recommandés par les fournisseurs de solutions matérielles et logicielles" label-for="se_rules_3-select">
-        <b-form-select id="se_rules_3-select" v-model="formData.a_3" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="se_rules_3_comment" label="Commentaire du partenaire" label-for="se_rules_3_comment-select">
-        <b-form-input id="se_rules_3_comment-input" v-model="formData.se_3_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="se_rules_3_impact" label="Impact" label-for="se_rules_3_impact-select">
-        <b-form-select id="se_rules_3_impact-select" v-model="formData.se_3_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="se_rules_3_engie" label="Commentaire EHS" label-for="se_rules_3_engie-select">
-        <b-form-input id="se_rules_3_engie-input" v-model="formData.se_3_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="se_rules_4" label="La prestation doit permettre la journalisation et la centralisation des évènements (techniques et applicatifs) ainsi que la protection de ces logs" label-for="se_rules_4-select">
-        <b-form-select id="se_rules_4-select" v-model="formData.a_4" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="se_rules_4_comment" label="Commentaire du partenaire" label-for="se_rules_4_comment-select">
-        <b-form-input id="se_rules_4_comment-input" v-model="formData.se_4_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="se_rules_4_impact" label="Impact" label-for="se_rules_4_impact-select">
-        <b-form-select id="se_rules_4_impact-select" v-model="formData.se_4_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="se_rules_4_engie" label="Commentaire EHS" label-for="se_rules_4_engie-select">
-        <b-form-input id="se_rules_4_engie-input" v-model="formData.se_4_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="se_rules_5" label="EHS doit être en mesure d'avoir accès aux journaux des logs ayant eu lieu sur son instance applicative notamment dans le cas de traitement d’incidents" label-for="se_rules_5-select">
-        <b-form-select id="se_rules_5-select" v-model="formData.a_5" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="se_rules_5_comment" label="Commentaire du partenaire" label-for="se_rules_5_comment-select">
-        <b-form-input id="se_rules_5_comment-input" v-model="formData.se_5_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="se_rules_5_impact" label="Impact" label-for="se_rules_5_impact-select">
-        <b-form-select id="se_rules_5_impact-select" v-model="formData.se_5_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="se_rules_5_engie" label="Commentaire EHS" label-for="se_rules_5_engie-select">
-        <b-form-input id="se_rules_5_engie-input" v-model="formData.se_5_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="se_rules_6" label="La partenaire doit mettre en place les moyens de sécurité appropriés pour assurer l'intégrité des données" label-for="se_rules_6-select">
-        <b-form-select id="se_rules_6-select" v-model="formData.se_6" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="se_rules_6_comment" label="Commentaire du partenaire" label-for="se_rules_6_comment-select">
-        <b-form-input id="se_rules_6_comment-input" v-model="formData.se_6_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="se_rules_6_impact" label="Impact" label-for="se_rules_6_impact-select">
-        <b-form-select id="se_rules_6_impact-select" v-model="formData.a_6_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="se_rules_6_engie" label="Commentaire EHS" label-for="se_rules_6_engie-select">
-        <b-form-input id="se_rules_6_engie-input" v-model="formData.se_6_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Envoyer</b-button>
-      <b-button type="reset" variant="danger">Reinitialiser</b-button>
-    </b-form>
+    <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
+
+    <form @submit.prevent="handleSubmit">
+
+      <label for="se_rules_1">
+        <select
+          id="se_rules_1" 
+          placeholder="Le partenaire doit appliquer une procédure de durcissement des équipements et des OS (Operating System)" 
+          v-model="formData.se_1" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit appliquer une procédure de durcissement des équipements et des OS (Operating System)</span>
+      </label>
+      <label for="se_rules_1_comment">
+        <input type="text" 
+          id="se_rules_1_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.se_1_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="se_rules_1_impact">
+        <select
+          id="se_rules_1_impact" 
+          placeholder="Impact" 
+          v-model="formData.se_1_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="se_rules_1_engie">
+        <input type="text" 
+          id="se_rules_1_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.se_1_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="se_rules_2">
+        <select
+          id="se_rules_2" 
+          placeholder="Le partenaire doit appliquer une politique antivirale sur tous les composants hébergeant le service fourni à EHS. 
+Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions et la fréquences de leur mise à jour" 
+          v-model="formData.se_2" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit appliquer une politique antivirale sur tous les composants hébergeant le service fourni à EHS. 
+Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions et la fréquences de leur mise à jour</span>
+      </label>
+      <label for="se_rules_2_comment">
+        <input type="text" 
+          id="se_rules_2_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.se_2_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="se_rules_2_impact">
+        <select
+          id="se_rules_2_impact" 
+          placeholder="Impact" 
+          v-model="formData.se_2_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="se_rules_2_engie">
+        <input type="text" 
+          id="se_rules_2_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.se_2_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="se_rules_3">
+        <select
+          id="se_rules_3" 
+          placeholder="Le partenaire doit appliquer une procédure de patch management lui permettant de déployer rapidement les correctifs recommandés par les fournisseurs de solutions matérielles et logicielles" 
+          v-model="formData.se_3" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit appliquer une procédure de patch management lui permettant de déployer rapidement les correctifs recommandés par les fournisseurs de solutions matérielles et logicielles</span>
+      </label>
+      <label for="se_rules_3_comment">
+        <input type="text" 
+          id="se_rules_3_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.se_3_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="se_rules_3_impact">
+        <select
+          id="se_rules_3_impact" 
+          placeholder="Impact" 
+          v-model="formData.se_3_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="se_rules_3_engie">
+        <input type="text" 
+          id="se_rules_3_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.se_3_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="se_rules_4">
+        <select
+          id="se_rules_4" 
+          placeholder="La prestation doit permettre la journalisation et la centralisation des évènements (techniques et applicatifs) ainsi que la protection de ces logs" 
+          v-model="formData.se_4" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>La prestation doit permettre la journalisation et la centralisation des évènements (techniques et applicatifs) ainsi que la protection de ces logs</span>
+      </label>
+      <label for="se_rules_4_comment">
+        <input type="text" 
+          id="se_rules_4_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.se_4_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="se_rules_4_impact">
+        <select
+          id="se_rules_4_impact" 
+          placeholder="Impact" 
+          v-model="formData.se_4_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="se_rules_4_engie">
+        <input type="text" 
+          id="se_rules_4_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.se_4_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="se_rules_5">
+        <select
+          id="se_rules_5" 
+          placeholder="EHS doit être en mesure d'avoir accès aux journaux des logs ayant eu lieu sur son instance applicative notamment dans le cas de traitement d’incidents" 
+          v-model="formData.se_5" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>EHS doit être en mesure d'avoir accès aux journaux des logs ayant eu lieu sur son instance applicative notamment dans le cas de traitement d’incidents</span>
+      </label>
+      <label for="se_rules_5_comment">
+        <input type="text" 
+          id="se_rules_5_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.se_5_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="se_rules_5_impact">
+        <select
+          id="se_rules_5_impact" 
+          placeholder="Impact" 
+          v-model="formData.se_5_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="se_rules_5_engie">
+        <input type="text" 
+          id="se_rules_5_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.se_5_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="se_rules_6">
+        <select
+          id="se_rules_6" 
+          placeholder="Le partenaire doit mettre en place les moyens de sécurité appropriés pour assurer l'intégrité des données" 
+          v-model="formData.se_6" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit mettre en place les moyens de sécurité appropriés pour assurer l'intégrité des données</span>
+      </label>
+      <label for="se_rules_6_comment">
+        <input type="text" 
+          id="se_rules_6_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.se_6_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="se_rules_6_impact">
+        <select
+          id="se_rules_6_impact" 
+          placeholder="Impact" 
+          v-model="formData.se_6_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="se_rules_6_engie">
+        <input type="text" 
+          id="se_rules_6_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.se_6_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <button class="button_blue" type="submit">Envoyer</button>
+      <button class="button_blue" type="reset" >Reinitialiser</button>
+    </form>
 
   </div>
 </template>
@@ -144,6 +285,9 @@ Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions
         this.edit_se_rules(payload);
         this.formData = this.se_rules
       },
+      goToRules(partner){
+        this.$router.push("/rules/" + partner)
+      }
     },
     mounted() {
       this.formData = this.se_rules

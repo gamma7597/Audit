@@ -7,6 +7,8 @@
           <th scope="col">Numéro de contrat</th>
           <th scope="col">Localisation</th>
           <th scope="col">Description</th>
+          <th scope="col">Debut de la prestation</th>
+          <th scope="col">Fin de la prestation</th>
         </tr>
       </thead>
       <tbody>
@@ -17,6 +19,8 @@
           <td>{{partner.contract_number}}</td>
           <td>{{partner.location}}</td>
           <td>{{partner.description}}</td>
+          <td>{{partner.start_service}}</td>
+          <td>{{partner.end_service}}</td>
         </tr>
       </tbody>
     </table>

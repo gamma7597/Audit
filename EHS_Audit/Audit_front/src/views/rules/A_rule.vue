@@ -1,58 +1,152 @@
 <template>
   <div>
-    <b-button :to="'/rules/'+partner.company" variant="success">Retour</b-button>
-    <b-form @submit.prevent="handleSubmit">
-      <b-form-group id="a_rules_1" label="Les données d'EHS stockées par le partenaire sont chiffrées" label-for="a_rules_1-select">
-        <b-form-select id="a_rules_1-select" v-model="formData.a_1" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="a_rules_1_comment" label="Commentaire du partenaire" label-for="a_rules_1_comment-select">
-        <b-form-input id="a_rules_1_comment-input" v-model="formData.a_1_comment"></b-form-input>
-      </b-form-group>
-      <b-form-group id="a_rules_1_impact" label="Impact" label-for="a_rules_1_impact-select">
-        <b-form-select id="a_rules_1_impact-select" v-model="formData.a_1_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="a_rules_1_engie" label="Commentaire EHS" label-for="a_rules_1_engie-select">
-        <b-form-input id="a_rules_1_engie-input" v-model="formData.a_1_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="a_rules_2" label="Le partenaire doit assurer la réversibilité en fin de contrat ou suite à l’activation de la clause de réversibilité" label-for="a_rules_2-select">
-        <b-form-select id="a_rules_2-select" v-model="formData.a_2" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="a_rules_2_comment" label="Commentaire du partenaire" label-for="a_rules_2_comment-select">
-        <b-form-input id="a_rules_2_comment-input" v-model="formData.a_2_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="a_rules_2_impact" label="Impact" label-for="a_rules_2_impact-select">
-        <b-form-select id="a_rules_2_impact-select" v-model="formData.a_2_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="a_rules_2_engie" label="Commentaire EHS" label-for="a_rules_2_engie-select">
-        <b-form-input id="a_rules_2_engie-input" v-model="formData.a_2_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="a_rules_3" label="Il existe une procédure permettant de prouver la restitution ou la destruction des actifs (données et support) sur les environnement du partenaire et ses sous-traitants" label-for="a_rules_3-select">
-        <b-form-select id="a_rules_3-select" v-model="formData.a_3" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="a_rules_3_comment" label="Commentaire du partenaire" label-for="a_rules_3_comment-select">
-        <b-form-input id="a_rules_3_comment-input" v-model="formData.a_3_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="a_rules_3_impact" label="Impact" label-for="a_rules_3_impact-select">
-        <b-form-select id="a_rules_3_impact-select" v-model="formData.a_3_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="a_rules_3_engie" label="Commentaire EHS" label-for="a_rules_3_engie-select">
-        <b-form-input id="a_rules_3_engie-input" v-model="formData.a_3_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="a_rules_4" label="Le partenaire doit envoyer a EHS une preuve de blanchissement des serveurs si le contrat le prévoit" label-for="a_rules_4-select">
-        <b-form-select id="a_rules_4-select" v-model="formData.a_4" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="a_rules_4_comment" label="Commentaire du partenaire" label-for="a_rules_4_comment-select">
-        <b-form-input id="a_rules_4_comment-input" v-model="formData.a_4_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="a_rules_4_impact" label="Impact" label-for="a_rules_4_impact-select">
-        <b-form-select id="a_rules_4_impact-select" v-model="formData.a_4_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="a_rules_4_engie" label="Commentaire EHS" label-for="a_rules_4_engie-select">
-        <b-form-input id="a_rules_4_engie-input" v-model="formData.a_4_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Envoyer</b-button>
-      <b-button type="reset" variant="danger">Reinitialiser</b-button>
-    </b-form>
+    <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
+
+    <form @submit.prevent="handleSubmit">
+
+      <label for="pt_rules_1">
+        <select
+          id="pt_rules_1" 
+          placeholder="Les données d'EHS stockées par le partenaire sont chiffrées" 
+          v-model="formData.pt_1" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Les données d'EHS stockées par le partenaire sont chiffrées</span>
+      </label>
+      <label for="pt_rules_1_comment">
+        <input type="text" 
+          id="pt_rules_1_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.pt_1_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="pt_rules_1_impact">
+        <select
+          id="pt_rules_1_impact" 
+          placeholder="Impact" 
+          v-model="formData.pt_1_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="pt_rules_1_engie">
+        <input type="text" 
+          id="pt_rules_1_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.pt_1_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="pt_rules_2">
+        <select
+          id="pt_rules_2" 
+          placeholder="Le partenaire doit assurer la réversibilité en fin de contrat ou suite à l’activation de la clause de réversibilité" 
+          v-model="formData.pt_2" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit assurer la réversibilité en fin de contrat ou suite à l’activation de la clause de réversibilité</span>
+      </label>
+      <label for="pt_rules_2_comment">
+        <input type="text" 
+          id="pt_rules_2_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.pt_2_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="pt_rules_2_impact">
+        <select
+          id="pt_rules_2_impact" 
+          placeholder="Impact" 
+          v-model="formData.pt_2_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="pt_rules_2_engie">
+        <input type="text" 
+          id="pt_rules_2_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.pt_2_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="pt_rules_3">
+        <select
+          id="pt_rules_3" 
+          placeholder="Il existe une procédure permettant de prouver la restitution ou la destruction des actifs (données et support) sur les environnement du partenaire et ses sous-traitants" 
+          v-model="formData.pt_3" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Il existe une procédure permettant de prouver la restitution ou la destruction des actifs (données et support) sur les environnement du partenaire et ses sous-traitants</span>
+      </label>
+      <label for="pt_rules_3_comment">
+        <input type="text" 
+          id="pt_rules_3_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.pt_3_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="pt_rules_3_impact">
+        <select
+          id="pt_rules_3_impact" 
+          placeholder="Impact" 
+          v-model="formData.pt_3_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="pt_rules_3_engie">
+        <input type="text" 
+          id="pt_rules_3_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.pt_3_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="pt_rules_4">
+        <select
+          id="pt_rules_4" 
+          placeholder="Le partenaire doit envoyer a EHS une preuve de blanchissement des serveurs si le contrat le prévoit" 
+          v-model="formData.pt_4" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit envoyer a EHS une preuve de blanchissement des serveurs si le contrat le prévoit</span>
+      </label>
+      <label for="pt_rules_4_comment">
+        <input type="text" 
+          id="pt_rules_4_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.pt_4_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="pt_rules_4_impact">
+        <select
+          id="pt_rules_4_impact" 
+          placeholder="Impact" 
+          v-model="formData.pt_4_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="pt_rules_4_engie">
+        <input type="text" 
+          id="pt_rules_4_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.pt_4_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <button class="button_blue" type="submit">Envoyer</button>
+      <button class="button_blue" type="reset">Reinitialiser</button>
+    </form>
   </div>
 </template>
 
@@ -110,6 +204,9 @@
         this.edit_a_rules(payload);
         this.formData = this.a_rules;
       },
+      goToRules(partner){
+        this.$router.push("/rules/" + partner)
+      }
     },
     mounted() {
       this.formData = this.a_rules

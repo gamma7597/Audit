@@ -1,46 +1,118 @@
 <template>
   <div>
-    <b-button :to="'/rules/'+partner.company" variant="success">Retour</b-button>
-    <b-form @submit.prevent="handleSubmit">
-      <b-form-group id="rf_rules_1" label="Le partenaire doit déclarer l’existence de sous-traitants en lien avec la prestation et la nature des relations avec ces derniers sur le plan des responsabilités" label-for="rf_rules_1-select">
-        <b-form-select id="rf_rules_1-select" v-model="formData.rf_1" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="rf_rules_1_comment" label="Commentaire du partenaire" label-for="rf_rules_1_comment-select">
-        <b-form-input id="rf_rules_1_comment-input" v-model="formData.rf_1_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="rf_rules_1_impact" label="Impact" label-for="rf_rules_1_impact-select">
-        <b-form-select id="rf_rules_1_impact-select" v-model="formData.rf_1_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="rf_rules_1_engie" label="Commentaire EHS" label-for="rf_rules_1_engie-select">
-        <b-form-input id="rf_rules_1_engie-input" v-model="formData.rf_1_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="rf_rules_2" label="Le partenaire doit maitriser la sécurité de ses sous-traitants" label-for="rf_rules_2-select">
-        <b-form-select id="rf_rules_2-select" v-model="formData.rf_2" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="rf_rules_2_comment" label="Commentaire du partenaire" label-for="rf_rules_2_comment-select">
-        <b-form-input id="rf_rules_2_comment-input" v-model="formData.rf_2_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="rf_rules_2_impact" label="Impact" label-for="rf_rules_2_impact-select">
-        <b-form-select id="rf_rules_2_impact-select" v-model="formData.rf_2_impact" :options="options2" required></b-form-select>
-      </b-form-group>d
-      <b-form-group id="rf_rules_2_engie" label="Commentaire EHS" label-for="rf_rules_2_engie-select">
-        <b-form-input id="rf_rules_2_engie-input" v-model="formData.rf_2_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="rf_rules_3" label="Les fournisseurs signent une clause de confidentialité" label-for="rf_rules_3-select">
-        <b-form-select id="rf_rules_3-select" v-model="formData.a_3" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="rf_rules_3_comment" label="Commentaire du partenaire" label-for="rf_rules_3_comment-select">
-        <b-form-input id="rf_rules_3_comment-input" v-model="formData.rf_3_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="rf_rules_3_impact" label="Impact" label-for="rf_rules_3_impact-select">
-        <b-form-select id="rf_rules_3_impact-select" v-model="formData.rf_3_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="rf_rules_3_engie" label="Commentaire EHS" label-for="rf_rules_3_engie-select">
-        <b-form-input id="rf_rules_3_engie-input" v-model="formData.rf_3_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Envoyer</b-button>
-      <b-button type="reset" variant="danger">Reinitialiser</b-button>
-    </b-form>
+    <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
+
+    <form @submit.prevent="handleSubmit">
+
+      <label for="rf_rules_1">
+        <select
+          id="rf_rules_1" 
+          placeholder="Le partenaire doit déclarer l’existence de sous-traitants en lien avec la prestation et la nature des relations avec ces derniers sur le plan des responsabilités" 
+          v-model="formData.rf_1" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit déclarer l’existence de sous-traitants en lien avec la prestation et la nature des relations avec ces derniers sur le plan des responsabilités</span>
+      </label>
+      <label for="rf_rules_1_comment">
+        <input type="text" 
+          id="rf_rules_1_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.rf_1_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="rf_rules_1_impact">
+        <select
+          id="rf_rules_1_impact" 
+          placeholder="Impact" 
+          v-model="formData.rf_1_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="rf_rules_1_engie">
+        <input type="text" 
+          id="rf_rules_1_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.rf_1_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="rf_rules_2">
+        <select
+          id="rf_rules_2" 
+          placeholder="Le partenaire doit maitriser la sécurité de ses sous-traitants" 
+          v-model="formData.rf_2" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit maitriser la sécurité de ses sous-traitants</span>
+      </label>
+      <label for="rf_rules_2_comment">
+        <input type="text" 
+          id="rf_rules_2_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.rf_2_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="rf_rules_2_impact">
+        <select
+          id="rf_rules_2_impact" 
+          placeholder="Impact" 
+          v-model="formData.rf_2_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="rf_rules_2_engie">
+        <input type="text" 
+          id="rf_rules_2_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.rf_2_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="rf_rules_3">
+        <select
+          id="rf_rules_3" 
+          placeholder="Les fournisseurs signent une clause de confidentialité" 
+          v-model="formData.rf_3" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Les fournisseurs signent une clause de confidentialité</span>
+      </label>
+      <label for="rf_rules_3_comment">
+        <input type="text" 
+          id="rf_rules_3_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.rf_3_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="rf_rules_3_impact">
+        <select
+          id="rf_rules_3_impact" 
+          placeholder="Impact" 
+          v-model="formData.rf_3_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="rf_rules_3_engie">
+        <input type="text" 
+          id="rf_rules_3_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.rf_3_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <button class="button_blue" type="submit">Envoyer</button>
+      <button class="button_blue" type="reset" >Reinitialiser</button>
+    </form>
 
   </div>
 </template>
@@ -95,6 +167,9 @@
         this.edit_rf_rules(payload);
         this.formData = this.rf_rules
       },
+      goToRules(partner){
+        this.$router.push("/rules/" + partner)
+      }
     },
     mounted() {
       this.formData = this.rf_rules

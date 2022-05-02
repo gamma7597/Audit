@@ -1,46 +1,118 @@
 <template>
   <div>
-    <b-button :to="'/rules/'+partner.company" variant="success">Retour</b-button>
-    <b-form @submit.prevent="handleSubmit">
-      <b-form-group id="gca_rules_1" label="Présence d'un PCA [Plan de Continuité d'Activité] maintenu et testé" label-for="gca_rules_1-select">
-        <b-form-select id="gca_rules_1-select" v-model="formData.gca_1" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="gca_rules_1_comment" label="Commentaire du partenaire" label-for="gca_rules_1_comment-select">
-        <b-form-input id="gca_rules_1_comment-input" v-model="formData.gca_1_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="gca_rules_1_impact" label="Impact" label-for="gca_rules_1_impact-select">
-        <b-form-select id="gca_rules_1_impact-select" v-model="formData.gca_1_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="gca_rules_1_engie" label="Comentaire EHS" label-for="gca_rules_1_engie-select">
-        <b-form-input id="gca_rules_1_engie-input" v-model="formData.gca_1_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="gca_rules_2" label="Présence d'un PRA [Plan de Reprise d'Activité] maintenu et testé" label-for="gca_rules_2-select">
-        <b-form-select id="gca_rules_2-select" v-model="formData.gca_2" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="gca_rules_2_comment" label="Commentaire du partenaire" label-for="gca_rules_2_comment-select">
-        <b-form-input id="gca_rules_2_comment-input" v-model="formData.gca_2_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="gca_rules_2_impact" label="Impact" label-for="gca_rules_2_impact-select">
-        <b-form-select id="gca_rules_2_impact-select" v-model="formData.gca_2_impact" :options="options2" required></b-form-select>
-      </b-form-group>d
-      <b-form-group id="gca_rules_2_engie" label="Comentaire EHS" label-for="gca_rules_2_engie-select">
-        <b-form-input id="gca_rules_2_engie-input" v-model="formData.gca_2_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="gca_rules_3" label="Présence d'un PSR [Plan de Sauvegarde et Restitution] maintenu et testé" label-for="gca_rules_3-select">
-        <b-form-select id="gca_rules_3-select" v-model="formData.a_3" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="gca_rules_3_comment" label="Commentaire du partenaire" label-for="gca_rules_3_comment-select">
-        <b-form-input id="gca_rules_3_comment-input" v-model="formData.gca_3_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="gca_rules_3_impact" label="Impact" label-for="gca_rules_3_impact-select">
-        <b-form-select id="gca_rules_3_impact-select" v-model="formData.gca_3_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="gca_rules_3_engie" label="Comentaire EHS" label-for="gca_rules_3_engie-select">
-        <b-form-input id="gca_rules_3_engie-input" v-model="formData.gca_3_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Envoyer</b-button>
-      <b-button type="reset" variant="danger">Reinitialiser</b-button>
-    </b-form>
+    <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
+
+    <form @submit.prevent="handleSubmit">
+
+      <label for="gca_rules_1">
+        <select
+          id="gca_rules_1" 
+          placeholder="Présence d'un PCA [Plan de Continuité d'Activité] maintenu et testé" 
+          v-model="formData.gca_1" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Présence d'un PCA [Plan de Continuité d'Activité] maintenu et testé</span>
+      </label>
+      <label for="gca_rules_1_comment">
+        <input type="text" 
+          id="gca_rules_1_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.gca_1_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="gca_rules_1_impact">
+        <select
+          id="gca_rules_1_impact" 
+          placeholder="Impact" 
+          v-model="formData.gca_1_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="gca_rules_1_engie">
+        <input type="text" 
+          id="gca_rules_1_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.gca_1_engie"/>
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="gca_rules_2">
+        <select
+          id="gca_rules_2" 
+          placeholder="Présence d'un PRA [Plan de Reprise d'Activité] maintenu et testé" 
+          v-model="formData.gca_2" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Présence d'un PRA [Plan de Reprise d'Activité] maintenu et testé</span>
+      </label>
+      <label for="gca_rules_2_comment">
+        <input type="text" 
+          id="gca_rules_2_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.gca_2_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="gca_rules_2_impact">
+        <select
+          id="gca_rules_2_impact" 
+          placeholder="Impact" 
+          v-model="formData.gca_2_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="gca_rules_2_engie">
+        <input type="text" 
+          id="gca_rules_2_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.gca_2_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="gca_rules_3">
+        <select
+          id="gca_rules_3" 
+          placeholder="Présence d'un PSR [Plan de Sauvegarde et Restitution] maintenu et testé" 
+          v-model="formData.gca_3" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Présence d'un PSR [Plan de Sauvegarde et Restitution] maintenu et testé</span>
+      </label>
+      <label for="gca_rules_3_comment">
+        <input type="text" 
+          id="gca_rules_3_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.gca_3_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="gca_rules_3_impact">
+        <select
+          id="gca_rules_3_impact" 
+          placeholder="Impact" 
+          v-model="formData.gca_3_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="gca_rules_3_engie">
+        <input type="text" 
+          id="gca_rules_3_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.gca_3_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <button class="button_blue" type="submit">Envoyer</button>
+      <button class="button_blue" type="reset" >Reinitialiser</button>
+    </form>
 
   </div>
 </template>
@@ -95,6 +167,9 @@
         this.edit_gca_rules(payload);
         this.formData = this.gca_rules
       },
+      goToRules(partner){
+        this.$router.push("/rules/" + partner)
+      }
     },
     mounted() {
       this.formData = this.gca_rules

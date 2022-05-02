@@ -1,16 +1,22 @@
 module.exports = (sequelize, Sequelize) => {
   const Partner = sequelize.define("partner", {
     company: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     contract_number: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     location: {
       type: Sequelize.STRING
     },
     description: {
       type: Sequelize.STRING
+    },
+    start_service: {
+      type: Sequelize.DATE
+    },
+    end_service: {
+      type: Sequelize.DATE
     }
   });
 

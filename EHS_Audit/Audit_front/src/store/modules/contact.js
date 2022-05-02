@@ -19,7 +19,7 @@ const actions = {
     })
   },
   editContact: ({ commit }, payload) => {
-    Axios.put(url + 'api/contacts/' + payload.company + '/' + payload.last_name, payload.data)
+    Axios.put(url + 'api/contacts/' + payload.company + '/' + payload.data.last_name, payload.data)
     .then( () => {
       Axios.get(url + 'api/contacts/' + payload.company)
       .then(response => {

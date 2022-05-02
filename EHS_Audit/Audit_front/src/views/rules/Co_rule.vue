@@ -1,147 +1,122 @@
 <template>
   <div>
-    <b-button :to="'/rules/' + partner.company" variant="success"
-      >Retour</b-button
-    >
+    <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
+
     <form @submit.prevent="handleSubmit">
-      <b-form-group
-        id="co_rules_1"
-        label="Accès applicatif (ex : filtrage applicatif)"
-        label-for="co_rules_1-select"
-      >
-        <b-form-select
-          id="co_rules_1-select"
-          v-model="formData.co_1"
-          :options="options"
-          required
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group
-        id="co_rules_1_comment"
-        label="Commentaire du partenaire"
-        label-for="co_rules_1_comment-select"
-      >
-        <b-form-input
-          id="co_rules_1_comment-input"
-          v-model="formData.co_1_comment"
-          placeholder="Commentaire"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="co_rules_2"
-        label="Accès VPN (Global Protect) / Firewall"
-        label-for="co_rules_2-select"
-      >
-        <b-form-select
-          id="co_rules_2-select"
-          v-model="formData.co_2"
-          :options="options"
-          required
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group
-        id="co_rules_2_comment"
-        label=""
-        label-for="co_rules_2_comment-select"
-      >
-        <b-form-input
-          id="co_rules_2_comment-input"
-          v-model="formData.co_2_comment"
-          placeholder="Commentaire"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="co_rules_3"
-        label="Accès ZPA"
-        label-for="co_rules_3-select"
-      >
-        <b-form-select
-          id="co_rules_3-select"
-          v-model="formData.co_3"
-          :options="options"
-          required
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group
-        id="co_rules_3_comment"
-        label="Commentaire du partenaire"
-        label-for="co_rules_3_comment-select"
-      >
-        <b-form-input
-          id="co_rules_3_comment-input"
-          v-model="formData.co_3_comment"
-          placeholder="Commentaire"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="co_rules_4"
-        label="Accès lien réseau Wan dédié (MPLS)"
-        label-for="co_rules_4-select"
-      >
-        <b-form-select
-          id="co_rules_4-select"
-          v-model="formData.co_4"
-          :options="options"
-          required
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group
-        id="co_rules_4_comment"
-        label="Commentaire du partenaire"
-        label-for="co_rules_4_comment-select"
-      >
-        <b-form-input
-          id="co_rules_4_comment-input"
-          v-model="formData.co_4_comment"
-          placeholder="Commentaire"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="co_rules_5"
-        label="Depuis un réseau externe en SSO ENGIE avec OKTA"
-        label-for="co_rules_5-select"
-      >
-        <b-form-select
-          id="co_rules_5-select"
-          v-model="formData.co_5"
-          :options="options"
-          required
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group
-        id="co_rules_5_comment"
-        label="Commentaire du partenaire"
-        label-for="co_rules_5_comment-select"
-      >
-        <b-form-input
-          id="co_rules_5_comment-input"
-          v-model="formData.co_5_comment"
-          placeholder="Commentaire"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="co_rules_6"
-        label="Depuis un réseau externe en MFA avec OKTA"
-        label-for="co_rules_6-select"
-      >
-        <b-form-select
-          id="co_rules_6-select"
-          v-model="formData.co_6"
-          :options="options"
-          required
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group
-        id="co_rules_6_comment"
-        label="Commentaire du partenaire"
-        label-for="co_rules_6_comment-select"
-      >
-        <b-form-input
-          id="co_rules_6_comment-input"
-          v-model="formData.co_6_comment"
-          placeholder="Commentaire"
-        ></b-form-input>
-      </b-form-group>
+
+      <label for="co_rules_1">
+        <select
+          id="co_rules_1" 
+          placeholder="Accès applicatif (ex : filtrage applicatif)" 
+          v-model="formData.co_1" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Accès applicatif (ex : filtrage applicatif)</span>
+      </label>
+
+      <label for="co_rules_1_comment">
+        <input type="text" 
+          id="co_rules_1_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.co_1_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="co_rules_2">
+        <select
+          id="co_rules_2" 
+          placeholder="Accès VPN (Global Protect) / Firewall" 
+          v-model="formData.co_2" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Accès VPN (Global Protect) / Firewall</span>
+      </label>
+
+      <label for="co_rules_2_comment">
+        <input type="text" 
+          id="co_rules_2_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.co_2_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="co_rules_3">
+        <select
+          id="co_rules_3" 
+          placeholder="Accès ZPA" 
+          v-model="formData.co_3" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Accès ZPA</span>
+      </label>
+
+      <label for="co_rules_3_comment">
+        <input type="text" 
+          id="co_rules_3_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.co_3_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="co_rules_4">
+        <select
+          id="co_rules_4" 
+          placeholder="Accès lien réseau Wan dédié (MPLS)" 
+          v-model="formData.co_4" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Accès lien réseau Wan dédié (MPLS)</span>
+      </label>
+
+      <label for="co_rules_4_comment">
+        <input type="text" 
+          id="co_rules_4_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.co_4_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="co_rules_5">
+        <select
+          id="co_rules_5" 
+          placeholder="Depuis un réseau externe en SSO ENGIE avec OKTA" 
+          v-model="formData.co_5" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Depuis un réseau externe en SSO ENGIE avec OKTA</span>
+      </label>
+
+      <label for="co_rules_5_comment">
+        <input type="text" 
+          id="co_rules_5_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.co_5_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="co_rules_6">
+        <select
+          id="co_rules_6" 
+          placeholder="Depuis un réseau externe en MFA avec OKTA" 
+          v-model="formData.co_6" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Depuis un réseau externe en MFA avec OKTA</span>
+      </label>
+
+      <label for="co_rules_6_comment">
+        <input type="text" 
+          id="co_rules_6_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.co_6_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
 
       <button class="button_blue" type="submit">Envoyer</button>
       <button class="button_blue" type="reset">Reinitialiser</button>
@@ -191,6 +166,9 @@ export default {
       this.edit_co_rules(payload);
       this.formData = this.co_rules;
     },
+    goToRules(partner){
+      this.$router.push("/rules/" + partner)
+    }
   },
   mounted() {
     this.formData = this.co_rules;

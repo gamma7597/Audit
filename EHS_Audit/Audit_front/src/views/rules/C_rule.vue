@@ -1,107 +1,294 @@
 <template>
   <div>
-    <b-button :to="'/rules/'+partner.company" variant="success">Retour</b-button>
-    <b-form @submit.prevent="handleSubmit">
-      <b-form-group id="c_rules_1" label="Le partenaire doit proposer une architecture sécurisée (Réseau, Endpoint, Serveur, etc.). 
-Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la solution proposée" label-for="c_rules_1-select">
-        <b-form-select id="c_rules_1-select" v-model="formData.c_1" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_1_comment" label="Commentaire du partenaire" label-for="c_rules_1_comment-select">
-        <b-form-input id="c_rules_1_comment-input" v-model="formData.c_1_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_1_impact" label="Impact" label-for="c_rules_1_impact-select">
-        <b-form-select id="c_rules_1_impact-select" v-model="formData.c_1_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_1_engie" label="Commentaire EHS" label-for="c_rules_1_engie-select">
-        <b-form-input id="c_rules_1_engie-input" v-model="formData.c_1_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_2" label="Le partenaire doit assurer le chiffrement des données d'EHS en transmission " label-for="c_rules_2-select">
-        <b-form-select id="c_rules_2-select" v-model="formData.c_2" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_2_comment" label="Commentaire du partenaire" label-for="c_rules_2_comment-select">
-        <b-form-input id="c_rules_2_comment-input" v-model="formData.c_2_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_2_impact" label="Impact" label-for="c_rules_2_impact-select">
-        <b-form-select id="c_rules_2_impact-select" v-model="formData.c_2_impact" :options="options2" required></b-form-select>
-      </b-form-group>d
-      <b-form-group id="c_rules_2_engie" label="Commentaire EHS" label-for="c_rules_2_engie-select">
-        <b-form-input id="c_rules_2_engie-input" v-model="formData.c_2_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_3" label="Présence d'une matrice de flux à jour : le partenaire doit envoyer à EHS la matrice de flux listant tous les flux utilisés pour la réalisation de la prestation." label-for="c_rules_3-select">
-        <b-form-select id="c_rules_3-select" v-model="formData.a_3" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_3_comment" label="Commentaire du partenaire" label-for="c_rules_3_comment-select">
-        <b-form-input id="c_rules_3_comment-input" v-model="formData.c_3_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_3_impact" label="Impact" label-for="c_rules_3_impact-select">
-        <b-form-select id="c_rules_3_impact-select" v-model="formData.c_3_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_3_engie" label="Commentaire EHS" label-for="c_rules_3_engie-select">
-        <b-form-input id="c_rules_3_engie-input" v-model="formData.c_3_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_4" label="Le partenaire doit mettre en œuvre des composants de détection, de prévention et de monitoring (IDS,IPS) sur tous les flux entrants  " label-for="c_rules_4-select">
-        <b-form-select id="c_rules_4-select" v-model="formData.a_4" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_4_comment" label="Commentaire du partenaire" label-for="c_rules_4_comment-select">
-        <b-form-input id="c_rules_4_comment-input" v-model="formData.c_4_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_4_impact" label="Impact" label-for="c_rules_4_impact-select">
-        <b-form-select id="c_rules_4_impact-select" v-model="formData.c_4_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_4_engie" label="Commentaire EHS" label-for="c_rules_4_engie-select">
-        <b-form-input id="c_rules_4_engie-input" v-model="formData.c_4_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_5" label="Le partenaire doit mettre en œuvre des composants spécifiques de filtrage" label-for="c_rules_5-select">
-        <b-form-select id="c_rules_5-select" v-model="formData.a_5" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_5_comment" label="Commentaire du partenaire" label-for="c_rules_5_comment-select">
-        <b-form-input id="c_rules_5_comment-input" v-model="formData.c_5_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_5_impact" label="Impact" label-for="c_rules_5_impact-select">
-        <b-form-select id="c_rules_5_impact-select" v-model="formData.c_5_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_5_engie" label="Commentaire EHS" label-for="c_rules_5_engie-select">
-        <b-form-input id="c_rules_5_engie-input" v-model="formData.c_5_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_6" label="Le partenaire doit sécuriser les accès distants par VPN et les flux Wi-Fi à minima par protocole WPA2 ou WPA2-PSK" label-for="c_rules_6-select">
-        <b-form-select id="c_rules_6-select" v-model="formData.c_6" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_6_comment" label="Commentaire du partenaire" label-for="c_rules_6_comment-select">
-        <b-form-input id="c_rules_6_comment-input" v-model="formData.c_6_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_6_impact" label="Impact" label-for="c_rules_6_impact-select">
-        <b-form-select id="c_rules_6_impact-select" v-model="formData.a_6_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_6_engie" label="Commentaire EHS" label-for="c_rules_6_engie-select">
-        <b-form-input id="c_rules_6_engie-input" v-model="formData.c_6_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_7" label="Le partenaire doit mettre en place un outil permettant la détection de fuite de données sensibles  " label-for="c_rules_7-select">
-        <b-form-select id="c_rules_7-select" v-model="formData.c_7" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_7_comment" label="Commentaire du partenaire" label-for="c_rules_7_comment-select">
-        <b-form-input id="c_rules_7_comment-input" v-model="formData.c_7_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_7_impact" label="Impact" label-for="c_rules_7_impact-select">
-        <b-form-select id="c_rules_7_impact-select" v-model="formData.c_7_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_7_engie" label="Commentaire EHS" label-for="c_rules_7_engie-select">
-        <b-form-input id="c_rules_7_engie-input" v-model="formData.c_7_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_8" label="Une protection contre les attaques de type déni de service doit être mise en œuvre pour protéger le service fourni à EHS" label-for="c_rules_8-select">
-        <b-form-select id="c_rules_8-select" v-model="formData.c_8" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_8_comment" label="Commentaire du partenaire" label-for="c_rules_8_comment-select">
-        <b-form-input id="c_rules_8_comment-input" v-model="formData.c_8_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="c_rules_8_impact" label="Impact" label-for="c_rules_8_impact-select">
-        <b-form-select id="c_rules_8_impact-select" v-model="formData.c_8_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="c_rules_8_engie" label="Commentaire EHS" label-for="c_rules_8_engie-select">
-        <b-form-input id="c_rules_8_engie-input" v-model="formData.c_8_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Envoyer</b-button>
-      <b-button type="reset" variant="danger">Reinitialiser</b-button>
-    </b-form>
+    <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
+
+    <form @submit.prevent="handleSubmit">
+
+      <label for="c_rules_1">
+        <select
+          id="c_rules_1" 
+          placeholder="Le partenaire doit proposer une architecture sécurisée (Réseau, Endpoint, Serveur, etc.). 
+Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la solution proposée" 
+          v-model="formData.c_1" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit proposer une architecture sécurisée (Réseau, Endpoint, Serveur, etc.). 
+Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la solution proposée</span>
+      </label>
+      <label for="c_rules_1_comment">
+        <input type="text" 
+          id="c_rules_1_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.c_1_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="c_rules_1_impact">
+        <select
+          id="c_rules_1_impact" 
+          placeholder="Impact" 
+          v-model="formData.c_1_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="c_rules_1_engie">
+        <input type="text" 
+          id="c_rules_1_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.c_1_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="c_rules_2">
+        <select
+          id="c_rules_2" 
+          placeholder="Le partenaire doit assurer le chiffrement des données d'EHS en transmission" 
+          v-model="formData.c_2" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit assurer le chiffrement des données d'EHS en transmission</span>
+      </label>
+      <label for="c_rules_2_comment">
+        <input type="text" 
+          id="c_rules_2_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.c_2_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="c_rules_2_impact">
+        <select
+          id="c_rules_2_impact" 
+          placeholder="Impact" 
+          v-model="formData.c_2_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="c_rules_2_engie">
+        <input type="text" 
+          id="c_rules_2_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.c_2_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="c_rules_3">
+        <select
+          id="c_rules_3" 
+          placeholder="Présence d'une matrice de flux à jour : le partenaire doit envoyer à EHS la matrice de flux listant tous les flux utilisés pour la réalisation de la prestation." 
+          v-model="formData.c_3" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Présence d'une matrice de flux à jour : le partenaire doit envoyer à EHS la matrice de flux listant tous les flux utilisés pour la réalisation de la prestation.</span>
+      </label>
+      <label for="c_rules_3_comment">
+        <input type="text" 
+          id="c_rules_3_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.c_3_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="c_rules_3_impact">
+        <select
+          id="c_rules_3_impact" 
+          placeholder="Impact" 
+          v-model="formData.c_3_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="c_rules_3_engie">
+        <input type="text" 
+          id="c_rules_3_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.c_3_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="c_rules_4">
+        <select
+          id="c_rules_4" 
+          placeholder="Le partenaire doit mettre en œuvre des composants de détection, de prévention et de monitoring (IDS,IPS) sur tous les flux entrants" 
+          v-model="formData.c_4" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit mettre en œuvre des composants de détection, de prévention et de monitoring (IDS,IPS) sur tous les flux entrants</span>
+      </label>
+      <label for="c_rules_4_comment">
+        <input type="text" 
+          id="c_rules_4_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.c_4_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="c_rules_4_impact">
+        <select
+          id="c_rules_4_impact" 
+          placeholder="Impact" 
+          v-model="formData.c_4_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="c_rules_4_engie">
+        <input type="text" 
+          id="c_rules_4_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.c_4_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="c_rules_5">
+        <select
+          id="c_rules_5" 
+          placeholder="Le partenaire doit mettre en œuvre des composants spécifiques de filtrage" 
+          v-model="formData.c_5" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit mettre en œuvre des composants spécifiques de filtrage</span>
+      </label>
+      <label for="c_rules_5_comment">
+        <input type="text" 
+          id="c_rules_5_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.c_5_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="c_rules_5_impact">
+        <select
+          id="c_rules_5_impact" 
+          placeholder="Impact" 
+          v-model="formData.c_5_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="c_rules_5_engie">
+        <input type="text" 
+          id="c_rules_5_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.c_5_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="c_rules_6">
+        <select
+          id="c_rules_6" 
+          placeholder="Le partenaire doit sécuriser les accès distants par VPN et les flux Wi-Fi à minima par protocole WPA2 ou WPA2-PSK" 
+          v-model="formData.c_6" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit sécuriser les accès distants par VPN et les flux Wi-Fi à minima par protocole WPA2 ou WPA2-PSK</span>
+      </label>
+      <label for="c_rules_6_comment">
+        <input type="text" 
+          id="c_rules_6_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.c_6_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="c_rules_6_impact">
+        <select
+          id="c_rules_6_impact" 
+          placeholder="Impact" 
+          v-model="formData.c_6_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="c_rules_6_engie">
+        <input type="text" 
+          id="c_rules_6_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.c_6_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="c_rules_7">
+        <select
+          id="c_rules_7" 
+          placeholder="Le partenaire doit mettre en place un outil permettant la détection de fuite de données sensibles" 
+          v-model="formData.c_7" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit mettre en place un outil permettant la détection de fuite de données sensibles</span>
+      </label>
+      <label for="c_rules_7_comment">
+        <input type="text" 
+          id="c_rules_7_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.c_7_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="c_rules_7_impact">
+        <select
+          id="c_rules_7_impact" 
+          placeholder="Impact" 
+          v-model="formData.c_7_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="c_rules_7_engie">
+        <input type="text" 
+          id="c_rules_7_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.c_7_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="c_rules_8">
+        <select
+          id="c_rules_8" 
+          placeholder="Une protection contre les attaques de type déni de service doit être mise en œuvre pour protéger le service fourni à EHS" 
+          v-model="formData.c_8" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Une protection contre les attaques de type déni de service doit être mise en œuvre pour protéger le service fourni à EHS</span>
+      </label>
+      <label for="c_rules_8_comment">
+        <input type="text" 
+          id="c_rules_8_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.c_8_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="c_rules_8_impact">
+        <select
+          id="c_rules_8_impact" 
+          placeholder="Impact" 
+          v-model="formData.c_8_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="c_rules_8_engie">
+        <input type="text" 
+          id="c_rules_8_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.c_8_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <button class="button_blue" type="submit">Envoyer</button>
+      <button class="button_blue" type="reset" >Reinitialiser</button>
+    </form>
 
   </div>
 </template>
@@ -176,6 +363,9 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
         this.edit_c_rules(payload);
         this.formData = this.c_rules;
       },
+      goToRules(partner){
+        this.$router.push("/rules/" + partner)
+      }
     },
      mounted() {
       this.formData = this.c_rules

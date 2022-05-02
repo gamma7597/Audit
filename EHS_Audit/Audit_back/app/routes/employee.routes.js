@@ -9,9 +9,9 @@ module.exports = app => {
 
   //router.get("/:partnerId/:employeeId", employees.findOne);
 
-  //router.put("/:partnerId/:employeeId", employees.update);
+  router.put("/:partnerId/:last_name", employees.update);
 
-  //router.delete("/:partnerId/:employeeId", employees.delete);
+  router.delete("/:partnerId/:last_name", employees.delete);
 
   app.use('/api/employees', router);
 };

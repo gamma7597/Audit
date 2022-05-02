@@ -60,27 +60,23 @@ exports.findAll = (req, res) => {
             });
         });
 };
+*/
 
 exports.update = (req, res) => {
-    const last_name = req.params.last_name;
+    console.log(req.params)
+    console.log(req.body)
+    const last_name = req.body.last_name;
 
     Contact.update(req.body, {
         where: { last_name: last_name }
     })
-        .then(num => {
-            if (num == 1) {
-                res.send({
-                    message: "Contact was updated successfully."
-                });
-            } else {
-                res.send({
-                    message: `Cannot update Contact with last_name=${last_name}. Maybe Contact was not found or req.body is empty!`
-                });
-            }
+        .then(() => {
+            console.log(res.data)
+            res.send(res.data)
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Contact with last_name=" + last_name
+                message: "Error updating Contact with last name =" + last_name
             });
         });
 };
@@ -107,4 +103,4 @@ exports.delete = (req, res) => {
                 message: "Could not delete Contact with last_name=" + last_name
             });
         });
-};*/
+};

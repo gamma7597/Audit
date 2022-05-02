@@ -1,34 +1,82 @@
 <template>
   <div>
-    <b-button :to="'/rules/'+partner.company" variant="success">Retour</b-button>
-    <b-form @submit.prevent="handleSubmit">
-      <b-form-group id="rgpd_rules_1" label="La nature de la prestation (finalité du traitement) et des données justifient l’instruction d’un dossier DPIA" label-for="rgpd_rules_1-select">
-        <b-form-select id="rgpd_rules_1-select" v-model="formData.rgpd_1" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="rgpd_rules_1_comment" label="Commentaire du partenaire" label-for="rgpd_rules_1_comment-select">
-        <b-form-input id="rgpd_rules_1_comment-input" v-model="formData.rgpd_1_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="rgpd_rules_1_impact" label="Impact" label-for="rgpd_rules_1_impact-select">
-        <b-form-select id="rgpd_rules_1_impact-select" v-model="formData.rgpd_1_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="rgpd_rules_1_engie" label="Commentaire EHS" label-for="rgpd_rules_1_engie-select">
-        <b-form-input id="rgpd_rules_1_engie-input" v-model="formData.rgpd_1_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="rgpd_rules_2" label="La protection des données personnelles est prise en compte dès le début des projets (Privacy By Design) et avec le plus haut niveau de protection possible (Privacy By Default)" label-for="rgpd_rules_2-select">
-        <b-form-select id="rgpd_rules_2-select" v-model="formData.rgpd_2" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="rgpd_rules_2_comment" label="Commentaire du partenaire" label-for="rgpd_rules_2_comment-select">
-        <b-form-input id="rgpd_rules_2_comment-input" v-model="formData.rgpd_2_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="rgpd_rules_2_impact" label="Impact" label-for="rgpd_rules_2_impact-select">
-        <b-form-select id="rgpd_rules_2_impact-select" v-model="formData.rgpd_2_impact" :options="options2" required></b-form-select>
-      </b-form-group>d
-      <b-form-group id="rgpd_rules_2_engie" label="Commentaire EHS" label-for="rgpd_rules_2_engie-select">
-        <b-form-input id="rgpd_rules_2_engie-input" v-model="formData.rgpd_2_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Envoyer</b-button>
-      <b-button type="reset" variant="danger">Reinitialiser</b-button>
-    </b-form>
+    <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
+
+    <form @submit.prevent="handleSubmit">
+
+      <label for="rgpd_rules_1">
+        <select
+          id="rgpd_rules_1" 
+          placeholder="La nature de la prestation (finalité du traitement) et des données justifient l’instruction d’un dossier DPIA" 
+          v-model="formData.rgpd_1" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>La nature de la prestation (finalité du traitement) et des données justifient l’instruction d’un dossier DPIA</span>
+      </label>
+      <label for="rgpd_rules_1_comment">
+        <input type="text" 
+          id="rgpd_rules_1_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.rgpd_1_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="rgpd_rules_1_impact">
+        <select
+          id="rgpd_rules_1_impact" 
+          placeholder="Impact" 
+          v-model="formData.rgpd_1_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="rgpd_rules_1_engie">
+        <input type="text" 
+          id="rgpd_rules_1_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.rgpd_1_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="rgpd_rules_2">
+        <select
+          id="rgpd_rules_2" 
+          placeholder="La protection des données personnelles est prise en compte dès le début des projets (Privacy By Design) et avec le plus haut niveau de protection possible (Privacy By Default)" 
+          v-model="formData.rgpd_2" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>La protection des données personnelles est prise en compte dès le début des projets (Privacy By Design) et avec le plus haut niveau de protection possible (Privacy By Default)</span>
+      </label>
+      <label for="rgpd_rules_2_comment">
+        <input type="text" 
+          id="rgpd_rules_2_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.rgpd_2_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="rgpd_rules_2_impact">
+        <select
+          id="rgpd_rules_2_impact" 
+          placeholder="Impact" 
+          v-model="formData.rgpd_2_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="rgpd_rules_2_engie">
+        <input type="text" 
+          id="rgpd_rules_2_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.rgpd_2_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+      
+      <button class="button_blue" type="submit">Envoyer</button>
+      <button class="button_blue" type="reset" >Reinitialiser</button>
+    </form>
 
   </div>
 </template>
@@ -79,6 +127,9 @@
         this.edit_rgpd_rules(payload);
         this.formData = this.rgpd_rules
       },
+      goToRules(partner){
+        this.$router.push("/rules/" + partner)
+      }
     },
     mounted() {
       this.formData = this.rgpd_rules

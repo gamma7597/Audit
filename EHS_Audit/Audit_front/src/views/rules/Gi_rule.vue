@@ -1,48 +1,122 @@
 <template>
   <div>
-    <b-button :to="'/rules/'+partner.company" variant="success">Retour</b-button>
-    <b-form @submit.prevent="handleSubmit">
-      <b-form-group id="gi_rules_1" label="Un système de surveillance et d'alerte en cas d'incident de sécurité est présent" label-for="gi_rules_1-select">
-        <b-form-select id="gi_rules_1-select" v-model="formData.gi_1" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="gi_rules_1_comment" label="Commentaire du partenaire" label-for="gi_rules_1_comment-select">
-        <b-form-input id="gi_rules_1_comment-input" v-model="formData.gi_1_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="gi_rules_1_impact" label="Impact" label-for="gi_rules_1_impact-select">
-        <b-form-select id="gi_rules_1_impact-select" v-model="formData.gi_1_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="gi_rules_1_engie" label="Commentaire EHS" label-for="gi_rules_1_engie-select">
-        <b-form-input id="gi_rules_1_engie-input" v-model="formData.gi_1_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="gi_rules_2" label="Un système de résolution d'incident est présent" label-for="gi_rules_2-select">
-        <b-form-select id="gi_rules_2-select" v-model="formData.gi_2" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="gi_rules_2_comment" label="Commentaire du partenaire" label-for="gi_rules_2_comment-select">
-        <b-form-input id="gi_rules_2_comment-input" v-model="formData.gi_2_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="gi_rules_2_impact" label="Impact" label-for="gi_rules_2_impact-select">
-        <b-form-select id="gi_rules_2_impact-select" v-model="formData.gi_2_impact" :options="options2" required></b-form-select>
-      </b-form-group>d
-      <b-form-group id="gi_rules_2_engie" label="Commentaire EHS" label-for="gi_rules_2_engie-select">
-        <b-form-input id="gi_rules_2_engie-input" v-model="formData.gi_2_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="gi_rules_3" label="Il existe un processus pour alerter EHS rapidement en cas d'incident impactant le service du partenaire. 
+    <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
+
+    <form @submit.prevent="handleSubmit">
+
+      <label for="gi_rules_1">
+        <select
+          id="gi_rules_1" 
+          placeholder="Un système de surveillance et d'alerte en cas d'incident de sécurité est présent" 
+          v-model="formData.gi_1" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Un système de surveillance et d'alerte en cas d'incident de sécurité est présent</span>
+      </label>
+      <label for="gi_rules_1_comment">
+        <input type="text" 
+          id="gi_rules_1_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.gi_1_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="gi_rules_1_impact">
+        <select
+          id="gi_rules_1_impact" 
+          placeholder="Impact" 
+          v-model="formData.gi_1_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="gi_rules_1_engie">
+        <input type="text" 
+          id="gi_rules_1_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.gi_1_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="gi_rules_2">
+        <select
+          id="gi_rules_2" 
+          placeholder="Un système de résolution d'incident est présent" 
+          v-model="formData.gi_2" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Un système de résolution d'incident est présent</span>
+      </label>
+      <label for="gi_rules_2_comment">
+        <input type="text" 
+          id="gi_rules_2_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.gi_2_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="gi_rules_2_impact">
+        <select
+          id="gi_rules_2_impact" 
+          placeholder="Impact" 
+          v-model="formData.gi_2_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="gi_rules_2_engie">
+        <input type="text" 
+          id="gi_rules_2_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.gi_2_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="gi_rules_3">
+        <select
+          id="gi_rules_3" 
+          placeholder="Il existe un processus pour alerter EHS rapidement en cas d'incident impactant le service du partenaire. 
 Ce processus doit être connu par tous les employés du partenaire.
-Préciser les délais de notification." label-for="gi_rules_3-select">
-        <b-form-select id="gi_rules_3-select" v-model="formData.a_3" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="gi_rules_3_comment" label="Commentaire du partenaire" label-for="gi_rules_3_comment-select">
-        <b-form-input id="gi_rules_3_comment-input" v-model="formData.gi_3_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="gi_rules_3_impact" label="Impact" label-for="gi_rules_3_impact-select">
-        <b-form-select id="gi_rules_3_impact-select" v-model="formData.gi_3_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="gi_rules_3_engie" label="Commentaire EHS" label-for="gi_rules_3_engie-select">
-        <b-form-input id="gi_rules_3_engie-input" v-model="formData.gi_3_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Envoyer</b-button>
-      <b-button type="reset" variant="danger">Reinitialiser</b-button>
-    </b-form>
+Préciser les délais de notification." 
+          v-model="formData.gi_3" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Il existe un processus pour alerter EHS rapidement en cas d'incident impactant le service du partenaire. 
+Ce processus doit être connu par tous les employés du partenaire.
+Préciser les délais de notification.</span>
+      </label>
+      <label for="gi_rules_3_comment">
+        <input type="text" 
+          id="gi_rules_3_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.gi_3_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="gi_rules_3_impact">
+        <select
+          id="gi_rules_3_impact" 
+          placeholder="Impact" 
+          v-model="formData.gi_3_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="gi_rules_3_engie">
+        <input type="text" 
+          id="gi_rules_3_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.gi_3_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <button class="button_blue" type="submit">Envoyer</button>
+      <button class="button_blue" type="reset" >Reinitialiser</button>
+    </form>
 
   </div>
 </template>
@@ -97,6 +171,9 @@ Préciser les délais de notification." label-for="gi_rules_3-select">
         this.edit_gi_rules(payload);
         this.formData = this.gi_rules
       },
+      goToRules(partner){
+        this.$router.push("/rules/" + partner)
+      }
     },
     mounted() {
       this.formData = this.gi_rules

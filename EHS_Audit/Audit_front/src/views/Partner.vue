@@ -14,6 +14,8 @@
                     <th scope="col">Numéro de contrat</th>
                     <th scope="col">Localisation</th>
                     <th scope="col">Description</th>
+                    <th scope="col">Debut de la prestation</th>
+                    <th scope="col">Fin de la prestation</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +24,8 @@
                     <td>{{partner.contract_number}}</td>
                     <td>{{partner.location}}</td>
                     <td>{{partner.description}}</td>
+                    <td>{{partner.start_service}}</td>
+                    <td>{{partner.end_service}}</td>
                 </tr>
             </tbody>
         </table>
@@ -39,8 +43,8 @@
 
         <AddContact />
         <ContactTable />
-        <AddEmployee />
-        <EmployeeTable />
+        <!--<AddEmployee />
+        <EmployeeTable />-->
 
     </div>
 </template>
@@ -50,15 +54,15 @@
     import EditPartner from '@/components/EditPartner.vue'
     import ContactTable from '@/components/ContactTable.vue'
     import AddContact from '@/components/AddContact.vue' 
-    import EmployeeTable from '@/components/EmployeeTable.vue'
-    import AddEmployee from '@/components/AddEmployee.vue' 
+    //import EmployeeTable from '@/components/EmployeeTable.vue'
+    //import AddEmployee from '@/components/AddEmployee.vue' 
     export default {
         components: {
             EditPartner,
             ContactTable,
             AddContact,
-            EmployeeTable,
-            AddEmployee
+            //EmployeeTable,
+            //AddEmployee
         },
         computed: {
             ...mapState('partner', [ 'partner' ])
@@ -78,7 +82,7 @@
         mounted() {
             this.$store.dispatch('partner/getOnePartner', this.$route.params.company)
             this.$store.dispatch("contact/getContacts", this.$route.params.company)
-            this.$store.dispatch("employee/getEmployees", this.$route.params.company)
+            //this.$store.dispatch("employee/getEmployees", this.$route.params.company)
             this.$store.dispatch('co_rules/get_co_rules', this.$route.params.company)
             this.$store.dispatch('g_rules/get_g_rules', this.$route.params.company)
             this.$store.dispatch('rh_rules/get_rh_rules', this.$route.params.company)

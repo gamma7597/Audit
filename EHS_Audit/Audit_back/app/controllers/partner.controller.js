@@ -7,7 +7,9 @@ exports.create = (req, res) => {
         company: req.body.company,
         contract_number: req.body.contract_number,
         location: req.body.location,
-        description: req.body.description
+        description: req.body.description,
+        start_service: req.body.start_service,
+        end_service: req.body.end_service
     };
     Partner.create(partner)
         .then(data => {
@@ -62,6 +64,7 @@ exports.update = (req, res) => {
         where: { company: company }
     })
         .then(() => {
+            console.log(res.data)
             res.send(res.data)
         })
         .catch(err => {

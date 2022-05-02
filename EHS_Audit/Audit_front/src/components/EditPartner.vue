@@ -14,7 +14,7 @@
       </label>
 
       <label for="contract_numberInput">
-        <input type="number" 
+        <input type="text" 
           id="contract_numberInput" 
           placeholder="Numero de contrat" 
           v-model="formData.contract_number" 
@@ -40,6 +40,24 @@
         <span>Description</span>
       </label>
 
+      <label for="start_serviceInput">
+        <input type="date" 
+          id="start_serviceInput" 
+          placeholder="Debut de la prestation" 
+          v-model="formData.start_service" 
+          required />
+        <span>Debut de la prestation</span>
+      </label>
+
+      <label for="end_serviceInput">
+        <input type="date" 
+          id="end_serviceInput" 
+          placeholder="Fin de la prestation" 
+          v-model="formData.end_service" 
+          required />
+        <span>Fin de la prestation</span>
+      </label>
+
       <button class="button_blue" type="submit">Modifier</button>
       <button class="button_blue"  type="reset">Reinitialiser le formulaire</button>
     </form>
@@ -55,9 +73,11 @@
         showPartnerForm: false,
         formData: {
           company: '',
-          contract_number: null,
+          contract_number: '',
           location: '',
-          description: ''
+          description: '',
+          start_service: '',
+          end_service: ''
         }
       }
     },
@@ -70,22 +90,26 @@
         this.showPartnerForm = !this.showPartnerForm
       },
       handleSubmit() {
-        const { company, contract_number, location, description } = this.formData
+        const { company, contract_number, location, description, start_service, end_service } = this.formData
         const payload = {
           company: this.partner.company,
           data: {
             company,
             contract_number,
             location,
-            description
+            description,
+            start_service,
+            end_service
           }
         }
         this.editPartner(payload)
         this.formData = {
           company: '',
-          contract_number: null,
+          contract_number: '',
           location: '',
-          description: ''
+          description: '',
+          start_service: '',
+          end_service: ''
         }
         this.togglePartnerForm()
       }

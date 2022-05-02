@@ -116,7 +116,7 @@
       </li>
       <li class="card_item">
         <div class="card_content">
-          <div class="card_title"></div>
+          <div class="card_title">Relation avec les fournisseurs</div>
           <p class="card_text">
             S'assurer de la sécurité de l'information dans les relations
             avec les tiers ainsi que de la présence d'une politique de sécurité.
@@ -312,7 +312,7 @@ export default {
       this.$router.push("/rules/" + company + "/c_rules")
     },
     goToAdm(company){
-      this.$router.push("/rules/" + company + "/Adm_rules")
+      this.$router.push("/rules/" + company + "/adm_rules")
     },
     goToSe(company){
       this.$router.push("/rules/" + company + "/se_rules")

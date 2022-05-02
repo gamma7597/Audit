@@ -11,7 +11,6 @@ const state = () => ({
 const actions = {
   getPartners: ({ commit }) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    console.log(accessToken)
     Axios.get(url + 'api/partners/', {
       headers: {
         'Authorization': `Bearer ${accessToken}`

@@ -1,71 +1,186 @@
 <template>
   <div>
-    <b-button :to="'/rules/'+partner.company" variant="success">Retour</b-button>
-    <b-form @submit.prevent="handleSubmit">
-      <b-form-group id="pt_rules_1" label="EHS doit être en mesure de réaliser des audits organisationnels sur le périmètre du service fourni à EHS " label-for="pt_rules_1-select">
-        <b-form-select id="pt_rules_1-select" v-model="formData.pt_1" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="pt_rules_1_comment" label="Commentaire du partenaire" label-for="pt_rules_1_comment-select">
-        <b-form-input id="pt_rules_1_comment-input" v-model="formData.pt_1_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="pt_rules_1_impact" label="Impact" label-for="pt_rules_1_impact-select">
-        <b-form-select id="pt_rules_1_impact-select" v-model="formData.pt_1_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="pt_rules_1_engie" label="Commentaire EHS" label-for="pt_rules_1_engie-select">
-        <b-form-input id="pt_rules_1_engie-input" v-model="formData.pt_1_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="pt_rules_2" label="EHS doit être en mesure de réaliser des audits techniques (test d'intrusion, scan de vulnérabilité, audit de code, audit d'infrastructure) 
-sur le périmètre du service fourni à EHS " label-for="pt_rules_2-select">
-        <b-form-select id="pt_rules_2-select" v-model="formData.pt_2" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="pt_rules_2_comment" label="Commentaire du partenaire" label-for="pt_rules_2_comment-select">
-        <b-form-input id="pt_rules_2_comment-input" v-model="formData.pt_2_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="pt_rules_2_impact" label="Impact" label-for="pt_rules_2_impact-select">
-        <b-form-select id="pt_rules_2_impact-select" v-model="formData.pt_2_impact" :options="options2" required></b-form-select>
-      </b-form-group>d
-      <b-form-group id="pt_rules_2_engie" label="Commentaire EHS" label-for="pt_rules_2_engie-select">
-        <b-form-input id="pt_rules_2_engie-input" v-model="formData.pt_2_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="pt_rules_3" label="EHS doit être en mesure de réaliser des audits de la sécurité physique sur le périmètre du service fourni à EHS" label-for="pt_rules_3-select">
-        <b-form-select id="pt_rules_3-select" v-model="formData.a_3" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="pt_rules_3_comment" label="Commentaire du partenaire" label-for="pt_rules_3_comment-select">
-        <b-form-input id="pt_rules_3_comment-input" v-model="formData.pt_3_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="pt_rules_3_impact" label="Impact" label-for="pt_rules_3_impact-select">
-        <b-form-select id="pt_rules_3_impact-select" v-model="formData.pt_3_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="pt_rules_3_engie" label="Commentaire EHS" label-for="pt_rules_3_engie-select">
-        <b-form-input id="pt_rules_3_engie-input" v-model="formData.pt_3_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="pt_rules_4" label="Le partenaire doit régulièrement évaluer le niveau de sécurité de ses périmètres sensibles ou exposés par le biais de tests d'intrusion et de scan de vulnérabilités et corriger les vulnérabilités découvertes" label-for="pt_rules_4-select">
-        <b-form-select id="pt_rules_4-select" v-model="formData.a_4" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="pt_rules_4_comment" label="Commentaire du partenaire" label-for="pt_rules_4_comment-select">
-        <b-form-input id="pt_rules_4_comment-input" v-model="formData.pt_4_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="pt_rules_4_impact" label="Impact" label-for="pt_rules_4_impact-select">
-        <b-form-select id="pt_rules_4_impact-select" v-model="formData.pt_4_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="pt_rules_4_engie" label="Commentaire EHS" label-for="pt_rules_4_engie-select">
-        <b-form-input id="pt_rules_4_engie-input" v-model="formData.pt_4_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="pt_rules_5" label="Le partenaire doit corriger les éventuelles vulnérabilités qui lui sont imputables (tierces parties incluses), selon un planning qui sera défini en collaboration avec EHS" label-for="pt_rules_5-select">
-        <b-form-select id="pt_rules_5-select" v-model="formData.a_5" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="pt_rules_5_comment" label="Commentaire du partenaire" label-for="pt_rules_5_comment-select">
-        <b-form-input id="pt_rules_5_comment-input" v-model="formData.pt_5_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="pt_rules_5_impact" label="Impact" label-for="pt_rules_5_impact-select">
-        <b-form-select id="pt_rules_5_impact-select" v-model="formData.pt_5_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="pt_rules_5_engie" label="Commentaire EHS" label-for="pt_rules_5_engie-select">
-        <b-form-input id="pt_rules_5_engie-input" v-model="formData.pt_5_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Envoyer</b-button>
-      <b-button type="reset" variant="danger">Reinitialiser</b-button>
-    </b-form>
+    <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
+
+    <form @submit.prevent="handleSubmit">
+
+      <label for="pt_rules_1">
+        <select
+          id="pt_rules_1" 
+          placeholder="EHS doit être en mesure de réaliser des audits organisationnels sur le périmètre du service fourni à EHS" 
+          v-model="formData.pt_1" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>EHS doit être en mesure de réaliser des audits organisationnels sur le périmètre du service fourni à EHS</span>
+      </label>
+      <label for="pt_rules_1_comment">
+        <input type="text" 
+          id="pt_rules_1_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.pt_1_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="pt_rules_1_impact">
+        <select
+          id="pt_rules_1_impact" 
+          placeholder="Impact" 
+          v-model="formData.pt_1_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="pt_rules_1_engie">
+        <input type="text" 
+          id="pt_rules_1_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.pt_1_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="pt_rules_2">
+        <select
+          id="pt_rules_2" 
+          placeholder="EHS doit être en mesure de réaliser des audits techniques (test d'intrusion, scan de vulnérabilité, audit de code, audit d'infrastructure) sur le périmètre du service fourni à EHS" 
+          v-model="formData.pt_2" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>EHS doit être en mesure de réaliser des audits techniques (test d'intrusion, scan de vulnérabilité, audit de code, audit d'infrastructure) sur le périmètre du service fourni à EHS</span>
+      </label>
+      <label for="pt_rules_2_comment">
+        <input type="text" 
+          id="pt_rules_2_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.pt_2_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="pt_rules_2_impact">
+        <select
+          id="pt_rules_2_impact" 
+          placeholder="Impact" 
+          v-model="formData.pt_2_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="pt_rules_2_engie">
+        <input type="text" 
+          id="pt_rules_2_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.pt_2_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="pt_rules_3">
+        <select
+          id="pt_rules_3" 
+          placeholder="EHS doit être en mesure de réaliser des audits organisationnels sur le périmètre du service fourni à EHS" 
+          v-model="formData.pt_3" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>EHS doit être en mesure de réaliser des audits de la sécurité physique sur le périmètre du service fourni à EHS</span>
+      </label>
+      <label for="pt_rules_3_comment">
+        <input type="text" 
+          id="pt_rules_3_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.pt_3_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="pt_rules_3_impact">
+        <select
+          id="pt_rules_3_impact" 
+          placeholder="Impact" 
+          v-model="formData.pt_3_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="pt_rules_3_engie">
+        <input type="text" 
+          id="pt_rules_3_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.pt_3_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="pt_rules_4">
+        <select
+          id="pt_rules_4" 
+          placeholder="Le partenaire doit régulièrement évaluer le niveau de sécurité de ses périmètres sensibles ou exposés par le biais de tests d'intrusion et de scan de vulnérabilités et corriger les vulnérabilités découvertes" 
+          v-model="formData.pt_4" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit régulièrement évaluer le niveau de sécurité de ses périmètres sensibles ou exposés par le biais de tests d'intrusion et de scan de vulnérabilités et corriger les vulnérabilités découvertes</span>
+      </label>
+      <label for="pt_rules_4_comment">
+        <input type="text" 
+          id="pt_rules_4_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.pt_4_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="pt_rules_4_impact">
+        <select
+          id="pt_rules_4_impact" 
+          placeholder="Impact" 
+          v-model="formData.pt_4_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="pt_rules_4_engie">
+        <input type="text" 
+          id="pt_rules_4_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.pt_4_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="pt_rules_5">
+        <select
+          id="pt_rules_5" 
+          placeholder="Le partenaire doit corriger les éventuelles vulnérabilités qui lui sont imputables (tierces parties incluses), selon un planning qui sera défini en collaboration avec EHS" 
+          v-model="formData.pt_5" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit corriger les éventuelles vulnérabilités qui lui sont imputables (tierces parties incluses), selon un planning qui sera défini en collaboration avec EHS</span>
+      </label>
+      <label for="pt_rules_5_comment">
+        <input type="text" 
+          id="pt_rules_5_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.pt_5_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="pt_rules_5_impact">
+        <select
+          id="pt_rules_5_impact" 
+          placeholder="Impact" 
+          v-model="formData.pt_5_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="pt_rules_5_engie">
+        <input type="text" 
+          id="pt_rules_5_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.pt_5_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <button class="button_blue" type="submit">Envoyer</button>
+      <button class="button_blue" type="reset">Reinitialiser</button>
+    </form>
 
   </div>
 </template>
@@ -128,6 +243,9 @@ sur le périmètre du service fourni à EHS " label-for="pt_rules_2-select">
         this.edit_pt_rules(payload);
         this.formData = this.pt_rules
       },
+      goToRules(partner){
+        this.$router.push("/rules/" + partner)
+      }
     },
     mounted() {
       this.formData = this.pt_rules

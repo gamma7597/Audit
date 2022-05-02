@@ -1,8 +1,6 @@
 <template>
-  <div class="addContact">
-
-    <button class="button_blue" @click="toggleContactForm">Ajouter un contact</button>
-    <form @submit.prevent="handleSubmit" v-if="showContactForm">
+  <div>
+    <form @submit.prevent="handleSubmit">
 
       <label for="last_nameInput">
         <input type="text" 
@@ -44,23 +42,22 @@
         <input type="text" 
           id="jobInput" 
           placeholder="Fonction du contact" 
-          v-model="formData.job"  />
+          v-model="formData.job" />
         <span>Fonction du contact</span>
       </label>
 
-      <button class="button_form" type="submit">Ajouter</button>
-      <button class="button_form" type="reset">Réinitialiser le formulaire</button>
+      <button class="button_blue" type="submit">Modifier</button>
+      <button class="button_blue"  type="reset">Reinitialiser le formulaire</button>
     </form>
   </div>
 </template>
 
 <script>
-  import { mapActions, mapState } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
   export default {
-    name: 'AddContact',
+    name: 'EditContact',
     data() {
       return {
-        showContactForm: false,
         formData: {
           last_name: '',
           first_name: '',
@@ -71,13 +68,12 @@
       }
     },
     computed: {
-        ...mapState('partner', [ 'partner' ])
+      ...mapState('partner', [ 'partner' ]),
+      ...mapState('contact', [ 'contacts' ])
     },
     methods: {
-      ...mapActions('contact', [ 'addContact' ]),
-      toggleContactForm() {
-        this.showContactForm = !this.showContactForm
-      },
+      ...mapActions('partner', [ 'editPartner' ]),
+      ...mapActions('contact', [ 'editContact' ]),
       handleSubmit() {
         const { last_name, first_name, phone, mail, job } = this.formData
         const payload = {
@@ -92,7 +88,7 @@
             partnerId: this.partner.id
           }
         }
-        this.addContact(payload)
+        this.editContact(payload)
         this.formData = {
           last_name: '',
           first_name: '',
@@ -100,7 +96,6 @@
           mail: '',
           job: ''
         }
-        this.toggleContactForm()
       }
     }
   }

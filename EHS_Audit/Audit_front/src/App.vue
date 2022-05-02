@@ -13,8 +13,10 @@
         </nav>
       </header>
     </div>
-    {{groups}}
-    <router-view />
+    <div class="content">
+      {{groups}}
+      <router-view />
+    </div>
   </div>
 </template>
 

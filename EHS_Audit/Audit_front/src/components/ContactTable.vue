@@ -21,19 +21,28 @@
           <td>{{contact.phone}}</td>
           <td>{{contact.mail}}</td>
           <td>{{contact.job}}</td>
-          <td><button class="button_blue" @click="editContact(contact)">Modifier</button></td>
+          <td><button class="button_blue" @click="contactFormToggle(contact)">Modifier</button></td>
           <td><button class="button_blue" v-on:click="removeContact(contact.company, contact.last_name)">Supprimer</button></td>
         </tr>
       </tbody>
     </table>
+    <div v-if="contactForm">
+      <EditContact/>
+    </div>
   </div>
 </template>
 
 <script>
   import { mapState } from 'vuex'
+  import EditContact from '@/components/EditContact.vue'
   export default {
+    components: {
+      EditContact,
+    },
     data() {
       return {
+        contactForm: false,
+        selectContact: null
       }
     },
     computed: {    
@@ -46,6 +55,11 @@
           last_name: last_name
         }
         this.$store.dispatch('contact/removeContact', payload)
+      },
+      contactFormToggle(contact){
+        this.selectContact = contact
+        this.contactForm = !this.contactForm
+        console.log(this.contactForm)
       }
     }
   }

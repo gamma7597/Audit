@@ -75,11 +75,11 @@ exports.findAll = (req, res) => {
             });
         });
 };
-
+*/
 exports.update = (req, res) => {
     const last_name = req.params.last_name;
 
-    Contact.update(req.body, {
+    Employee.update(req.body, {
         where: { last_name: last_name }
     })
         .then(num => {
@@ -103,7 +103,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const last_name = req.params.last_name;
 
-    Contact.destroy({
+    Employee.destroy({
         where: { last_name: last_name }
     })
         .then(num => {
@@ -122,4 +122,4 @@ exports.delete = (req, res) => {
                 message: "Could not delete Contact with last_name=" + last_name
             });
         });
-};*/
+};

@@ -1,128 +1,107 @@
 <template>
   <div>
-    <b-button :to="'/rules/' + partner.company" variant="success"
-      >Retour</b-button
-    >
-    <b-form @submit.prevent="handleSubmit">
-      <b-form-group
-        id="tdt_rules_1"
-        label="Informations Commercialement Sensibles (ICS)"
-        label-for="tdt_rules_1-select"
-      >
-        <b-form-select
-          id="tdt_rules_1-select"
-          v-model="formData.tdt_1"
-          :options="options"
-          required
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group
-        id="tdt_rules_1_comment"
-        label="Commentaire du partenaire"
-        label-for="tdt_rules_1_comment-select"
-      >
-        <b-form-input
-          id="tdt_rules_1_comment-input"
-          v-model="formData.tdt_1_comment"
-          placeholder="commentaire"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="tdt_rules_2"
-        label="Données à Caractère Personnel (DCP) (employés et/ou client EHS)"
-        label-for="tdt_rules_2-select"
-      >
-        <b-form-select
-          id="tdt_rules_2-select"
-          v-model="formData.tdt_2"
-          :options="options"
-          required
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group
-        id="tdt_rules_2_comment"
-        label="Commentaire du partenaire"
-        label-for="tdt_rules_2_comment-select"
-      >
-        <b-form-input
-          id="tdt_rules_2_comment-input"
-          v-model="formData.tdt_2_comment"
-          placeholder="commentaire"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="tdt_rules_3"
-        label="Informations concernant des méthodes, outils de travail et/ou stratégies d'EHS"
-        label-for="tdt_rules_3-select"
-      >
-        <b-form-select
-          id="tdt_rules_3-select"
-          v-model="formData.tdt_3"
-          :options="options"
-          required
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group
-        id="tdt_rules_3_comment"
-        label="Commentaire du partenaire"
-        label-for="tdt_rules_3_comment-select"
-      >
-        <b-form-input
-          id="tdt_rules_3_comment-input"
-          v-model="formData.tdt_3_comment"
-          placeholder="commentaire"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="tdt_rules_4"
-        label="Informations bancaire/financière"
-        label-for="tdt_rules_4-select"
-      >
-        <b-form-select
-          id="tdt_rules_4-select"
-          v-model="formData.tdt_4"
-          :options="options"
-          required
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group
-        id="tdt_rules_4_comment"
-        label="Commentaire du partenaire"
-        label-for="tdt_rules_4_comment-select"
-      >
-        <b-form-input
-          id="tdt_rules_4_comment-input"
-          v-model="formData.tdt_4_comment"
-          placeholder="commentaire"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="tdt_rules_5"
-        label="Données B2C"
-        label-for="tdt_rules_5-select"
-      >
-        <b-form-select
-          id="tdt_rules_5-select"
-          v-model="formData.tdt_5"
-          :options="options"
-          required
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group
-        id="tdt_rules_5_comment"
-        label="Commentaire du partenaire"
-        label-for="tdt_rules_5_comment-select"
-      >
-        <b-form-input
-          id="tdt_rules_5_comment-input"
-          v-model="formData.tdt_5_comment"
-          placeholder="commentaire"
-        ></b-form-input>
-      </b-form-group>
+    <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-      <b-button type="submit" variant="primary">Envoyer</b-button>
-      <b-button type="reset" variant="danger">Reinitialiser</b-button>
-    </b-form>
+    <form @submit.prevent="handleSubmit">
+
+      <label for="tdt_rules_1">
+        <select
+          id="tdt_rules_1" 
+          placeholder="Informations Commercialement Sensibles (ICS)" 
+          v-model="formData.tdt_1" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Informations Commercialement Sensibles (ICS)</span>
+      </label>
+
+      <label for="tdt_rules_1_comment">
+        <input type="text" 
+          id="tdt_rules_1_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.tdt_1_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="tdt_rules_2">
+        <select
+          id="tdt_rules_2" 
+          placeholder="Données à Caractère Personnel (DCP) (employés et/ou client EHS)" 
+          v-model="formData.tdt_2" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Données à Caractère Personnel (DCP) (employés et/ou client EHS)</span>
+      </label>
+
+      <label for="tdt_rules_2_comment">
+        <input type="text" 
+          id="tdt_rules_2_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.tdt_2_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="tdt_rules_3">
+        <select
+          id="tdt_rules_3" 
+          placeholder="Informations concernant des méthodes, outils de travail et/ou stratégies d'EHS" 
+          v-model="formData.tdt_3" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Informations concernant des méthodes, outils de travail et/ou stratégies d'EHS</span>
+      </label>
+
+      <label for="tdt_rules_3_comment">
+        <input type="text" 
+          id="tdt_rules_3_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.tdt_3_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="tdt_rules_4">
+        <select
+          id="tdt_rules_4" 
+          placeholder="Informations bancaire/financière" 
+          v-model="formData.tdt_4" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Informations bancaire/financière</span>
+      </label>
+
+      <label for="tdt_rules_4_comment">
+        <input type="text" 
+          id="tdt_rules_4_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.tdt_4_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="tdt_rules_5">
+        <select
+          id="tdt_rules_5" 
+          placeholder="Données B2C" 
+          v-model="formData.tdt_5" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Données B2C</span>
+      </label>
+
+      <label for="tdt_rules_5_comment">
+        <input type="text" 
+          id="tdt_rules_5_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.tdt_5_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <button class="button_blue" type="submit">Envoyer</button>
+      <button class="button_blue" type="reset" >Reinitialiser</button>
+    </form>
   </div>
 </template>
 
@@ -165,6 +144,9 @@ export default {
       this.edit_tdt_rules(payload);
       this.formData = this.tdt_rules;
     },
+    goToRules(partner){
+        this.$router.push("/rules/" + partner)
+      }
   },
   mounted() {
     this.formData = this.tdt_rules;

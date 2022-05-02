@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table_style">
+    <table class="table_scroll">
       <thead>
         <tr>
           <th scope="row">Partenaire</th>
@@ -25,7 +25,6 @@
           <th scope="row">Commentaire</th>
           <th scope="row">Acces VPN</th>
           <th scope="row">Acces Okta MFA</th>
-          <th scope="row">Autres acces</th>
           <th scope="row">Modifier</th>
           <th scope="row">Supprimer</th>
         </tr>

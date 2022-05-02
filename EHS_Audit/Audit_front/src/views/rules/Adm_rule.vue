@@ -1,97 +1,262 @@
 <template>
   <div>
-    <b-button :to="'/rules/'+partner.company" variant="success">Retour</b-button>
-    <b-form @submit.prevent="handleSubmit">
-      <b-form-group id="adm_rules_1" label="Le code source de l'application doit faire l'objet de revues de sécurité (manuelle ou via un outil automatisé)" label-for="adm_rules_1-select">
-        <b-form-select id="adm_rules_1-select" v-model="formData.adm_1" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="adm_rules_1_comment" label="Commentaire du partenaire" label-for="adm_rules_1_comment-select">
-        <b-form-input id="adm_rules_1_comment-input" v-model="formData.adm_1_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="adm_rules_1_impact" label="Impact" label-for="adm_rules_1_impact-select">
-        <b-form-select id="adm_rules_1_impact-select" v-model="formData.adm_1_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="adm_rules_1_engie" label="Commentaire EHS" label-for="adm_rules_1_engie-select">
-        <b-form-input id="adm_rules_1_engie-input" v-model="formData.adm_1_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="adm_rules_2" label="Le partenaire doit utiliser des algorithmes et des protocoles de chiffrement non obsolètes. 
-Préciser lesquelles" label-for="adm_rules_2-select">
-        <b-form-select id="adm_rules_2-select" v-model="formData.adm_2" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="adm_rules_2_comment" label="Commentaire du partenaire" label-for="adm_rules_2_comment-select">
-        <b-form-input id="adm_rules_2_comment-input" v-model="formData.adm_2_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="adm_rules_2_impact" label="Impact" label-for="adm_rules_2_impact-select">
-        <b-form-select id="adm_rules_2_impact-select" v-model="formData.adm_2_impact" :options="options2" required></b-form-select>
-      </b-form-group>d
-      <b-form-group id="adm_rules_2_engie" label="Commentaire EHS" label-for="adm_rules_2_engie-select">
-        <b-form-input id="adm_rules_2_engie-input" v-model="formData.adm_2_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="adm_rules_3" label="Le partenaire doit protéger les clés de chiffrement (Ex: utilisation d'un coffre fort) " label-for="adm_rules_3-select">
-        <b-form-select id="adm_rules_3-select" v-model="formData.a_3" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="adm_rules_3_comment" label="Commentaire du partenaire" label-for="adm_rules_3_comment-select">
-        <b-form-input id="adm_rules_3_comment-input" v-model="formData.adm_3_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="adm_rules_3_impact" label="Impact" label-for="adm_rules_3_impact-select">
-        <b-form-select id="adm_rules_3_impact-select" v-model="formData.adm_3_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="adm_rules_3_engie" label="Commentaire EHS" label-for="adm_rules_3_engie-select">
-        <b-form-input id="adm_rules_3_engie-input" v-model="formData.adm_3_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="adm_rules_4" label="L'environnement de développement (données de test, code source) doit être sécurisé (contrôle des accès, traçabilité..) " label-for="adm_rules_4-select">
-        <b-form-select id="adm_rules_4-select" v-model="formData.a_4" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="adm_rules_4_comment" label="Commentaire du partenaire" label-for="adm_rules_4_comment-select">
-        <b-form-input id="adm_rules_4_comment-input" v-model="formData.adm_4_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="adm_rules_4_impact" label="Impact" label-for="adm_rules_4_impact-select">
-        <b-form-select id="adm_rules_4_impact-select" v-model="formData.adm_4_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="adm_rules_4_engie" label="Commentaire EHS" label-for="adm_rules_4_engie-select">
-        <b-form-input id="adm_rules_4_engie-input" v-model="formData.adm_4_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="adm_rules_5" label="Le partenaire doit sécuriser les API " label-for="adm_rules_5-select">
-        <b-form-select id="adm_rules_5-select" v-model="formData.a_5" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="adm_rules_5_comment" label="Commentaire du partenaire" label-for="adm_rules_5_comment-select">
-        <b-form-input id="adm_rules_5_comment-input" v-model="formData.adm_5_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="adm_rules_5_impact" label="Impact" label-for="adm_rules_5_impact-select">
-        <b-form-select id="adm_rules_5_impact-select" v-model="formData.adm_5_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="adm_rules_5_engie" label="Commentaire EHS" label-for="adm_rules_5_engie-select">
-        <b-form-input id="adm_rules_5_engie-input" v-model="formData.adm_5_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="adm_rules_6" label="Présence de règles de développement :
+    <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
+
+    <form @submit.prevent="handleSubmit">
+
+      <label for="adm_rules_1">
+        <select
+          id="adm_rules_1" 
+          placeholder="Le code source de l'application doit faire l'objet de revues de sécurité (manuelle ou via un outil automatisé)" 
+          v-model="formData.adm_1" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le code source de l'application doit faire l'objet de revues de sécurité (manuelle ou via un outil automatisé)</span>
+      </label>
+      <label for="adm_rules_1_comment">
+        <input type="text" 
+          id="adm_rules_1_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.adm_1_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="adm_rules_1_impact">
+        <select
+          id="adm_rules_1_impact" 
+          placeholder="Impact" 
+          v-model="formData.adm_1_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="adm_rules_1_engie">
+        <input type="text" 
+          id="adm_rules_1_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.adm_1_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="adm_rules_2">
+        <select
+          id="adm_rules_2" 
+          placeholder="Le partenaire doit utiliser des algorithmes et des protocoles de chiffrement non obsolètes. 
+Préciser lesquelles" 
+          v-model="formData.adm_2" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit utiliser des algorithmes et des protocoles de chiffrement non obsolètes. 
+Préciser lesquelles</span>
+      </label>
+      <label for="adm_rules_2_comment">
+        <input type="text" 
+          id="adm_rules_2_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.adm_2_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="adm_rules_2_impact">
+        <select
+          id="adm_rules_2_impact" 
+          placeholder="Impact" 
+          v-model="formData.adm_2_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="adm_rules_2_engie">
+        <input type="text" 
+          id="adm_rules_2_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.adm_2_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="adm_rules_3">
+        <select
+          id="adm_rules_3" 
+          placeholder="Le partenaire doit protéger les clés de chiffrement (Ex: utilisation d'un coffre fort)" 
+          v-model="formData.adm_3" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit protéger les clés de chiffrement (Ex: utilisation d'un coffre fort)</span>
+      </label>
+      <label for="adm_rules_3_comment">
+        <input type="text" 
+          id="adm_rules_3_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.adm_3_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="adm_rules_3_impact">
+        <select
+          id="adm_rules_3_impact" 
+          placeholder="Impact" 
+          v-model="formData.adm_3_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="adm_rules_3_engie">
+        <input type="text" 
+          id="adm_rules_3_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.adm_3_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="adm_rules_4">
+        <select
+          id="adm_rules_4" 
+          placeholder="L'environnement de développement (données de test, code source) doit être sécurisé (contrôle des accès, traçabilité..)" 
+          v-model="formData.adm_4" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>L'environnement de développement (données de test, code source) doit être sécurisé (contrôle des accès, traçabilité..)</span>
+      </label>
+      <label for="adm_rules_4_comment">
+        <input type="text" 
+          id="adm_rules_4_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.adm_4_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="adm_rules_4_impact">
+        <select
+          id="adm_rules_4_impact" 
+          placeholder="Impact" 
+          v-model="formData.adm_4_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="adm_rules_4_engie">
+        <input type="text" 
+          id="adm_rules_4_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.adm_4_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="adm_rules_5">
+        <select
+          id="adm_rules_5" 
+          placeholder="Le partenaire doit sécuriser les API" 
+          v-model="formData.adm_5" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Le partenaire doit sécuriser les API</span>
+      </label>
+      <label for="adm_rules_5_comment">
+        <input type="text" 
+          id="adm_rules_5_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.adm_5_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="adm_rules_5_impact">
+        <select
+          id="adm_rules_5_impact" 
+          placeholder="Impact" 
+          v-model="formData.adm_5_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="adm_rules_5_engie">
+        <input type="text" 
+          id="adm_rules_5_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.adm_5_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="adm_rules_6">
+        <select
+          id="adm_rules_6" 
+          placeholder="Présence de règles de développement :
 les développeurs doivent être sensibilisés aux bonnes pratiques de développement telles que la configuration des web application headers ou les principales menaces telles que décrites dans l'OWASP
-https://owasp.org/www-project-top-ten/" label-for="adm_rules_6-select">
-        <b-form-select id="adm_rules_6-select" v-model="formData.adm_6" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="adm_rules_6_comment" label="Commentaire du partenaire" label-for="adm_rules_6_comment-select">
-        <b-form-input id="adm_rules_6_comment-input" v-model="formData.adm_6_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="adm_rules_6_impact" label="Impact" label-for="adm_rules_6_impact-select">
-        <b-form-select id="adm_rules_6_impact-select" v-model="formData.a_6_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="adm_rules_6_engie" label="Commentaire EHS" label-for="adm_rules_6_engie-select">
-        <b-form-input id="adm_rules_6_engie-input" v-model="formData.adm_6_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="adm_rules_7" label="Les données de production doivent être utilisées seulement sur des environnements de production " label-for="adm_rules_7-select">
-        <b-form-select id="adm_rules_7-select" v-model="formData.adm_7" :options="options" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="adm_rules_7_comment" label="Commentaire du partenaire" label-for="adm_rules_7_comment-select">
-        <b-form-input id="adm_rules_7_comment-input" v-model="formData.adm_7_comment" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-form-group id="adm_rules_7_impact" label="Impact" label-for="adm_rules_7_impact-select">
-        <b-form-select id="adm_rules_7_impact-select" v-model="formData.adm_7_impact" :options="options2" required></b-form-select>
-      </b-form-group>
-      <b-form-group id="adm_rules_7_engie" label="Commentaire EHS" label-for="adm_rules_7_engie-select">
-        <b-form-input id="adm_rules_7_engie-input" v-model="formData.adm_7_engie" placeholder="Commentaire"></b-form-input>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Envoyer</b-button>
-      <b-button type="reset" variant="danger">Reinitialiser</b-button>
-    </b-form>
+https://owasp.org/www-project-top-ten/" 
+          v-model="formData.adm_6" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Présence de règles de développement :
+les développeurs doivent être sensibilisés aux bonnes pratiques de développement telles que la configuration des web application headers ou les principales menaces telles que décrites dans l'OWASP
+https://owasp.org/www-project-top-ten/</span>
+      </label>
+      <label for="adm_rules_6_comment">
+        <input type="text" 
+          id="adm_rules_6_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.adm_6_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+
+      <label for="adm_rules_6_impact">
+        <select
+          id="adm_rules_6_impact" 
+          placeholder="Impact" 
+          v-model="formData.adm_6_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+
+      <label for="adm_rules_6_engie">
+        <input type="text" 
+          id="adm_rules_6_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.adm_6_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <label for="adm_rules_7">
+        <select
+          id="adm_rules_7" 
+          placeholder="Les données de production doivent être utilisées seulement sur des environnements de production" 
+          v-model="formData.adm_7" 
+          required>
+          <option v-for="option in options" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Les données de production doivent être utilisées seulement sur des environnements de production</span>
+      </label>
+      <label for="adm_rules_7_comment">
+        <input type="text" 
+          id="adm_rules_7_comment" 
+          placeholder="Commentaire du partenaire" 
+          v-model="formData.adm_7_comment" />
+        <span>Commentaire du partenaire</span>
+      </label>
+      <label for="adm_rules_7_impact">
+        <select
+          id="adm_rules_7_impact" 
+          placeholder="Impact" 
+          v-model="formData.adm_7_impact">
+          <option v-for="option in options2" :key="option.value">{{option.text}}</option>
+        </select>
+        <span>Impact</span>
+      </label>
+      <label for="adm_rules_7_engie">
+        <input type="text" 
+          id="adm_rules_7_engie" 
+          placeholder="Commentaire EHS" 
+          v-model="formData.adm_7_engie" />
+        <span>Commentaire EHS</span>
+      </label>
+
+      <button class="button_blue" type="submit">Envoyer</button>
+      <button class="button_blue" type="reset" >Reinitialiser</button>
+    </form>
 
   </div>
 </template>
@@ -162,6 +327,9 @@ https://owasp.org/www-project-top-ten/" label-for="adm_rules_6-select">
         this.edit_adm_rules(payload);
         this.formData = this.adm_rules;
       },
+      goToRules(partner){
+        this.$router.push("/rules/" + partner)
+      }
     },
     mounted() {
       this.formData = this.adm_rules

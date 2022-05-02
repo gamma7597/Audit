@@ -9,13 +9,22 @@
   text-align: center;
 }
 
+.content {
+  margin-top: 100px;
+}
+
 header {
-  display: flex;
-  justify-content: flex-end;
+  z-index: 100;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
   align-items: center;
   padding: 20px 50px;
   box-shadow: 0 1px 8px #ddd;
   margin-bottom: 30px;
+  background-color: #fff;
+  display: flex;
 }
 header #nav-logo {
   max-width: 100px;
@@ -52,6 +61,36 @@ header li a:hover {
 
 #title {
   text-align: center;
+}
+
+.table_scroll {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  text-align: center;
+  border-collapse: collapse;
+  margin: auto;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  width: 82%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  margin-bottom: 30px;
+}
+.table_scroll thead tr {
+  background-color: #00aaff;
+  color: #ffffff;
+}
+.table_scroll th, .table_scroll td {
+  padding: 12px 15px;
+}
+.table_scroll tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+.table_scroll tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+.table_scroll tbody tr:last-of-type {
+  border-bottom: 2px solid #00aaff;
 }
 
 .table_style {
@@ -116,18 +155,18 @@ label:focus, label:hover {
   border: none;
 }
 
-input {
+input, select {
   width: 100%;
   padding: 10px 0px;
   margin-top: 20px;
   border: none;
   outline: none;
 }
-input:focus, input:hover {
+input:focus, input:hover, select:focus, select:hover {
   border-bottom: 1px solid #00aaff;
 }
 
-input::placeholder {
+input::placeholder, select::placeholder {
   opacity: 0;
 }
 
@@ -142,6 +181,12 @@ span {
 
 label:focus-within > span,
 input:not(:placeholder-shown) + span {
+  color: #00aaff;
+  transform: translateY(0px);
+}
+
+label:focus-within > span,
+select:not(:placeholder-shown) + span {
   color: #00aaff;
   transform: translateY(0px);
 }
