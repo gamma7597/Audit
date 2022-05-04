@@ -1,5 +1,6 @@
 import Axios from "axios"
 import { url } from '../axiosUrl'
+import Vue from 'vue'
 
 const state = () => ({
   c_rules: {},
@@ -8,21 +9,40 @@ const state = () => ({
 
 const actions = {
   get_c_rules: ({ commit }, payload) => {
-    Axios.get(url + 'api/c_rules/' + payload)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.get(url + 'api/c_rules/' + payload, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then(response => {
       commit('GET_C_RULES', response)
     })
   },
   add_c_rules: ({ commit }, payload) => {
-    Axios.post(url + 'api/c_rules/' + payload.company, payload.data)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.post(url + 'api/c_rules/' + payload.company, payload.data, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then(response => {
       commit('ADD_C_RULES', response.data)
     })
   },
   edit_c_rules: ({ commit }, payload) => {
-    Axios.put(url + 'api/c_rules/' + payload.company, payload.data)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.put(url + 'api/c_rules/' + payload.company, payload.data, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then( () => {
-      Axios.get(url + 'api/c_rules/' + payload.company)
+      Axios.get(url + 'api/c_rules/' + payload.company, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      })
       .then(response => {
         commit('GET_C_RULES_2', response.data)
       })

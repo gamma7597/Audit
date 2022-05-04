@@ -1,5 +1,6 @@
 import Axios from "axios"
 import { url } from '../axiosUrl'
+import Vue from 'vue'
 
 const state = () => ({
   spe_rules: {},
@@ -8,21 +9,40 @@ const state = () => ({
 
 const actions = {
   get_spe_rules: ({ commit }, payload) => {
-    Axios.get(url + 'api/spe_rules/' + payload)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.get(url + 'api/spe_rules/' + payload, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then(response => {
       commit('GET_SPE_RULES', response)
     })
   },
   add_spe_rules: ({ commit }, payload) => {
-    Axios.post(url + 'api/spe_rules/' + payload.company, payload.data)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.post(url + 'api/spe_rules/' + payload.company, payload.data, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then(response => {
       commit('ADD_SPE_RULES', response.data)
     })
   },
   edit_spe_rules: ({ commit }, payload) => {
-    Axios.put(url + 'api/spe_rules/' + payload.company, payload.data)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.put(url + 'api/spe_rules/' + payload.company, payload.data, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then( () => {
-      Axios.get(url + 'api/spe_rules/' + payload.company)
+      Axios.get(url + 'api/spe_rules/' + payload.company, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      })
       .then(response => {
         commit('GET_SPE_RULES_2', response.data)
       })

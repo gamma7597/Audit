@@ -1,5 +1,6 @@
 import Axios from "axios"
 import { url } from '../axiosUrl'
+import Vue from 'vue'
 
 const state = () => ({
   a_rules: {},
@@ -8,21 +9,40 @@ const state = () => ({
 
 const actions = {
   get_a_rules: ({ commit }, payload) => {
-    Axios.get(url + 'api/a_rules/' + payload)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.get(url + 'api/a_rules/' + payload, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then(response => {
       commit('GET_A_RULES', response)
     })
   },
   add_a_rules: ({ commit }, payload) => {
-    Axios.post(url + 'api/a_rules/' + payload.company, payload.data)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.post(url + 'api/a_rules/' + payload.company, payload.data, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then(response => {
       commit('ADD_A_RULES', response.data)
     })
   },
   edit_a_rules: ({ commit }, payload) => {
-    Axios.put(url + 'api/a_rules/' + payload.company, payload.data)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.put(url + 'api/a_rules/' + payload.company, payload.data, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then( () => {
-      Axios.get(url + 'api/a_rules/' + payload.company)
+      Axios.get(url + 'api/a_rules/' + payload.company, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      })
       .then(response => {
         commit('GET_A_RULES_2', response.data)
       })

@@ -1,5 +1,6 @@
 import Axios from "axios"
 import { url } from '../axiosUrl'
+import Vue from 'vue'
 
 const state = () => ({
   tdt_rules: {},
@@ -8,22 +9,40 @@ const state = () => ({
 
 const actions = {
   get_tdt_rules: ({ commit }, payload) => {
-    Axios.get(url + 'api/tdt_rules/' + payload)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.get(url + 'api/tdt_rules/' + payload, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then(response => {
       commit('GET_TDT_RULES', response)
     })
   },
   add_tdt_rules: ({ commit }, payload) => {
-    Axios.post(url + 'api/tdt_rules/' + payload.company, payload.data)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.post(url + 'api/tdt_rules/' + payload.company, payload.data, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then(response => {
       commit('ADD_TDT_RULES', response.data)
     })
   },
   edit_tdt_rules: ({ commit }, payload) => {
-    console.log(payload)
-    Axios.put(url + 'api/tdt_rules/' + payload.company, payload.data)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.put(url + 'api/tdt_rules/' + payload.company, payload.data, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then( () => {
-      Axios.get(url + 'api/tdt_rules/' + payload.company)
+      Axios.get(url + 'api/tdt_rules/' + payload.company, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      })
       .then(response => {
         commit('GET_TDT_RULES_2', response.data)
       })

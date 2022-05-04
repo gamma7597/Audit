@@ -9,8 +9,9 @@ const OktaJwtVerifier = require('@okta/jwt-verifier');
 const oktaJwtVerifier = new OktaJwtVerifier({
   clientId: '0oa7n4gwwkvQiWODq0i7',
   issuer: 'https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7'
+  //clientId: '0oa2pf2uaeW95u4VH5d7',
+  //issuer: 'https://dev-46549604.okta.com/oauth2/aus4gbwz3qR3wa0v75d7'
 });
-const audience = 'https://conformite.engie-homeservices.fr';
 
 var app = express();
 
@@ -44,27 +45,6 @@ app.use(function (req, res, next) {
 
 app.use(express.static(path));
 
-const authenticationRequired = async (req, res, next) => {
-  const authHeader = req.headers.authorization || '';
-  const match = authHeader.match(/Bearer (.+)/);
-  if (!match) {
-    return res.status(401).send();
-  }
-
-  try {
-    const accessToken = match[1];
-    if (!accessToken) {
-      return res.status(401, 'Not authorized').send();
-    }
-    req.jwt = await oktaJwtVerifier.verifyAccessToken(accessToken, audience);
-    next();
-  } catch (err) {
-    return res.status(401).send(err.message);
-  }
-};
-
-
-/*
 // verify JWT token middleware
 app.use((req, res, next) => {
   // require every request to have an authorization header
@@ -73,7 +53,7 @@ app.use((req, res, next) => {
   }
   let parts = req.headers.authorization.trim().split(' ')
   let accessToken = parts.pop()
-  oktaJwtVerifier.verifyAccessToken(accessToken, 'https://conformite.engie-homeservices.fr')
+  oktaJwtVerifier.verifyAccessToken(accessToken, '')
     .then(jwt => {
       req.user = {
         uid: jwt.claims.uid,
@@ -83,7 +63,7 @@ app.use((req, res, next) => {
     })
     .catch(next) // jwt did not verify!
 })
-*/
+
 // simple route
 
 app.get("/", (req, res) => {
@@ -93,8 +73,6 @@ app.get("/", (req, res) => {
 app.get("/callback", (req, res) => {
   res.sendFile(path + "index.html");
 });
-
-app.all('*', authenticationRequired); // Require authentication for all routes
 
 const db = require("./app/models");
 db.sequelize.sync();

@@ -1,5 +1,6 @@
 import Axios from "axios"
 import { url } from '../axiosUrl'
+import Vue from 'vue'
 
 const state = () => ({
   rgpd_rules: {},
@@ -8,21 +9,40 @@ const state = () => ({
 
 const actions = {
   get_rgpd_rules: ({ commit }, payload) => {
-    Axios.get(url + 'api/rgpd_rules/' + payload)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.get(url + 'api/rgpd_rules/' + payload, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then(response => {
       commit('GET_RGPD_RULES', response)
     })
   },
   add_rgpd_rules: ({ commit }, payload) => {
-    Axios.post(url + 'api/rgpd_rules/' + payload.company, payload.data)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.post(url + 'api/rgpd_rules/' + payload.company, payload.data, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then(response => {
       commit('ADD_RGPD_RULES', response.data)
     })
   },
   edit_rgpd_rules: ({ commit }, payload) => {
-    Axios.put(url + 'api/rgpd_rules/' + payload.company, payload.data)
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    Axios.put(url + 'api/rgpd_rules/' + payload.company, payload.data, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
     .then( () => {
-      Axios.get(url + 'api/rgpd_rules/' + payload.company)
+      Axios.get(url + 'api/rgpd_rules/' + payload.company, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      })
       .then(response => {
         commit('GET_RGPD_RULES_2', response.data)
       })
