@@ -4,6 +4,13 @@
 
     <form @submit.prevent="verifForm">
 
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
+
       <label for="tdt_rules_1">
         <select
           id="tdt_rules_1" 

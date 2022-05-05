@@ -16,17 +16,23 @@ exports.create = (req, res) => {
         ie_2_engie: "",
         partnerId: req.body.partnerId
     };
+
+    if(ie_rule.company != null && ie_rule.ie_1 != null && ie_rule.ie_2 != null) {
+        if(ie_rule.company.toUpperCase() && ie_rule.ie_1_comment.length <= 300 && ie_rule.ie_1_engie.length <= 300
+            && ie_rule.ie_2_comment.length <= 300 && ie_rule.ie_2_engie.length <= 300) {
         
-    Ie_rule.create(ie_rule)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating the contact."
-            });
-        });
+            Ie_rule.create(ie_rule)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message:
+                            err.message || "Some error occurred while creating the contact."
+                    });
+                });
+        }
+    }
     
 };
 
@@ -34,34 +40,44 @@ exports.findAll = (req, res) => {
 
     const company = req.params.company;
 
-    Ie_rule.findAll({ where: { company: company }})
-        .then(data => {
-            if (data) {
-                res.send(data);
-            } else {
-                res.status(404).send({
-                    message: `Cannot find Partner with company=${company}.`
+    if (company != null && company.toUpperCase()) {
+
+        Ie_rule.findAll({ where: { company: company }})
+            .then(data => {
+                if (data) {
+                    res.send(data);
+                } else {
+                    res.status(404).send({
+                        message: `Cannot find Partner with company=${company}.`
+                    });
+                }
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: "Error retrieving Partner with company=" + company
                 });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Partner with company=" + company
             });
-        });
+    }
 };
 
 exports.update = (req, res) => {
     const company = req.params.company;
-    Ie_rule.update(req.body, {
-        where: { company: company }
-    })
-        .then(() => {
-            res.send(res.data)
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error updating Partner with company=" + company
-            });
-        });
+
+    if(req.body.company != null && req.body.ie_1 != null && req.body.ie_2 != null) {
+        if(req.body.company.toUpperCase() && req.body.ie_1_comment.length <= 300 && req.body.ie_1_engie.length <= 300
+            && req.body.ie_2_comment.length <= 300 && req.body.ie_2_engie.length <= 300) {
+
+            Ie_rule.update(req.body, {
+                where: { company: company }
+            })
+                .then(() => {
+                    res.send(res.data)
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message: "Error updating Partner with company=" + company
+                    });
+                });
+        }
+    }
 };

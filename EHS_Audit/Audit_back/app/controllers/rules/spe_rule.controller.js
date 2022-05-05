@@ -28,52 +28,73 @@ exports.create = (req, res) => {
         spe_5_engie: "",
         partnerId: req.body.partnerId
     };
+
+    if(spe_rule.company != null && spe_rule.spe_1 != null && spe_rule.spe_2 != null && spe_rule.spe_3 != null && spe_rule.spe_4 != null && spe_rule.spe_5 != null ) {
+        if(spe_rule.company.toUpperCase() && spe_rule.spe_1_comment.length <= 300 && spe_rule.spe_1_engie.length <= 300
+            && spe_rule.spe_2_comment.length <= 300 && spe_rule.spe_2_engie.length <= 300
+            && spe_rule.spe_3_comment.length <= 300 && spe_rule.spe_3_engie.length <= 300
+            && spe_rule.spe_4_comment.length <= 300 && spe_rule.spe_4_engie.length <= 300
+            && spe_rule.spe_5_comment.length <= 300 && spe_rule.spe_5_engie.length <= 300) {
         
-    Spe_rule.create(spe_rule)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating the contact."
-            });
-        });
-    
+            Spe_rule.create(spe_rule)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message:
+                            err.message || "Some error occurred while creating the contact."
+                    });
+                });
+        }
+    }
 };
 
 exports.findAll = (req, res) => {
 
     const company = req.params.company;
 
-    Spe_rule.findAll({ where: { company: company }})
-        .then(data => {
-            if (data) {
-                res.send(data);
-            } else {
-                res.status(404).send({
-                    message: `Cannot find Partner with company=${company}.`
+    if (company != null && company.toUpperCase()) {
+
+        Spe_rule.findAll({ where: { company: company }})
+            .then(data => {
+                if (data) {
+                    res.send(data);
+                } else {
+                    res.status(404).send({
+                        message: `Cannot find Partner with company=${company}.`
+                    });
+                }
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: "Error retrieving Partner with company=" + company
                 });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Partner with company=" + company
             });
-        });
+    }
 };
 
 exports.update = (req, res) => {
     const company = req.params.company;
-    Spe_rule.update(req.body, {
-        where: { company: company }
-    })
-        .then(() => {
-            res.send(res.data)
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error updating Partner with company=" + company
-            });
-        });
+
+    if(req.body.company != null && req.body.spe_1 != null && req.body.spe_2 != null && req.body.spe_3 != null && req.body.spe_4 != null && req.body.spe_5 != null ) {
+        if(req.body.company.toUpperCase() && req.body.spe_1_comment.length <= 300 && req.body.spe_1_engie.length <= 300
+            && req.body.spe_2_comment.length <= 300 && req.body.spe_2_engie.length <= 300
+            && req.body.spe_3_comment.length <= 300 && req.body.spe_3_engie.length <= 300
+            && req.body.spe_4_comment.length <= 300 && req.body.spe_4_engie.length <= 300
+            && req.body.spe_5_comment.length <= 300 && req.body.spe_5_engie.length <= 300) {
+
+            Spe_rule.update(req.body, {
+                where: { company: company }
+            })
+                .then(() => {
+                    res.send(res.data)
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message: "Error updating Partner with company=" + company
+                    });
+                });
+        }
+    }
 };

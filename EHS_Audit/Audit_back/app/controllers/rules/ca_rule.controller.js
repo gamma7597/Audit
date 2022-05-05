@@ -48,52 +48,83 @@ exports.create = (req, res) => {
         ca_10_engie: "",
         partnerId: req.body.partnerId
     };
+
+    if(ca_rule.company != null && ca_rule.ca_1 != null && ca_rule.ca_2 != null && ca_rule.ca_3 != null && ca_rule.ca_4 != null && ca_rule.ca_5 != null && ca_rule.ca_6 != null && ca_rule.ca_7 != null && ca_rule.ca_8 != null && ca_rule.ca_9 != null && ca_rule.ca_10 != null ) {
+        if(ca_rule.company.toUpperCase() && ca_rule.ca_1_comment.length <= 300 && ca_rule.ca_1_engie.length <= 300
+            && ca_rule.ca_2_comment.length <= 300 && ca_rule.ca_2_engie.length <= 300
+            && ca_rule.ca_3_comment.length <= 300 && ca_rule.ca_3_engie.length <= 300
+            && ca_rule.ca_4_comment.length <= 300 && ca_rule.ca_4_engie.length <= 300
+            && ca_rule.ca_5_comment.length <= 300 && ca_rule.ca_5_engie.length <= 300
+            && ca_rule.ca_6_comment.length <= 300 && ca_rule.ca_6_engie.length <= 300
+            && ca_rule.ca_7_comment.length <= 300 && ca_rule.ca_7_engie.length <= 300
+            && ca_rule.ca_8_comment.length <= 300 && ca_rule.ca_8_engie.length <= 300
+            && ca_rule.ca_9_comment.length <= 300 && ca_rule.ca_9_engie.length <= 300
+            && ca_rule.ca_10_comment.length <= 300 && ca_rule.ca_10_engie.length <= 300) {
         
-    Ca_rule.create(ca_rule)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating the contact."
-            });
-        });
-    
+            Ca_rule.create(ca_rule)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message:
+                            err.message || "Some error occurred while creating the contact."
+                    });
+                });
+        }
+    }
 };
 
 exports.findAll = (req, res) => {
 
     const company = req.params.company;
 
-    Ca_rule.findAll({ where: { company: company }})
-        .then(data => {
-            if (data) {
-                res.send(data);
-            } else {
-                res.status(404).send({
-                    message: `Cannot find Partner with company=${company}.`
+    if (company != null && company.toUpperCase()) {
+
+        Ca_rule.findAll({ where: { company: company }})
+            .then(data => {
+                if (data) {
+                    res.send(data);
+                } else {
+                    res.status(404).send({
+                        message: `Cannot find Partner with company=${company}.`
+                    });
+                }
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: "Error retrieving Partner with company=" + company
                 });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Partner with company=" + company
             });
-        });
+    }
 };
 
 exports.update = (req, res) => {
     const company = req.params.company;
-    Ca_rule.update(req.body, {
-        where: { company: company }
-    })
-        .then(() => {
-            res.send(res.data)
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error updating Partner with company=" + company
-            });
-        });
+
+    if(req.body.company != null && req.body.ca_1 != null && req.body.ca_2 != null && req.body.ca_3 != null && req.body.ca_4 != null && req.body.ca_5 != null && req.body.ca_6 != null && req.body.ca_7 != null && req.body.ca_8 != null && req.body.ca_9 != null && req.body.ca_10 != null ) {
+        if(req.body.company.toUpperCase() && req.body.ca_1_comment.length <= 300 && req.body.ca_1_engie.length <= 300
+            && req.body.ca_2_comment.length <= 300 && req.body.ca_2_engie.length <= 300
+            && req.body.ca_3_comment.length <= 300 && req.body.ca_3_engie.length <= 300
+            && req.body.ca_4_comment.length <= 300 && req.body.ca_4_engie.length <= 300
+            && req.body.ca_5_comment.length <= 300 && req.body.ca_5_engie.length <= 300
+            && req.body.ca_6_comment.length <= 300 && req.body.ca_6_engie.length <= 300
+            && req.body.ca_7_comment.length <= 300 && req.body.ca_7_engie.length <= 300
+            && req.body.ca_8_comment.length <= 300 && req.body.ca_8_engie.length <= 300
+            && req.body.ca_9_comment.length <= 300 && req.body.ca_9_engie.length <= 300
+            && req.body.ca_10_comment.length <= 300 && req.body.ca_10_engie.length <= 300) {
+                
+            Ca_rule.update(req.body, {
+                where: { company: company }
+            })
+                .then(() => {
+                    res.send(res.data)
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message: "Error updating Partner with company=" + company
+                    });
+                });
+        }
+    }
 };
