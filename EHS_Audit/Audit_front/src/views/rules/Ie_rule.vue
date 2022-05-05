@@ -2,14 +2,20 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
+
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
 
       <label for="ie_rules_1">
         <select
           id="ie_rules_1" 
           placeholder="Le partenaire maintient un inventaire des postes de travail, serveurs, shares, applicatifs et équipements de sécurité utilisés dans le cadre de la prestation" 
-          v-model="formData.ie_1" 
-          required>
+          v-model="formData.ie_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire maintient un inventaire des postes de travail, serveurs, shares, applicatifs et équipements de sécurité utilisés dans le cadre de la prestation</span>
@@ -45,8 +51,7 @@
           id="ie_rules_2" 
           placeholder="Le partenaire maintient un inventaire des instances et/ou applicatifs cloud accédés.
 Précisez le(s) hébergeur(s) concerné(s)." 
-          v-model="formData.ie_2" 
-          required>
+          v-model="formData.ie_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire maintient un inventaire des instances et/ou applicatifs cloud accédés.
@@ -87,6 +92,7 @@ Précisez le(s) hébergeur(s) concerné(s).</span>
   export default {
     data() {
       return {
+        errors: [],
         formData: {},
         options: [
           { value: "N/A", text: "N/A" },
@@ -109,6 +115,30 @@ Précisez le(s) hébergeur(s) concerné(s).</span>
     },
     methods: {
       ...mapActions("ie_rules", ["edit_ie_rules"]),
+      verifForm() {
+        this.errors = [];
+
+        const { ie_1, ie_1_comment, ie_1_engie, 
+          ie_2, ie_2_comment, ie_2_engie} = this.formData
+        
+        if(!ie_1 || !ie_2) {
+          this.errors.push("Vous devez repondre à toutes les questions !");
+        }
+
+        if(ie_1_comment.length > 300 || ie_2_comment.length > 300
+          || ie_1_engie.length > 300 || ie_2_engie.length > 300) {
+          this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+        }
+
+        if (this.errors.length != 0)
+        {
+          console.log(this.errors.length)
+          return true;
+        }
+        else {
+          this.handleSubmit()
+        }
+      },
       handleSubmit() {
         const payload = {
           company: this.ie_rules.company,
@@ -127,6 +157,7 @@ Précisez le(s) hébergeur(s) concerné(s).</span>
         };
         this.edit_ie_rules(payload);
         this.formData = this.ie_rules
+        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)

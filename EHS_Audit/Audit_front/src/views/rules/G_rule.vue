@@ -2,14 +2,20 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
 
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
+      
       <label for="g_rules_1">
         <select
           id="g_rules_1" 
           placeholder="Le partenaire doit disposer d'une politique de sécurité pour la gestion de son système d'information" 
-          v-model="formData.g_1" 
-          required>
+          v-model="formData.g_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit disposer d'une politique de sécurité pour la gestion de son système d'information</span>
@@ -44,8 +50,7 @@
         <select
           id="g_rules_2" 
           placeholder="Les contacts externes sont identifiés : - Sécurité IT - Juridique - Réglementaire" 
-          v-model="formData.g_2" 
-          required>
+          v-model="formData.g_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Les contacts externes sont identifiés : - Sécurité IT - Juridique - Réglementaire</span>
@@ -82,8 +87,7 @@
 - Revue des traitements des incidents et des évènements 
 - Suivi de l’avancement du plan d’actions correctives
 - Reporting des audits de sécurité et suivi des plans d’action" 
-          v-model="formData.g_3" 
-          required>
+          v-model="formData.g_3">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Des comités de sécurité doivent être organisés régulièrement entre EHS et le partenaire au moins deux fois par an. Le comité doit aborder les sujets ci-dessous :
@@ -120,8 +124,7 @@
         <select
           id="g_rules_4" 
           placeholder="Le partenaire doit mettre à disposition d'EHS tous les documents (certification, rapport d’audit, déclaration d’applicabilité, etc.) attestant de ses certifications en matière de sécurité (SAS 70, ISO 27001…) ainsi que de leurs périmètres" 
-          v-model="formData.g_4" 
-          required>
+          v-model="formData.g_4">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit mettre à disposition d'EHS tous les documents (certification, rapport d’audit, déclaration d’applicabilité, etc.) attestant de ses certifications en matière de sécurité (SAS 70, ISO 27001…) ainsi que de leurs périmètres</span>
@@ -154,8 +157,7 @@
         <select
           id="g_rules_5" 
           placeholder="Le partenaire doit formaliser un processus de gestion de crise (notamment préciser les canaux de communication mis en place avec EHS) et sa capacité à mettre en place une cellule de crise en cas de besoin" 
-          v-model="formData.g_5" 
-          required>
+          v-model="formData.g_5">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit formaliser un processus de gestion de crise (notamment préciser les canaux de communication mis en place avec EHS) et sa capacité à mettre en place une cellule de crise en cas de besoin</span>
@@ -196,6 +198,7 @@
   export default {
     data() {
       return {
+        errors: [],
         formData: {},
         options: [
           { value: "N/A", text: "N/A" },
@@ -218,6 +221,33 @@
     },
     methods: {
       ...mapActions("g_rules", ["edit_g_rules"]),
+      verifForm() {
+        this.errors = [];
+
+        const { g_1, g_1_comment, g_1_engie, 
+          g_2, g_2_comment, g_2_engie, 
+          g_3, g_3_comment, g_3_engie, 
+          g_4, g_4_comment, g_4_engie,
+          g_5, g_5_comment, g_5_engie } = this.formData
+        
+        if(!g_1 || !g_2 || !g_3 || !g_4 || !g_5) {
+          this.errors.push("Vous devez repondre à toutes les questions !");
+        }
+
+        if(g_1_comment.length > 300 || g_2_comment.length > 300 || g_3_comment.length > 300 || g_4_comment.length > 300 || g_5_comment.length > 300
+          || g_1_engie.length > 300 || g_2_engie.length > 300 || g_3_engie.length > 300 || g_4_engie.length > 300 || g_5_engie.length > 300) {
+          this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+        }
+
+        if (this.errors.length != 0)
+        {
+          console.log(this.errors.length)
+          return true;
+        }
+        else {
+          this.handleSubmit()
+        }
+      },
       handleSubmit() {
         const payload = {
           company: this.g_rules.company,
@@ -248,6 +278,7 @@
         };
         this.edit_g_rules(payload);
         this.formData = this.g_rules
+        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)

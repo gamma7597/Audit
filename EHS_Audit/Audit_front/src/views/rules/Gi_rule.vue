@@ -2,14 +2,20 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
+
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
 
       <label for="gi_rules_1">
         <select
           id="gi_rules_1" 
           placeholder="Un système de surveillance et d'alerte en cas d'incident de sécurité est présent" 
-          v-model="formData.gi_1" 
-          required>
+          v-model="formData.gi_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Un système de surveillance et d'alerte en cas d'incident de sécurité est présent</span>
@@ -44,8 +50,7 @@
         <select
           id="gi_rules_2" 
           placeholder="Un système de résolution d'incident est présent" 
-          v-model="formData.gi_2" 
-          required>
+          v-model="formData.gi_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Un système de résolution d'incident est présent</span>
@@ -80,8 +85,7 @@
           placeholder="Il existe un processus pour alerter EHS rapidement en cas d'incident impactant le service du partenaire. 
 Ce processus doit être connu par tous les employés du partenaire.
 Préciser les délais de notification." 
-          v-model="formData.gi_3" 
-          required>
+          v-model="formData.gi_3">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Il existe un processus pour alerter EHS rapidement en cas d'incident impactant le service du partenaire. 
@@ -126,6 +130,7 @@ Préciser les délais de notification.</span>
   export default {
     data() {
       return {
+        errors: [],
         formData: {},
         options: [
           { value: "N/A", text: "N/A" },
@@ -148,6 +153,31 @@ Préciser les délais de notification.</span>
     },
     methods: {
       ...mapActions("gi_rules", ["edit_gi_rules"]),
+      verifForm() {
+        this.errors = [];
+
+        const { gi_1, gi_1_comment, gi_1_engie, 
+          gi_2, gi_2_comment, gi_2_engie,
+          gi_3, gi_3_comment, gi_3_engie } = this.formData
+        
+        if(!gi_1 || !gi_2 || !gi_3) {
+          this.errors.push("Vous devez repondre à toutes les questions !");
+        }
+
+        if(gi_1_comment.length > 300 || gi_2_comment.length > 300 || gi_3_comment.length > 300
+          || gi_1_engie.length > 300 || gi_2_engie.length > 300 || gi_3_engie.length > 300) {
+          this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+        }
+
+        if (this.errors.length != 0)
+        {
+          console.log(this.errors.length)
+          return true;
+        }
+        else {
+          this.handleSubmit()
+        }
+      },
       handleSubmit() {
         const payload = {
           company: this.gi_rules.company,
@@ -170,6 +200,7 @@ Préciser les délais de notification.</span>
         };
         this.edit_gi_rules(payload);
         this.formData = this.gi_rules
+        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)

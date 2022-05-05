@@ -2,14 +2,20 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
+
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
 
       <label for="pt_rules_1">
         <select
           id="pt_rules_1" 
           placeholder="EHS doit être en mesure de réaliser des audits organisationnels sur le périmètre du service fourni à EHS" 
-          v-model="formData.pt_1" 
-          required>
+          v-model="formData.pt_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>EHS doit être en mesure de réaliser des audits organisationnels sur le périmètre du service fourni à EHS</span>
@@ -44,8 +50,7 @@
         <select
           id="pt_rules_2" 
           placeholder="EHS doit être en mesure de réaliser des audits techniques (test d'intrusion, scan de vulnérabilité, audit de code, audit d'infrastructure) sur le périmètre du service fourni à EHS" 
-          v-model="formData.pt_2" 
-          required>
+          v-model="formData.pt_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>EHS doit être en mesure de réaliser des audits techniques (test d'intrusion, scan de vulnérabilité, audit de code, audit d'infrastructure) sur le périmètre du service fourni à EHS</span>
@@ -78,8 +83,7 @@
         <select
           id="pt_rules_3" 
           placeholder="EHS doit être en mesure de réaliser des audits organisationnels sur le périmètre du service fourni à EHS" 
-          v-model="formData.pt_3" 
-          required>
+          v-model="formData.pt_3">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>EHS doit être en mesure de réaliser des audits de la sécurité physique sur le périmètre du service fourni à EHS</span>
@@ -114,8 +118,7 @@
         <select
           id="pt_rules_4" 
           placeholder="Le partenaire doit régulièrement évaluer le niveau de sécurité de ses périmètres sensibles ou exposés par le biais de tests d'intrusion et de scan de vulnérabilités et corriger les vulnérabilités découvertes" 
-          v-model="formData.pt_4" 
-          required>
+          v-model="formData.pt_4">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit régulièrement évaluer le niveau de sécurité de ses périmètres sensibles ou exposés par le biais de tests d'intrusion et de scan de vulnérabilités et corriger les vulnérabilités découvertes</span>
@@ -148,8 +151,7 @@
         <select
           id="pt_rules_5" 
           placeholder="Le partenaire doit corriger les éventuelles vulnérabilités qui lui sont imputables (tierces parties incluses), selon un planning qui sera défini en collaboration avec EHS" 
-          v-model="formData.pt_5" 
-          required>
+          v-model="formData.pt_5">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit corriger les éventuelles vulnérabilités qui lui sont imputables (tierces parties incluses), selon un planning qui sera défini en collaboration avec EHS</span>
@@ -190,6 +192,7 @@
   export default {
     data() {
       return {
+        errors: [],
         formData: {},
         options: [
           { value: "N/A", text: "N/A" },
@@ -212,6 +215,33 @@
     },
     methods: {
       ...mapActions("pt_rules", ["edit_pt_rules"]),
+      verifForm() {
+        this.errors = [];
+
+        const { pt_1, pt_1_comment, pt_1_engie, 
+          pt_2, pt_2_comment, pt_2_engie, 
+          pt_3, pt_3_comment, pt_3_engie, 
+          pt_4, pt_4_comment, pt_4_engie,
+          pt_5, pt_5_comment, pt_5_engie } = this.formData
+        
+        if(!pt_1 || !pt_2 || !pt_3 || !pt_4 || !pt_5) {
+          this.errors.push("Vous devez repondre à toutes les questions !");
+        }
+
+        if(pt_1_comment.length > 300 || pt_2_comment.length > 300 || pt_3_comment.length > 300 || pt_4_comment.length > 300 || pt_5_comment.length > 300
+          || pt_1_engie.length > 300 || pt_2_engie.length > 300 || pt_3_engie.length > 300 || pt_4_engie.length > 300 || pt_5_engie.length > 300) {
+          this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+        }
+
+        if (this.errors.length != 0)
+        {
+          console.log(this.errors.length)
+          return true;
+        }
+        else {
+          this.handleSubmit()
+        }
+      },
       handleSubmit() {
         const payload = {
           company: this.pt_rules.company,
@@ -242,6 +272,7 @@
         };
         this.edit_pt_rules(payload);
         this.formData = this.pt_rules
+        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)

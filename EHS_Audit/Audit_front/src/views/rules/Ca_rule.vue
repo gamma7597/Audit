@@ -2,14 +2,20 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
+
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
 
       <label for="ca_rules_1">
         <select
           id="ca_rules_1" 
           placeholder="Le partenaire doit effectuer une revue régulière (au moins une fois par an) des accès et des habilitations de ses employés" 
-          v-model="formData.ca_1" 
-          required>
+          v-model="formData.ca_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit effectuer une revue régulière (au moins une fois par an) des accès et des habilitations de ses employés</span>
@@ -44,8 +50,7 @@
         <select
           id="ca_rules_2" 
           placeholder="Liste des employés du partenaire qui accèdent aux données d'EHS maintenue et à jour" 
-          v-model="formData.ca_2" 
-          required>
+          v-model="formData.ca_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Liste des employés du partenaire qui accèdent aux données d'EHS maintenue et à jour</span>
@@ -78,8 +83,7 @@
         <select
           id="ca_rules_3" 
           placeholder="Le partenaire doit appliquer les principes du moindre privilège et de la séparation des tâches pour ses employés" 
-          v-model="formData.ca_3" 
-          required>
+          v-model="formData.ca_3">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit appliquer les principes du moindre privilège et de la séparation des tâches pour ses employés</span>
@@ -114,8 +118,7 @@
         <select
           id="ca_rules_4" 
           placeholder="Les employés du partenaire possèdent un identifiant unique. Dans le cas échéant, les comptes génériques doivent être bien identifiés et référencés" 
-          v-model="formData.ca_4" 
-          required>
+          v-model="formData.ca_4">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Les employés du partenaire possèdent un identifiant unique. Dans le cas échéant, les comptes génériques doivent être bien identifiés et référencés</span>
@@ -148,8 +151,7 @@
         <select
           id="ca_rules_5" 
           placeholder="Le partenaire doit pouvoir proposer une authentification multi facteurs pour les administrateurs et pour les utilisateurs si applicable" 
-          v-model="formData.ca_5" 
-          required>
+          v-model="formData.ca_5">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit pouvoir proposer une authentification multi facteurs pour les administrateurs et pour les utilisateurs si applicable</span>
@@ -182,8 +184,7 @@
         <select
           id="ca_rules_6" 
           placeholder="Le partenaire doit préciser les moyens de sécurité supplémentaires dédiées à la gestion de ses comptes administrateurs (la procédure d'habilitation, de révocation, la revue des comptes et des habilitations)" 
-          v-model="formData.ca_6" 
-          required>
+          v-model="formData.ca_6">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit préciser les moyens de sécurité supplémentaires dédiées à la gestion de ses comptes administrateurs (la procédure d'habilitation, de révocation, la revue des comptes et des habilitations)</span>
@@ -221,8 +222,7 @@
 - Longueur / complexité
 - Une période de validité
 - Le nombre de tentatives d'authentification avant blocage du compte" 
-          v-model="formData.ca_7" 
-          required>
+          v-model="formData.ca_7">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le management standard des mots de passe chez le partenaire est défini au minimum par :
@@ -258,8 +258,7 @@
         <select
           id="ca_rules_8" 
           placeholder="Le partenaire doit pouvoir journaliser les logs de connexions réussies et échouées" 
-          v-model="formData.ca_8" 
-          required>
+          v-model="formData.ca_8">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit pouvoir journaliser les logs de connexions réussies et échouées</span>
@@ -295,8 +294,7 @@
           id="ca_rules_9" 
           placeholder="Le partenaire doit mettre en œuvre des moyens pour protéger la confidentialité des données d'authentification.
 En particulier, chiffrer les mots de passes en stockage et en transmission" 
-          v-model="formData.ca_9" 
-          required>
+          v-model="formData.ca_9">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit mettre en œuvre des moyens pour protéger la confidentialité des données d'authentification.
@@ -330,8 +328,7 @@ En particulier, chiffrer les mots de passes en stockage et en transmission</span
         <select
           id="ca_rules_10" 
           placeholder="L’ensemble des actions utilisateurs et administrateurs sur les données EHS doivent être tracées et doivent être rendues disponibles, soit directement dans l’interface utilisateur de l’outil, soit dans l’interface administrateur, soit via une demande explicite de EHS. (Fourniture des traces demandées sous 2 jours ouvrés, en particulier dans le cadre du traitement d’incidents)" 
-          v-model="formData.ca_10" 
-          required>
+          v-model="formData.ca_10">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>L’ensemble des actions utilisateurs et administrateurs sur les données EHS doivent être tracées et doivent être rendues disponibles, soit directement dans l’interface utilisateur de l’outil, soit dans l’interface administrateur, soit via une demande explicite de EHS. (Fourniture des traces demandées sous 2 jours ouvrés, en particulier dans le cadre du traitement d’incidents)</span>
@@ -372,6 +369,7 @@ En particulier, chiffrer les mots de passes en stockage et en transmission</span
   export default {
     data() {
       return {
+        errors: [],
         formData: {},
         options: [
           { value: "N/A", text: "N/A" },
@@ -394,6 +392,38 @@ En particulier, chiffrer les mots de passes en stockage et en transmission</span
     },
     methods: {
       ...mapActions("ca_rules", ["edit_ca_rules"]),
+      verifForm() {
+        this.errors = [];
+
+        const { ca_1, ca_1_comment, ca_1_engie, 
+          ca_2, ca_2_comment, ca_2_engie, 
+          ca_3, ca_3_comment, ca_3_engie, 
+          ca_4, ca_4_comment, ca_4_engie,
+          ca_5, ca_5_comment, ca_5_engie,
+          ca_6, ca_6_comment, ca_6_engie,
+          ca_7, ca_7_comment, ca_7_engie,
+          ca_8, ca_8_comment, ca_8_engie,
+          ca_9, ca_9_comment, ca_9_engie,
+          ca_10, ca_10_comment, ca_10_engie } = this.formData
+        
+        if(!ca_1 || !ca_2 || !ca_3 || !ca_4 || !ca_5 || !ca_6 || !ca_7 || !ca_8 || !ca_9 || !ca_10) {
+          this.errors.push("Vous devez repondre à toutes les questions !");
+        }
+
+        if(ca_1_comment.length > 300 || ca_2_comment.length > 300 || ca_3_comment.length > 300 || ca_4_comment.length > 300 || ca_5_comment.length > 300 || ca_6_comment.length > 300 || ca_7_comment.length > 300 || ca_8_comment.length > 300 || ca_9_comment.length > 300 || ca_10_comment.length > 300
+          || ca_1_engie.length > 300 || ca_2_engie.length > 300 || ca_3_engie.length > 300 || ca_4_engie.length > 300 || ca_5_engie.length > 300 || ca_6_engie.length > 300 || ca_7_engie.length > 300 || ca_8_engie.length > 300 || ca_9_engie.length > 300 || ca_10_engie.length > 300) {
+          this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+        }
+
+        if (this.errors.length != 0)
+        {
+          console.log(this.errors.length)
+          return true;
+        }
+        else {
+          this.handleSubmit()
+        }
+      },
       handleSubmit() {
         const payload = {
           company: this.ca_rules.company,
@@ -444,6 +474,7 @@ En particulier, chiffrer les mots de passes en stockage et en transmission</span
         };
         this.edit_ca_rules(payload);
         this.formData = this.ca_rules
+        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)

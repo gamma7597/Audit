@@ -2,14 +2,20 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
+
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
 
       <label for="rgpd_rules_1">
         <select
           id="rgpd_rules_1" 
           placeholder="La nature de la prestation (finalité du traitement) et des données justifient l’instruction d’un dossier DPIA" 
-          v-model="formData.rgpd_1" 
-          required>
+          v-model="formData.rgpd_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>La nature de la prestation (finalité du traitement) et des données justifient l’instruction d’un dossier DPIA</span>
@@ -44,8 +50,7 @@
         <select
           id="rgpd_rules_2" 
           placeholder="La protection des données personnelles est prise en compte dès le début des projets (Privacy By Design) et avec le plus haut niveau de protection possible (Privacy By Default)" 
-          v-model="formData.rgpd_2" 
-          required>
+          v-model="formData.rgpd_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>La protection des données personnelles est prise en compte dès le début des projets (Privacy By Design) et avec le plus haut niveau de protection possible (Privacy By Default)</span>
@@ -86,6 +91,7 @@
   export default {
     data() {
       return {
+        errors: [],
         formData: {},
         options: [
           { value: "N/A", text: "N/A" },
@@ -108,6 +114,30 @@
     },
     methods: {
       ...mapActions("rgpd_rules", ["edit_rgpd_rules"]),
+      verifForm() {
+        this.errors = [];
+
+        const { rgpd_1, rgpd_1_comment, rgpd_1_engie, 
+          rgpd_2, rgpd_2_comment, rgpd_2_engie } = this.formData
+        
+        if(!rgpd_1 || !rgpd_2) {
+          this.errors.push("Vous devez repondre à toutes les questions !");
+        }
+
+        if(rgpd_1_comment.length > 300 || rgpd_2_comment.length > 300
+          || rgpd_1_engie.length > 300 || rgpd_2_engie.length > 300) {
+          this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+        }
+
+        if (this.errors.length != 0)
+        {
+          console.log(this.errors.length)
+          return true;
+        }
+        else {
+          this.handleSubmit()
+        }
+      },
       handleSubmit() {
         const payload = {
           company: this.rgpd_rules.company,
@@ -126,6 +156,7 @@
         };
         this.edit_rgpd_rules(payload);
         this.formData = this.rgpd_rules
+        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)

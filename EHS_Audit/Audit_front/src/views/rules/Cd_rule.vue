@@ -2,14 +2,20 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
+
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
 
       <label for="cd_rules_1">
         <select
           id="cd_rules_1" 
           placeholder="L'inventaire des données EHS traitées par le partenaire est maintenu à jour" label-for="cd_rules_1-select" 
-          v-model="formData.cd_1" 
-          required>
+          v-model="formData.cd_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>L'inventaire des données EHS traitées par le partenaire est maintenu à jour" label-for="cd_rules_1-select</span>
@@ -44,8 +50,7 @@
         <select
           id="cd_rules_2" 
           placeholder="Le partenaire dispose d'une échelle de classification des données et l'applique sur les documents en rapport avec la prestation." 
-          v-model="formData.cd_2" 
-          required>
+          v-model="formData.cd_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire dispose d'une échelle de classification des données et l'applique sur les documents en rapport avec la prestation.</span>
@@ -86,6 +91,7 @@
   export default {
     data() {
       return {
+        errors: [],
         formData: {},
         options: [
           { value: "N/A", text: "N/A" },
@@ -108,6 +114,30 @@
     },
     methods: {
       ...mapActions("cd_rules", ["edit_cd_rules"]),
+      verifForm() {
+        this.errors = [];
+
+        const { cd_1, cd_1_comment, cd_1_engie, 
+          cd_2, cd_2_comment, cd_2_engie } = this.formData
+        
+        if(!cd_1 || !cd_2) {
+          this.errors.push("Vous devez repondre à toutes les questions !");
+        }
+
+        if(cd_1_comment.length > 300 || cd_2_comment.length > 300
+          || cd_1_engie.length > 300 || cd_2_engie.length > 300) {
+          this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+        }
+
+        if (this.errors.length != 0)
+        {
+          console.log(this.errors.length)
+          return true;
+        }
+        else {
+          this.handleSubmit()
+        }
+      },
       handleSubmit() {
         const payload = {
           company: this.cd_rules.company,
@@ -126,6 +156,7 @@
         };
         this.edit_cd_rules(payload);
         this.formData = this.cd_rules
+        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)

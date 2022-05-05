@@ -2,14 +2,20 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
+
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
 
       <label for="rf_rules_1">
         <select
           id="rf_rules_1" 
           placeholder="Le partenaire doit déclarer l’existence de sous-traitants en lien avec la prestation et la nature des relations avec ces derniers sur le plan des responsabilités" 
-          v-model="formData.rf_1" 
-          required>
+          v-model="formData.rf_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit déclarer l’existence de sous-traitants en lien avec la prestation et la nature des relations avec ces derniers sur le plan des responsabilités</span>
@@ -44,8 +50,7 @@
         <select
           id="rf_rules_2" 
           placeholder="Le partenaire doit maitriser la sécurité de ses sous-traitants" 
-          v-model="formData.rf_2" 
-          required>
+          v-model="formData.rf_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit maitriser la sécurité de ses sous-traitants</span>
@@ -78,8 +83,7 @@
         <select
           id="rf_rules_3" 
           placeholder="Les fournisseurs signent une clause de confidentialité" 
-          v-model="formData.rf_3" 
-          required>
+          v-model="formData.rf_3">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Les fournisseurs signent une clause de confidentialité</span>
@@ -122,6 +126,7 @@
   export default {
     data() {
       return {
+        errors: [],
         formData: {},
         options: [
           { value: "N/A", text: "N/A" },
@@ -144,6 +149,31 @@
     },
     methods: {
       ...mapActions("rf_rules", ["edit_rf_rules"]),
+      verifForm() {
+        this.errors = [];
+
+        const { rf_1, rf_1_comment, rf_1_engie, 
+          rf_2, rf_2_comment, rf_2_engie,
+          rf_3, rf_3_comment, rf_3_engie } = this.formData
+        
+        if(!rf_1 || !rf_2 || !rf_3) {
+          this.errors.push("Vous devez repondre à toutes les questions !");
+        }
+
+        if(rf_1_comment.length > 300 || rf_2_comment.length > 300 || rf_3_comment.length > 300
+          || rf_1_engie.length > 300 || rf_2_engie.length > 300 || rf_3_engie.length > 300) {
+          this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+        }
+
+        if (this.errors.length != 0)
+        {
+          console.log(this.errors.length)
+          return true;
+        }
+        else {
+          this.handleSubmit()
+        }
+      },
       handleSubmit() {
         const payload = {
           company: this.rf_rules.company,
@@ -166,6 +196,7 @@
         };
         this.edit_rf_rules(payload);
         this.formData = this.rf_rules
+        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)

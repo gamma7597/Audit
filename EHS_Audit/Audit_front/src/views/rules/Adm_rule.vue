@@ -2,14 +2,20 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
+
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
 
       <label for="adm_rules_1">
         <select
           id="adm_rules_1" 
           placeholder="Le code source de l'application doit faire l'objet de revues de sécurité (manuelle ou via un outil automatisé)" 
-          v-model="formData.adm_1" 
-          required>
+          v-model="formData.adm_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le code source de l'application doit faire l'objet de revues de sécurité (manuelle ou via un outil automatisé)</span>
@@ -45,8 +51,7 @@
           id="adm_rules_2" 
           placeholder="Le partenaire doit utiliser des algorithmes et des protocoles de chiffrement non obsolètes. 
 Préciser lesquelles" 
-          v-model="formData.adm_2" 
-          required>
+          v-model="formData.adm_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit utiliser des algorithmes et des protocoles de chiffrement non obsolètes. 
@@ -80,8 +85,7 @@ Préciser lesquelles</span>
         <select
           id="adm_rules_3" 
           placeholder="Le partenaire doit protéger les clés de chiffrement (Ex: utilisation d'un coffre fort)" 
-          v-model="formData.adm_3" 
-          required>
+          v-model="formData.adm_3">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit protéger les clés de chiffrement (Ex: utilisation d'un coffre fort)</span>
@@ -116,8 +120,7 @@ Préciser lesquelles</span>
         <select
           id="adm_rules_4" 
           placeholder="L'environnement de développement (données de test, code source) doit être sécurisé (contrôle des accès, traçabilité..)" 
-          v-model="formData.adm_4" 
-          required>
+          v-model="formData.adm_4">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>L'environnement de développement (données de test, code source) doit être sécurisé (contrôle des accès, traçabilité..)</span>
@@ -150,8 +153,7 @@ Préciser lesquelles</span>
         <select
           id="adm_rules_5" 
           placeholder="Le partenaire doit sécuriser les API" 
-          v-model="formData.adm_5" 
-          required>
+          v-model="formData.adm_5">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit sécuriser les API</span>
@@ -186,8 +188,7 @@ Préciser lesquelles</span>
           placeholder="Présence de règles de développement :
 les développeurs doivent être sensibilisés aux bonnes pratiques de développement telles que la configuration des web application headers ou les principales menaces telles que décrites dans l'OWASP
 https://owasp.org/www-project-top-ten/" 
-          v-model="formData.adm_6" 
-          required>
+          v-model="formData.adm_6">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Présence de règles de développement :
@@ -224,8 +225,7 @@ https://owasp.org/www-project-top-ten/</span>
         <select
           id="adm_rules_7" 
           placeholder="Les données de production doivent être utilisées seulement sur des environnements de production" 
-          v-model="formData.adm_7" 
-          required>
+          v-model="formData.adm_7">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Les données de production doivent être utilisées seulement sur des environnements de production</span>
@@ -266,6 +266,7 @@ https://owasp.org/www-project-top-ten/</span>
   export default {
     data() {
       return {
+        errors: [],
         formData: {},
         options: [
           { value: "N/A", text: "N/A" },
@@ -288,6 +289,35 @@ https://owasp.org/www-project-top-ten/</span>
     },
     methods: {
       ...mapActions("adm_rules", ["edit_adm_rules"]),
+      verifForm() {
+        this.errors = [];
+
+        const { adm_1, adm_1_comment, adm_1_engie, 
+          adm_2, adm_2_comment, adm_2_engie, 
+          adm_3, adm_3_comment, adm_3_engie, 
+          adm_4, adm_4_comment, adm_4_engie,
+          adm_5, adm_5_comment, adm_5_engie,
+          adm_6, adm_6_comment, adm_6_engie,
+          adm_7, adm_7_comment, adm_7_engie } = this.formData
+        
+        if(!adm_1 || !adm_2 || !adm_3 || !adm_4 || !adm_5 || !adm_6 || !adm_7) {
+          this.errors.push("Vous devez repondre à toutes les questions !");
+        }
+
+        if(adm_1_comment.length > 300 || adm_2_comment.length > 300 || adm_3_comment.length > 300 || adm_4_comment.length > 300 || adm_5_comment.length > 300 || adm_6_comment.length > 300 || adm_7_comment.length > 300
+          || adm_1_engie.length > 300 || adm_2_engie.length > 300 || adm_3_engie.length > 300 || adm_4_engie.length > 300 || adm_5_engie.length > 300 || adm_6_engie.length > 300 || adm_7_engie.length > 300) {
+          this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+        }
+
+        if (this.errors.length != 0)
+        {
+          console.log(this.errors.length)
+          return true;
+        }
+        else {
+          this.handleSubmit()
+        }
+      },
       handleSubmit() {
         const payload = {
           company: this.adm_rules.company,
@@ -326,6 +356,7 @@ https://owasp.org/www-project-top-ten/</span>
         };
         this.edit_adm_rules(payload);
         this.formData = this.adm_rules;
+        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)

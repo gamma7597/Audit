@@ -2,14 +2,20 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
+
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
 
       <label for="se_rules_1">
         <select
           id="se_rules_1" 
           placeholder="Le partenaire doit appliquer une procédure de durcissement des équipements et des OS (Operating System)" 
-          v-model="formData.se_1" 
-          required>
+          v-model="formData.se_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit appliquer une procédure de durcissement des équipements et des OS (Operating System)</span>
@@ -45,8 +51,7 @@
           id="se_rules_2" 
           placeholder="Le partenaire doit appliquer une politique antivirale sur tous les composants hébergeant le service fourni à EHS. 
 Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions et la fréquences de leur mise à jour" 
-          v-model="formData.se_2" 
-          required>
+          v-model="formData.se_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit appliquer une politique antivirale sur tous les composants hébergeant le service fourni à EHS. 
@@ -80,8 +85,7 @@ Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions
         <select
           id="se_rules_3" 
           placeholder="Le partenaire doit appliquer une procédure de patch management lui permettant de déployer rapidement les correctifs recommandés par les fournisseurs de solutions matérielles et logicielles" 
-          v-model="formData.se_3" 
-          required>
+          v-model="formData.se_3">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit appliquer une procédure de patch management lui permettant de déployer rapidement les correctifs recommandés par les fournisseurs de solutions matérielles et logicielles</span>
@@ -116,8 +120,7 @@ Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions
         <select
           id="se_rules_4" 
           placeholder="La prestation doit permettre la journalisation et la centralisation des évènements (techniques et applicatifs) ainsi que la protection de ces logs" 
-          v-model="formData.se_4" 
-          required>
+          v-model="formData.se_4">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>La prestation doit permettre la journalisation et la centralisation des évènements (techniques et applicatifs) ainsi que la protection de ces logs</span>
@@ -150,8 +153,7 @@ Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions
         <select
           id="se_rules_5" 
           placeholder="EHS doit être en mesure d'avoir accès aux journaux des logs ayant eu lieu sur son instance applicative notamment dans le cas de traitement d’incidents" 
-          v-model="formData.se_5" 
-          required>
+          v-model="formData.se_5">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>EHS doit être en mesure d'avoir accès aux journaux des logs ayant eu lieu sur son instance applicative notamment dans le cas de traitement d’incidents</span>
@@ -184,8 +186,7 @@ Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions
         <select
           id="se_rules_6" 
           placeholder="Le partenaire doit mettre en place les moyens de sécurité appropriés pour assurer l'intégrité des données" 
-          v-model="formData.se_6" 
-          required>
+          v-model="formData.se_6">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit mettre en place les moyens de sécurité appropriés pour assurer l'intégrité des données</span>
@@ -228,6 +229,7 @@ Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions
   export default {
     data() {
       return {
+        errors: [],
         formData: {},
         options: [
           { value: "N/A", text: "N/A" },
@@ -250,6 +252,34 @@ Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions
     },
     methods: {
       ...mapActions("se_rules", ["edit_se_rules"]),
+      verifForm() {
+        this.errors = [];
+
+        const { se_1, se_1_comment, se_1_engie, 
+          se_2, se_2_comment, se_2_engie, 
+          se_3, se_3_comment, se_3_engie, 
+          se_4, se_4_comment, se_4_engie,
+          se_5, se_5_comment, se_5_engie,
+          se_6, se_6_comment, se_6_engie } = this.formData
+        
+        if(!se_1 || !se_2 || !se_3 || !se_4 || !se_5 || !se_6) {
+          this.errors.push("Vous devez repondre à toutes les questions !");
+        }
+
+        if(se_1_comment.length > 300 || se_2_comment.length > 300 || se_3_comment.length > 300 || se_4_comment.length > 300 || se_5_comment.length > 300 || se_6_comment.length > 300
+          || se_1_engie.length > 300 || se_2_engie.length > 300 || se_3_engie.length > 300 || se_4_engie.length > 300 || se_5_engie.length > 300 || se_6_engie.length > 300) {
+          this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+        }
+
+        if (this.errors.length != 0)
+        {
+          console.log(this.errors.length)
+          return true;
+        }
+        else {
+          this.handleSubmit()
+        }
+      },
       handleSubmit() {
         const payload = {
           company: this.se_rules.company,
@@ -284,6 +314,7 @@ Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions
         };
         this.edit_se_rules(payload);
         this.formData = this.se_rules
+        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)

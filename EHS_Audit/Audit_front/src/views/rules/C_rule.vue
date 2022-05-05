@@ -2,15 +2,21 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
+
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
 
       <label for="c_rules_1">
         <select
           id="c_rules_1" 
           placeholder="Le partenaire doit proposer une architecture sécurisée (Réseau, Endpoint, Serveur, etc.). 
 Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la solution proposée" 
-          v-model="formData.c_1" 
-          required>
+          v-model="formData.c_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit proposer une architecture sécurisée (Réseau, Endpoint, Serveur, etc.). 
@@ -46,8 +52,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
         <select
           id="c_rules_2" 
           placeholder="Le partenaire doit assurer le chiffrement des données d'EHS en transmission" 
-          v-model="formData.c_2" 
-          required>
+          v-model="formData.c_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit assurer le chiffrement des données d'EHS en transmission</span>
@@ -80,8 +85,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
         <select
           id="c_rules_3" 
           placeholder="Présence d'une matrice de flux à jour : le partenaire doit envoyer à EHS la matrice de flux listant tous les flux utilisés pour la réalisation de la prestation." 
-          v-model="formData.c_3" 
-          required>
+          v-model="formData.c_3">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Présence d'une matrice de flux à jour : le partenaire doit envoyer à EHS la matrice de flux listant tous les flux utilisés pour la réalisation de la prestation.</span>
@@ -116,8 +120,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
         <select
           id="c_rules_4" 
           placeholder="Le partenaire doit mettre en œuvre des composants de détection, de prévention et de monitoring (IDS,IPS) sur tous les flux entrants" 
-          v-model="formData.c_4" 
-          required>
+          v-model="formData.c_4">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit mettre en œuvre des composants de détection, de prévention et de monitoring (IDS,IPS) sur tous les flux entrants</span>
@@ -150,8 +153,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
         <select
           id="c_rules_5" 
           placeholder="Le partenaire doit mettre en œuvre des composants spécifiques de filtrage" 
-          v-model="formData.c_5" 
-          required>
+          v-model="formData.c_5">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit mettre en œuvre des composants spécifiques de filtrage</span>
@@ -184,8 +186,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
         <select
           id="c_rules_6" 
           placeholder="Le partenaire doit sécuriser les accès distants par VPN et les flux Wi-Fi à minima par protocole WPA2 ou WPA2-PSK" 
-          v-model="formData.c_6" 
-          required>
+          v-model="formData.c_6">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit sécuriser les accès distants par VPN et les flux Wi-Fi à minima par protocole WPA2 ou WPA2-PSK</span>
@@ -220,8 +221,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
         <select
           id="c_rules_7" 
           placeholder="Le partenaire doit mettre en place un outil permettant la détection de fuite de données sensibles" 
-          v-model="formData.c_7" 
-          required>
+          v-model="formData.c_7">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit mettre en place un outil permettant la détection de fuite de données sensibles</span>
@@ -254,8 +254,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
         <select
           id="c_rules_8" 
           placeholder="Une protection contre les attaques de type déni de service doit être mise en œuvre pour protéger le service fourni à EHS" 
-          v-model="formData.c_8" 
-          required>
+          v-model="formData.c_8">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Une protection contre les attaques de type déni de service doit être mise en œuvre pour protéger le service fourni à EHS</span>
@@ -298,6 +297,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
   export default {
     data() {
       return {
+        errors: [],
         formData: {},
         options: [
           { value: "N/A", text: "N/A" },
@@ -320,6 +320,36 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
     },
     methods: {
       ...mapActions("c_rules", ["edit_c_rules"]),
+      verifForm() {
+        this.errors = [];
+
+        const { c_1, c_1_comment, c_1_engie, 
+          c_2, c_2_comment, c_2_engie, 
+          c_3, c_3_comment, c_3_engie, 
+          c_4, c_4_comment, c_4_engie,
+          c_5, c_5_comment, c_5_engie,
+          c_6, c_6_comment, c_6_engie,
+          c_7, c_7_comment, c_7_engie,
+          c_8, c_8_comment, c_8_engie } = this.formData
+        
+        if(!c_1 || !c_2 || !c_3 || !c_4 || !c_5 || !c_6 || !c_7 || !c_8) {
+          this.errors.push("Vous devez repondre à toutes les questions !");
+        }
+
+        if(c_1_comment.length > 300 || c_2_comment.length > 300 || c_3_comment.length > 300 || c_4_comment.length > 300 || c_5_comment.length > 300 || c_6_comment.length > 300 || c_7_comment.length > 300 || c_8_comment.length > 300
+          || c_1_engie.length > 300 || c_2_engie.length > 300 || c_3_engie.length > 300 || c_4_engie.length > 300 || c_5_engie.length > 300 || c_6_engie.length > 300 || c_7_engie.length > 300 || c_8_engie.length > 300) {
+          this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+        }
+
+        if (this.errors.length != 0)
+        {
+          console.log(this.errors.length)
+          return true;
+        }
+        else {
+          this.handleSubmit()
+        }
+      },
       handleSubmit() {
         const payload = {
           company: this.c_rules.company,
@@ -362,6 +392,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
         };
         this.edit_c_rules(payload);
         this.formData = this.c_rules;
+        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)

@@ -2,14 +2,20 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
+
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
 
       <label for="gca_rules_1">
         <select
           id="gca_rules_1" 
           placeholder="Présence d'un PCA [Plan de Continuité d'Activité] maintenu et testé" 
-          v-model="formData.gca_1" 
-          required>
+          v-model="formData.gca_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Présence d'un PCA [Plan de Continuité d'Activité] maintenu et testé</span>
@@ -44,8 +50,7 @@
         <select
           id="gca_rules_2" 
           placeholder="Présence d'un PRA [Plan de Reprise d'Activité] maintenu et testé" 
-          v-model="formData.gca_2" 
-          required>
+          v-model="formData.gca_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Présence d'un PRA [Plan de Reprise d'Activité] maintenu et testé</span>
@@ -78,8 +83,7 @@
         <select
           id="gca_rules_3" 
           placeholder="Présence d'un PSR [Plan de Sauvegarde et Restitution] maintenu et testé" 
-          v-model="formData.gca_3" 
-          required>
+          v-model="formData.gca_3">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Présence d'un PSR [Plan de Sauvegarde et Restitution] maintenu et testé</span>
@@ -122,6 +126,7 @@
   export default {
     data() {
       return {
+        errors: [],
         formData: {},
         options: [
           { value: "N/A", text: "N/A" },
@@ -144,6 +149,31 @@
     },
     methods: {
       ...mapActions("gca_rules", ["edit_gca_rules"]),
+      verifForm() {
+        this.errors = [];
+
+        const { gca_1, gca_1_comment, gca_1_engie, 
+          gca_2, gca_2_comment, gca_2_engie,
+          gca_3, gca_3_comment, gca_3_engie } = this.formData
+        
+        if(!gca_1 || !gca_2 || !gca_3) {
+          this.errors.push("Vous devez repondre à toutes les questions !");
+        }
+
+        if(gca_1_comment.length > 300 || gca_2_comment.length > 300 || gca_3_comment.length > 300
+          || gca_1_engie.length > 300 || gca_2_engie.length > 300 || gca_3_engie.length > 300) {
+          this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+        }
+
+        if (this.errors.length != 0)
+        {
+          console.log(this.errors.length)
+          return true;
+        }
+        else {
+          this.handleSubmit()
+        }
+      },
       handleSubmit() {
         const payload = {
           company: this.gca_rules.company,
@@ -166,6 +196,7 @@
         };
         this.edit_gca_rules(payload);
         this.formData = this.gca_rules
+        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)

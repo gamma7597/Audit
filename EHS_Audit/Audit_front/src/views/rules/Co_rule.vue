@@ -2,14 +2,20 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
+
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
 
       <label for="co_rules_1">
         <select
           id="co_rules_1" 
           placeholder="Accès applicatif (ex : filtrage applicatif)" 
-          v-model="formData.co_1" 
-          required>
+          v-model="formData.co_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Accès applicatif (ex : filtrage applicatif)</span>
@@ -27,8 +33,7 @@
         <select
           id="co_rules_2" 
           placeholder="Accès VPN (Global Protect) / Firewall" 
-          v-model="formData.co_2" 
-          required>
+          v-model="formData.co_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Accès VPN (Global Protect) / Firewall</span>
@@ -46,8 +51,7 @@
         <select
           id="co_rules_3" 
           placeholder="Accès ZPA" 
-          v-model="formData.co_3" 
-          required>
+          v-model="formData.co_3">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Accès ZPA</span>
@@ -65,8 +69,7 @@
         <select
           id="co_rules_4" 
           placeholder="Accès lien réseau Wan dédié (MPLS)" 
-          v-model="formData.co_4" 
-          required>
+          v-model="formData.co_4">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Accès lien réseau Wan dédié (MPLS)</span>
@@ -84,8 +87,7 @@
         <select
           id="co_rules_5" 
           placeholder="Depuis un réseau externe en SSO ENGIE avec OKTA" 
-          v-model="formData.co_5" 
-          required>
+          v-model="formData.co_5">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Depuis un réseau externe en SSO ENGIE avec OKTA</span>
@@ -103,8 +105,7 @@
         <select
           id="co_rules_6" 
           placeholder="Depuis un réseau externe en MFA avec OKTA" 
-          v-model="formData.co_6" 
-          required>
+          v-model="formData.co_6">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Depuis un réseau externe en MFA avec OKTA</span>
@@ -129,6 +130,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
+      errors: [],
       formData: {},
       options: [
         { value: "Oui", text: "Oui" },
@@ -142,8 +144,34 @@ export default {
   },
   methods: {
     ...mapActions("co_rules", ["edit_co_rules"]),
+    verifForm() {
+      this.errors = [];
+
+      const { co_1, co_1_comment, 
+        co_2, co_2_comment, 
+        co_3, co_3_comment, 
+        co_4, co_4_comment,
+        co_5, co_5_comment,
+        co_6, co_6_comment } = this.formData
+      
+      if(!co_1 || !co_2 || !co_3 || !co_4 || !co_5 || !co_6) {
+        this.errors.push("Vous devez repondre à toutes les questions !");
+      }
+
+      if(co_1_comment.length > 300 || co_2_comment.length > 300 || co_3_comment.length > 300 || co_4_comment.length > 300 || co_5_comment.length > 300 || co_6_comment.length > 300) {
+        this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+      }
+
+      if (this.errors.length != 0)
+      {
+        console.log(this.errors.length)
+        return true;
+      }
+      else {
+        this.handleSubmit()
+      }
+    },
     handleSubmit() {
-      console.log(this.co_rules);
       const payload = {
         company: this.co_rules.company,
         data: {
@@ -165,6 +193,7 @@ export default {
       };
       this.edit_co_rules(payload);
       this.formData = this.co_rules;
+      this.goToRules(this.partner.company)
     },
     goToRules(partner){
       this.$router.push("/rules/" + partner)

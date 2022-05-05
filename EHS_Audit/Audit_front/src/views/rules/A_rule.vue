@@ -2,145 +2,148 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="verifForm">
 
-      <label for="pt_rules_1">
+      <p v-if="errors.length">
+        <b>Veuillez corriger les erreurs :</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
+
+      <label for="a_rules_1">
         <select
-          id="pt_rules_1" 
+          id="a_rules_1" 
           placeholder="Les données d'EHS stockées par le partenaire sont chiffrées" 
-          v-model="formData.pt_1" 
-          required>
+          v-model="formData.a_1">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Les données d'EHS stockées par le partenaire sont chiffrées</span>
       </label>
-      <label for="pt_rules_1_comment">
+      <label for="a_rules_1_comment">
         <input type="text" 
-          id="pt_rules_1_comment" 
+          id="a_rules_1_comment" 
           placeholder="Commentaire du partenaire" 
-          v-model="formData.pt_1_comment" />
+          v-model="formData.a_1_comment" />
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="pt_rules_1_impact">
+      <label for="a_rules_1_impact">
         <select
-          id="pt_rules_1_impact" 
+          id="a_rules_1_impact" 
           placeholder="Impact" 
-          v-model="formData.pt_1_impact">
+          v-model="formData.a_1_impact">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
         <span>Impact</span>
       </label>
 
-      <label for="pt_rules_1_engie">
+      <label for="a_rules_1_engie">
         <input type="text" 
-          id="pt_rules_1_engie" 
+          id="a_rules_1_engie" 
           placeholder="Commentaire EHS" 
-          v-model="formData.pt_1_engie" />
+          v-model="formData.a_1_engie" />
         <span>Commentaire EHS</span>
       </label>
 
-      <label for="pt_rules_2">
+      <label for="a_rules_2">
         <select
-          id="pt_rules_2" 
+          id="a_rules_2" 
           placeholder="Le partenaire doit assurer la réversibilité en fin de contrat ou suite à l’activation de la clause de réversibilité" 
-          v-model="formData.pt_2" 
-          required>
+          v-model="formData.a_2">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit assurer la réversibilité en fin de contrat ou suite à l’activation de la clause de réversibilité</span>
       </label>
-      <label for="pt_rules_2_comment">
+      <label for="a_rules_2_comment">
         <input type="text" 
-          id="pt_rules_2_comment" 
+          id="a_rules_2_comment" 
           placeholder="Commentaire du partenaire" 
-          v-model="formData.pt_2_comment" />
+          v-model="formData.a_2_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="pt_rules_2_impact">
+      <label for="a_rules_2_impact">
         <select
-          id="pt_rules_2_impact" 
+          id="a_rules_2_impact" 
           placeholder="Impact" 
-          v-model="formData.pt_2_impact">
+          v-model="formData.a_2_impact">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
         <span>Impact</span>
       </label>
-      <label for="pt_rules_2_engie">
+      <label for="a_rules_2_engie">
         <input type="text" 
-          id="pt_rules_2_engie" 
+          id="a_rules_2_engie" 
           placeholder="Commentaire EHS" 
-          v-model="formData.pt_2_engie" />
+          v-model="formData.a_2_engie" />
         <span>Commentaire EHS</span>
       </label>
 
-      <label for="pt_rules_3">
+      <label for="a_rules_3">
         <select
-          id="pt_rules_3" 
+          id="a_rules_3" 
           placeholder="Il existe une procédure permettant de prouver la restitution ou la destruction des actifs (données et support) sur les environnement du partenaire et ses sous-traitants" 
-          v-model="formData.pt_3" 
-          required>
+          v-model="formData.a_3">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Il existe une procédure permettant de prouver la restitution ou la destruction des actifs (données et support) sur les environnement du partenaire et ses sous-traitants</span>
       </label>
-      <label for="pt_rules_3_comment">
+      <label for="a_rules_3_comment">
         <input type="text" 
-          id="pt_rules_3_comment" 
+          id="a_rules_3_comment" 
           placeholder="Commentaire du partenaire" 
-          v-model="formData.pt_3_comment" />
+          v-model="formData.a_3_comment" />
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="pt_rules_3_impact">
+      <label for="a_rules_3_impact">
         <select
-          id="pt_rules_3_impact" 
+          id="a_rules_3_impact" 
           placeholder="Impact" 
-          v-model="formData.pt_3_impact">
+          v-model="formData.a_3_impact">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
         <span>Impact</span>
       </label>
 
-      <label for="pt_rules_3_engie">
+      <label for="a_rules_3_engie">
         <input type="text" 
-          id="pt_rules_3_engie" 
+          id="a_rules_3_engie" 
           placeholder="Commentaire EHS" 
-          v-model="formData.pt_3_engie" />
+          v-model="formData.a_3_engie" />
         <span>Commentaire EHS</span>
       </label>
 
-      <label for="pt_rules_4">
+      <label for="a_rules_4">
         <select
-          id="pt_rules_4" 
+          id="a_rules_4" 
           placeholder="Le partenaire doit envoyer a EHS une preuve de blanchissement des serveurs si le contrat le prévoit" 
-          v-model="formData.pt_4" 
-          required>
+          v-model="formData.a_4">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
         <span>Le partenaire doit envoyer a EHS une preuve de blanchissement des serveurs si le contrat le prévoit</span>
       </label>
-      <label for="pt_rules_4_comment">
+      <label for="a_rules_4_comment">
         <input type="text" 
-          id="pt_rules_4_comment" 
+          id="a_rules_4_comment" 
           placeholder="Commentaire du partenaire" 
-          v-model="formData.pt_4_comment" />
+          v-model="formData.a_4_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="pt_rules_4_impact">
+      <label for="a_rules_4_impact">
         <select
-          id="pt_rules_4_impact" 
+          id="a_rules_4_impact" 
           placeholder="Impact" 
-          v-model="formData.pt_4_impact">
+          v-model="formData.a_4_impact">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
         <span>Impact</span>
       </label>
-      <label for="pt_rules_4_engie">
+      <label for="a_rules_4_engie">
         <input type="text" 
-          id="pt_rules_4_engie" 
+          id="a_rules_4_engie" 
           placeholder="Commentaire EHS" 
-          v-model="formData.pt_4_engie" />
+          v-model="formData.a_4_engie" />
         <span>Commentaire EHS</span>
       </label>
 
@@ -155,6 +158,7 @@
   export default {
     data() {
       return {
+        errors: [],
         formData: {},
         options: [
           { value: "N/A", text: "N/A" },
@@ -177,6 +181,32 @@
     },
     methods: {
       ...mapActions("a_rules", ["edit_a_rules"]),
+      verifForm() {
+        this.errors = [];
+
+        const { a_1, a_1_comment, a_1_engie, 
+          a_2, a_2_comment, a_2_engie, 
+          a_3, a_3_comment, a_3_engie, 
+          a_4, a_4_comment, a_4_engie } = this.formData
+        
+        if(!a_1 || !a_2 || !a_3 || !a_4 ) {
+          this.errors.push("Vous devez repondre à toutes les questions !");
+        }
+
+        if(a_1_comment.length > 300 || a_2_comment.length > 300 || a_3_comment.length > 300 || a_4_comment.length > 300
+          || a_1_engie.length > 300 || a_2_engie.length > 300 || a_3_engie.length > 300 || a_4_engie.length > 300) {
+          this.errors.push("Les commentaires doivent faire maximum 300 caractères !");
+        }
+
+        if (this.errors.length != 0)
+        {
+          console.log(this.errors.length)
+          return true;
+        }
+        else {
+          this.handleSubmit()
+        }
+      },
       handleSubmit() {
         const payload = {
           company: this.a_rules.company,
@@ -203,6 +233,7 @@
         };
         this.edit_a_rules(payload);
         this.formData = this.a_rules;
+        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)

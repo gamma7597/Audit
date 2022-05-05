@@ -13,10 +13,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     start_service: {
-      type: Sequelize.DATE
+      type: Sequelize.DATEONLY
     },
     end_service: {
-      type: Sequelize.DATE
+      type: Sequelize.DATEONLY
     }
   });
 
