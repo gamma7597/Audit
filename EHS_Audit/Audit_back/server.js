@@ -19,6 +19,8 @@ var app = express();
 
 global.__basedir = __dirname;
 
+console.log(global.__basedir)
+
 var corsOptions = {
   origin: "*"
 }
@@ -66,28 +68,6 @@ const authenticationRequired = async (req, res, next) => {
   }
 };
 
-
-/*
-// verify JWT token middleware
-app.use((req, res, next) => {
-  // require every request to have an authorization header
-  if (!req.headers.authorization) {
-    return next(new Error('Authorization header is required'))
-  }
-  let parts = req.headers.authorization.trim().split(' ')
-  let accessToken = parts.pop()
-  oktaJwtVerifier.verifyAccessToken(accessToken, 'https://conformite.engie-homeservices.fr')
-    .then(jwt => {
-      req.user = {
-        uid: jwt.claims.uid,
-        email: jwt.claims.sub
-      }
-      next()
-    })
-    .catch(next) // jwt did not verify!
-})
-*/
-// simple route
 
 app.get("/", (req, res) => {
   res.sendFile(path + "index.html");

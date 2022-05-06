@@ -31,7 +31,7 @@
         </table>
 
         <button class="button_blue" @click="goToRules(partner.company)">Règles</button>
-        <button class="button_blue" @click="goToFiles(partner.company)" :to="partner.company+'/files/'">Fichiers</button>
+        <button class="button_blue" @click="goToFiles(partner.company)">Fichiers</button>
 
         <p id="container">
             Cet audit cybersécurité permet un suivi de votre maturité sur la durée. <br />
@@ -76,7 +76,7 @@
                 this.$router.push("/rules/"+partner)
             },
             goToFiles(partner){
-                this.$router.push(partner.company+"/files/")
+                this.$router.push(partner+"/files/")
             }
         },
         mounted() {

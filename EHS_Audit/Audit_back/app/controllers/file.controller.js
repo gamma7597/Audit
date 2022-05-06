@@ -1,6 +1,7 @@
 const uploadFile = require("../middleware/upload");
 const fs = require('fs');
-const baseUrl = "https://10.56.255.2:8081/api/partners/";
+//const baseUrl = "http://localhost:8080/api/partners/";
+const baseUrl = "https://conformite.engie-homeservices.fr/api/partners/";
 
 const upload = async (req, res) => {
   try {
@@ -30,25 +31,22 @@ const getListFiles = (req, res) => {
   const directoryPath = __basedir + "/resources/static/assets/uploads/" + company;
 
   fs.readdir(directoryPath, function (err, files) {
-    console.log(directoryPath)
     if (err) {
       res.status(500).send({
         message: "Unable to scan files!",
       });
     }
-
-    let fileInfos = [];
-
-    console.log(files)
-
-    files.forEach((file) => {
-      fileInfos.push({
-        name: file,
-        url: baseUrl + company + "/files/" + file,
+    else {
+      let fileInfos = [];
+      files.forEach((file) => {
+        fileInfos.push({
+          name: file,
+          url: baseUrl + company + "/files/" + file,
+        });
       });
-    });
-
-    res.status(200).send(fileInfos);
+      res.status(200).send(fileInfos);
+    }
+    
   });
 };
 

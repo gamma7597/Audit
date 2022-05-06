@@ -1,15 +1,15 @@
 import axios from 'axios'
 import Vue from 'vue'
+import { url } from '../store/modules/axiosUrl'
 
-const url = 'https://conformite.engie-homeservices.fr/'
 
 class FileUploadService {
   upload(company, file, onUploadProgress) {
     let formData = new FormData();
 
     formData.append("file", file);
+    
     var accessToken = Vue.prototype.$auth.getAccessToken();
-
     return axios.post(url + "api/partners/"+ company +"/upload", formData, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
@@ -20,21 +20,22 @@ class FileUploadService {
   }
 
   getFiles(company) {
-           var accessToken = Vue.prototype.$auth.getAccessToken();
+    var accessToken = Vue.prototype.$auth.getAccessToken();
     return axios.get(url + "api/partners/" + company + "/files", {
-             headers: {
-               'Authorization': `Bearer ${accessToken}`
-             }
-           })
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
   }
 
   deleteFile(company, fileName) {
-           var accessToken = Vue.prototype.$auth.getAccessToken();
+    
+    var accessToken = Vue.prototype.$auth.getAccessToken();
     return axios.delete(url + "api/partners/" + company + "/files/" + fileName, {
-             headers: {
-               'Authorization': `Bearer ${accessToken}`
-             }
-           })
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
   }
 }
 
