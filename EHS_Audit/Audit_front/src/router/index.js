@@ -79,7 +79,7 @@ function matchOneRule(to, rule) {
   const test = []
   groups.forEach(function(item) {
     const g = item.split("-")
-    const x = "/rules/" + g[3] + "/" + rule 
+    const x = "/rules/" + g[3] + "/" + rule
     test.push(x)
   })
   return test.includes(path)
@@ -107,7 +107,7 @@ const routes = [
     }
   },
   {
-    path: '/partner/:company',
+    path: '/partner/:company/',
     name: 'Partner',
     component: Partner,
     meta: {
