@@ -10,7 +10,7 @@ class FileUploadService {
     formData.append("file", file);
     
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    return axios.post(url + "api/partners/"+ company +"/upload", formData, {
+    return axios.post(url + "api/files/"+ company +"/upload", formData, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         "Content-Type": "multipart/form-data"
@@ -21,7 +21,7 @@ class FileUploadService {
 
   getFiles(company) {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    return axios.get(url + "api/partners/" + company + "/files", {
+    return axios.get(url + "api/files/" + company + "/files", {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
@@ -31,7 +31,7 @@ class FileUploadService {
   deleteFile(company, fileName) {
     
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    return axios.delete(url + "api/partners/" + company + "/files/" + fileName, {
+    return axios.delete(url + "api/files/" + company + "/files/" + fileName, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }

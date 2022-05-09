@@ -11,5 +11,5 @@ module.exports = app => {
 
   router.delete("/:company/files/:fileName", files.deleteFile);
 
-  app.use('/api/partners', router);
+  app.use('/api/files', router);
 };

@@ -19,6 +19,7 @@ const actions = {
     })
   },
   addContact: ({ commit }, payload) => {
+    console.log(payload)
     var accessToken = Vue.prototype.$auth.getAccessToken();
     Axios.post(url + 'api/contacts/' + payload.company, payload.data, {
       headers: {
@@ -30,6 +31,7 @@ const actions = {
     })
   },
   editContact: ({ commit }, payload) => {
+    console.log(payload)
     var accessToken = Vue.prototype.$auth.getAccessToken();
     Axios.put(url + 'api/contacts/' + payload.company + '/' + payload.data.last_name, payload.data, {
       headers: {

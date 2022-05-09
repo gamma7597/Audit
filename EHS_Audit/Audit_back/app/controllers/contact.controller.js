@@ -3,6 +3,8 @@ const Contact = db.contacts;
 
 exports.create = (req, res) => {
 
+    console.log("test ______________________________")
+
     const company = req.params.company
     
     const contact = {
@@ -15,12 +17,14 @@ exports.create = (req, res) => {
         partnerId: req.body.partnerId
     };
 
+    console.log(contact)
+
     var phone_regex = new RegExp(/(?:(?:\+|00)33|0)[1-9](?:[\s.-]*\d{2}){4}/)
     var mail_regex = new RegExp(/\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+/)
 
     if(contact.company != null && contact.last_name != null && contact.first_name != null && contact.phone != null && contact.mail != null && contact.job != null) {
-        if (contact.company.toUpperCase() && contact.company.length <= 30 && contact.last_name.length <= 30 && contact.first_name.length <= 30 && phone_regex.test(contact.tel) && mail_regex.test(contact.mail) && contact.job.length <= 30 ) {
-
+        if (contact.company.toUpperCase() && contact.company.length <= 30 && contact.last_name.length <= 30 && contact.first_name.length <= 30 && phone_regex.test(contact.phone) && mail_regex.test(contact.mail) && contact.job.length <= 30 ) {
+            
             Contact.create(contact)
                 .then(data => {
                     res.send(data);
@@ -60,8 +64,8 @@ exports.update = (req, res) => {
     var phone_regex = new RegExp(/(?:(?:\+|00)33|0)[1-9](?:[\s.-]*\d{2}){4}/)
     var mail_regex = new RegExp(/\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+/)
 
-    if( last_name != null && req.body.company && req.body.last_name != null && req.body.first_name != null && req.body.tel != null && req.body.mail != null && req.body.job != null ){
-        if (last_name.length <= 30 && req.body.company.toUpperCase() && req.body.company.length <= 30 && req.body.last_name.length <= 30 && req.body.first_name.length <= 30 && phone_regex.test(req.body.tel) && mail_regex.test(req.body.mail) && req.body.job.length <= 30) {
+    if( last_name != null && req.body.company && req.body.last_name != null && req.body.first_name != null && req.body.phone != null && req.body.mail != null && req.body.job != null ){
+        if (last_name.length <= 30 && req.body.company.toUpperCase() && req.body.company.length <= 30 && req.body.last_name.length <= 30 && req.body.first_name.length <= 30 && phone_regex.test(req.body.phone) && mail_regex.test(req.body.mail) && req.body.job.length <= 30) {
 
 
             Contact.update(req.body, {
