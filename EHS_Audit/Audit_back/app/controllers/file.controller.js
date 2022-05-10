@@ -65,11 +65,11 @@ const deleteFile = (req, res) => {
 }
 
 const download = (req, res) => {
-  const fileName = req.params.name;
+  const name = req.params.name;
   const company = req.params.company;
   const directoryPath = __basedir + "/resources/static/assets/uploads/" + company + "/";
 
-  res.download(directoryPath + fileName, fileName, (err) => {
+  res.download(directoryPath + name, name, (err) => {
     if (err) {
       res.status(500).send({
         message: "Could not download the file. " + err,
