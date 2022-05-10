@@ -38,6 +38,26 @@ class FileUploadService {
       }
     })
   }
+
+  download(company, filename){
+    var accessToken = Vue.prototype.$auth.getAccessToken();
+    return axios.get(url + "api/files/" + company + "/files/" + filename, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      },
+      responseType: 'Blob'
+    })
+    .then((response) => {
+      var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+      var fURL = document.createElement('a');
+
+      fURL.href = fileURL;
+      fURL.setAttribute('download', filename);
+      document.body.appendChild(fURL);
+
+      fURL.click();
+    })
+  }
 }
 
 export default new FileUploadService();

@@ -25,7 +25,7 @@
           v-for="(file, index) in fileInfos"
           :key="index"
         >
-          <a :href="file.url">{{ file.name }}</a>
+          <button class="button_blue" @click="download(partner.company, file.name)">{{ file.name }}</button>
 
           <button class="button_blue" @click="deleteFile(file)">Supprimer</button>
         </li>
@@ -65,6 +65,9 @@ export default {
     },
     selectFile() {
       this.selectedFiles = this.$refs.file.files;
+    },
+    download(company, name){
+      FileUploadService.download(company, name)
     },
     upload() {
       this.progress = 0;
