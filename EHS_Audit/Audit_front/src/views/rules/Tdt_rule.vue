@@ -123,6 +123,7 @@ export default {
   computed: {
     ...mapState("tdt_rules", ["tdt_rules"]),
     ...mapState("partner", ["partner"]),
+    ...mapState("user", ["groups"])
   },
   methods: {
     ...mapActions("tdt_rules", ["edit_tdt_rules"]),

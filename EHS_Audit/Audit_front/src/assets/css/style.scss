@@ -179,7 +179,7 @@ label{
 input, select{
   width:100%;
   padding:10px 0px;
-  margin-top:20px;
+  margin-top:30px;
   border:none;
   outline:none;
 
@@ -188,6 +188,7 @@ input, select{
   }
 }
 input::placeholder, select::placeholder{
+  margin-top:50px;
   opacity:0;
 }
 span{
@@ -205,11 +206,11 @@ input:not(:placeholder-shown) + span {
     transform:translateY(0px);
 }
 
-label:focus-within > span,
+/*label:focus-within > span,
 select:not(:placeholder-shown) + span {
     color: color.$blue-engie;
     transform:translateY(0px);
-}
+}*/
 
 .cards {
   display: flex;
@@ -245,5 +246,3 @@ select:not(:placeholder-shown) + span {
     }
   }
 }
-
-

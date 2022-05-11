@@ -1,5 +1,6 @@
 const db = require("../models");
 const Partner = db.partners;
+const fs = require('fs');
 
 exports.create = (req, res) => {
 
@@ -14,6 +15,13 @@ exports.create = (req, res) => {
 
     if( partner.company != null && partner.contract_number != null && partner.location != null && partner.description != null && partner.start_service != null && partner.end_service != null ){
         if (partner.company.toUpperCase() && partner.company.length <= 30 && partner.location.length <= 30 && partner.description.length <= 100 && partner.end_service >= partner.start_service) {
+            
+            const directoryPath = __basedir + "/resources/static/assets/uploads/" + partner.company;
+            
+            fs.mkdir(directoryPath, (err) => {
+                if (err) throw err;
+            });
+            
             Partner.create(partner)
                 .then(data => {
                     res.send(data);
@@ -92,6 +100,12 @@ exports.delete = (req, res) => {
     const company = req.params.company;
 
     if(company != null && company.toUpperCase()) {
+
+        const directoryPath = __basedir + "/resources/static/assets/uploads/" + company;
+
+        fs.rmdir(directoryPath, { recursive: true }, (err) => {
+            if (err) throw err;
+        });
 
         Partner.destroy({
             where: { company: company }

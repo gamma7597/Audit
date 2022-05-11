@@ -28,7 +28,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="adm_rules_1_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="adm_rules_1_impact">
         <select
           id="adm_rules_1_impact" 
           placeholder="Impact" 
@@ -64,7 +64,7 @@ Préciser lesquelles</span>
           v-model="formData.adm_2_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="adm_rules_2_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="adm_rules_2_impact">
         <select
           id="adm_rules_2_impact" 
           placeholder="Impact" 
@@ -98,7 +98,7 @@ Préciser lesquelles</span>
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="adm_rules_3_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="adm_rules_3_impact">
         <select
           id="adm_rules_3_impact" 
           placeholder="Impact" 
@@ -132,7 +132,7 @@ Préciser lesquelles</span>
           v-model="formData.adm_4_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="adm_rules_4_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="adm_rules_4_impact">
         <select
           id="adm_rules_4_impact" 
           placeholder="Impact" 
@@ -165,7 +165,7 @@ Préciser lesquelles</span>
           v-model="formData.adm_5_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="adm_rules_5_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="adm_rules_5_impact">
         <select
           id="adm_rules_5_impact" 
           placeholder="Impact" 
@@ -203,7 +203,7 @@ https://owasp.org/www-project-top-ten/</span>
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="adm_rules_6_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="adm_rules_6_impact">
         <select
           id="adm_rules_6_impact" 
           placeholder="Impact" 
@@ -237,7 +237,7 @@ https://owasp.org/www-project-top-ten/</span>
           v-model="formData.adm_7_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="adm_rules_7_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="adm_rules_7_impact">
         <select
           id="adm_rules_7_impact" 
           placeholder="Impact" 
@@ -285,7 +285,8 @@ https://owasp.org/www-project-top-ten/</span>
     },
     computed: {
       ...mapState("adm_rules", ["adm_rules"]),
-      ...mapState("partner", ["partner"])
+      ...mapState("partner", ["partner"]),
+      ...mapState("user", ["groups"])
     },
     methods: {
       ...mapActions("adm_rules", ["edit_adm_rules"]),

@@ -1,22 +1,25 @@
 <template>
   <div>
 
-    <h2>Vous pouvez ajouter ou supprimer des fichiers / images sur cette page.</h2>
-    <p>
-      Vous êtes limités aux types : jpeg / png / pdf / word / excel / powerpoint.<br />
-      Nous vous conseillons d'ajouter vos documents cybersécurité tels que : <br />
-      PSSI / Schéma de flux / Contrats / Chartes / Etc ...
-    </p>
-
     <button class="button_blue" @click="goToPartner(partner.company)">Retour</button>
 
-    <label class="btn btn-default">
-      <input type="file" ref="file" @change="selectFile" />
-    </label>
+    <div id="container">
+      <h2>Vous pouvez ajouter ou supprimer des fichiers / images sur cette page.</h2>
+      <p>
+        Vous êtes limités aux types : jpeg / png / pdf / word / excel / powerpoint.<br />
+        Nous vous conseillons d'ajouter vos documents cybersécurité tels que : <br />
+        PSSI / Schéma de flux / Contrats / Chartes / Etc ...
+      </p>
+    </div>
+    
+    <div>
+      <label>
+        <input type="file" ref="file" @change="selectFile" />
+      </label>
+      <button class="button_blue" :disabled="!selectedFiles" @click="upload()">Ajouter</button>
+    </div>
 
-    <button class="button_blue" :disabled="!selectedFiles" @click="upload()">Ajouter</button>
 
-    <div class="alert alert-light" role="alert">{{ message }}</div>
     <div class="card">
       <div class="card-header">Liste des fichiers</div>
       <ul class="list-group list-group-flush">

@@ -28,7 +28,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="cd_rules_1_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="cd_rules_1_impact">
         <select
           id="cd_rules_1_impact" 
           placeholder="Impact" 
@@ -62,7 +62,7 @@
           v-model="formData.cd_2_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="cd_rules_2_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="cd_rules_2_impact">
         <select
           id="cd_rules_2_impact" 
           placeholder="Impact" 
@@ -110,7 +110,8 @@
     },
     computed: {
       ...mapState("cd_rules", ["cd_rules"]),
-      ...mapState("partner", ["partner"])
+      ...mapState("partner", ["partner"]),
+      ...mapState("user", ["groups"])
     },
     methods: {
       ...mapActions("cd_rules", ["edit_cd_rules"]),

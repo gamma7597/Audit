@@ -30,7 +30,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="c_rules_1_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="c_rules_1_impact">
         <select
           id="c_rules_1_impact" 
           placeholder="Impact" 
@@ -64,7 +64,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
           v-model="formData.c_2_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="c_rules_2_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="c_rules_2_impact">
         <select
           id="c_rules_2_impact" 
           placeholder="Impact" 
@@ -98,7 +98,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="c_rules_3_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="c_rules_3_impact">
         <select
           id="c_rules_3_impact" 
           placeholder="Impact" 
@@ -132,7 +132,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
           v-model="formData.c_4_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="c_rules_4_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="c_rules_4_impact">
         <select
           id="c_rules_4_impact" 
           placeholder="Impact" 
@@ -165,7 +165,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
           v-model="formData.c_5_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="c_rules_5_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="c_rules_5_impact">
         <select
           id="c_rules_5_impact" 
           placeholder="Impact" 
@@ -199,7 +199,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="c_rules_6_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="c_rules_6_impact">
         <select
           id="c_rules_6_impact" 
           placeholder="Impact" 
@@ -233,7 +233,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
           v-model="formData.c_7_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="c_rules_7_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="c_rules_7_impact">
         <select
           id="c_rules_7_impact" 
           placeholder="Impact" 
@@ -267,7 +267,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="c_rules_8_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="c_rules_8_impact">
         <select
           id="c_rules_8_impact" 
           placeholder="Impact" 
@@ -316,7 +316,8 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
     },
     computed: {
       ...mapState("c_rules", ["c_rules"]),
-      ...mapState("partner", ["partner"])
+      ...mapState("partner", ["partner"]),
+      ...mapState("user", ["groups"])
     },
     methods: {
       ...mapActions("c_rules", ["edit_c_rules"]),

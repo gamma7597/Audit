@@ -141,6 +141,7 @@ export default {
   computed: {
     ...mapState("co_rules", ["co_rules"]),
     ...mapState("partner", ["partner"]),
+    ...mapState("user", ["groups"])
   },
   methods: {
     ...mapActions("co_rules", ["edit_co_rules"]),

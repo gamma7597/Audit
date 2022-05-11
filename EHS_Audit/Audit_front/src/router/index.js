@@ -114,7 +114,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchPartner(to)){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+        || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchPartner(to)){
         next()
       }
     }
@@ -127,7 +131,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchRules(to)){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchRules(to)){
         next()
       }
     }
@@ -140,7 +148,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "co_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "co_rules")){
         next()
       }
     }
@@ -153,7 +165,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "tdt_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "tdt_rules")){
         next()
       }
     }
@@ -166,7 +182,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "g_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "g_rules")){
         next()
       }
     }
@@ -179,7 +199,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "rh_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "rh_rules")){
         next()
       }
     }
@@ -192,7 +216,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "pt_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "pt_rules")){
         next()
       }
     }
@@ -205,7 +233,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "a_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "a_rules")){
         next()
       }
     }
@@ -218,7 +250,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "ca_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "ca_rules")){
         next()
       }
     }
@@ -231,7 +267,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "spe_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "spe_rules")){
         next()
       }
     }
@@ -244,7 +284,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "c_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "c_rules")){
         next()
       }
     }
@@ -257,7 +301,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "adm_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "adm_rules")){
         next()
       }
     }
@@ -270,7 +318,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "se_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "se_rules")){
         next()
       }
     }
@@ -283,7 +335,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "rf_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "rf_rules")){
         next()
       }
     }
@@ -296,7 +352,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "gi_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "gi_rules")){
         next()
       }
     }
@@ -309,7 +369,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "gca_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "gca_rules")){
         next()
       }
     }
@@ -322,7 +386,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "ie_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "ie_rules")){
         next()
       }
     }
@@ -335,7 +403,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "rgpd_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "rgpd_rules")){
         next()
       }
     }
@@ -348,7 +420,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchOneRule(to, "cd_rules")){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchOneRule(to, "cd_rules")){
         next()
       }
     }
@@ -361,7 +437,11 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(matchFiles(to)){
+      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
+      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+        next()
+      }
+      else if(matchFiles(to)){
         next()
       }
     }

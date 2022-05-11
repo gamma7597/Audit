@@ -28,7 +28,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="gca_rules_1_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="gca_rules_1_impact">
         <select
           id="gca_rules_1_impact" 
           placeholder="Impact" 
@@ -62,7 +62,7 @@
           v-model="formData.gca_2_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="gca_rules_2_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="gca_rules_2_impact">
         <select
           id="gca_rules_2_impact" 
           placeholder="Impact" 
@@ -96,7 +96,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="gca_rules_3_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="gca_rules_3_impact">
         <select
           id="gca_rules_3_impact" 
           placeholder="Impact" 
@@ -145,7 +145,8 @@
     },
     computed: {
       ...mapState("gca_rules", ["gca_rules"]),
-      ...mapState("partner", ["partner"])
+      ...mapState("partner", ["partner"]),
+      ...mapState("user", ["groups"])
     },
     methods: {
       ...mapActions("gca_rules", ["edit_gca_rules"]),

@@ -6,7 +6,12 @@
         <nav>
           <ul class="menu">
             <li class="item"><router-link to="/">Accueil</router-link></li>
-            <li class="item"><router-link to="/partnerList/" v-if="activeUser">Liste des partenaires</router-link></li>
+            <li class="item" v-if="activeUser && (groups.includes('GG-USR-APPCONFORMITE-ADMIN') || groups.includes('GG-USR-APPCONFORMITE-METIER'))">
+              <router-link  :to="`/partnerList/`" >Liste des partenaires</router-link>
+            </li>
+            <li class="item" v-else-if="activeUser">
+              <router-link  :to="`/partner/${myPartner()}`">{{myPartner()}}</router-link>
+            </li>
             <li class="item" v-if="!activeUser"><a href="#" @click.prevent="login">Connexion</a></li>
             <li class="item" v-else><a href="#" @click.prevent="logout">Deconnexion</a></li>
           </ul>
@@ -40,6 +45,10 @@ export default {
     ...mapState("user", ["groups"]),
   },
   methods: {
+    myPartner(){
+      const g = this.groups[0].split("-")
+      return g[3]
+    },
     async login() {
       this.$auth.signInWithRedirect();
     },

@@ -34,7 +34,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="spe_rules_1_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="spe_rules_1_impact">
         <select
           id="spe_rules_1_impact" 
           placeholder="Impact" 
@@ -70,7 +70,7 @@ Dans le cas contraire, indiquez quelles données et quel(s) tier(s) sont concern
           v-model="formData.spe_2_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="spe_rules_2_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="spe_rules_2_impact">
         <select
           id="spe_rules_2_impact" 
           placeholder="Impact" 
@@ -104,7 +104,7 @@ Dans le cas contraire, indiquez quelles données et quel(s) tier(s) sont concern
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="spe_rules_3_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="spe_rules_3_impact">
         <select
           id="spe_rules_3_impact" 
           placeholder="Impact" 
@@ -138,7 +138,7 @@ Dans le cas contraire, indiquez quelles données et quel(s) tier(s) sont concern
           v-model="formData.spe_4_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="spe_rules_4_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="spe_rules_4_impact">
         <select
           id="spe_rules_4_impact" 
           placeholder="Impact" 
@@ -171,7 +171,7 @@ Dans le cas contraire, indiquez quelles données et quel(s) tier(s) sont concern
           v-model="formData.spe_5_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="spe_rules_5_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="spe_rules_5_impact">
         <select
           id="spe_rules_5_impact" 
           placeholder="Impact" 
@@ -219,7 +219,8 @@ Dans le cas contraire, indiquez quelles données et quel(s) tier(s) sont concern
     },
     computed: {
       ...mapState("spe_rules", ["spe_rules"]),
-      ...mapState("partner", ["partner"])
+      ...mapState("partner", ["partner"]),
+      ...mapState("user", ["groups"])
     },
     methods: {
       ...mapActions("spe_rules", ["edit_spe_rules"]),

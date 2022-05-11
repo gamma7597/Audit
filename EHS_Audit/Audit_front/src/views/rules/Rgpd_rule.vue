@@ -28,7 +28,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="rgpd_rules_1_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="rgpd_rules_1_impact">
         <select
           id="rgpd_rules_1_impact" 
           placeholder="Impact" 
@@ -62,7 +62,7 @@
           v-model="formData.rgpd_2_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="rgpd_rules_2_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="rgpd_rules_2_impact">
         <select
           id="rgpd_rules_2_impact" 
           placeholder="Impact" 
@@ -110,7 +110,8 @@
     },
     computed: {
       ...mapState("rgpd_rules", ["rgpd_rules"]),
-      ...mapState("partner", ["partner"])
+      ...mapState("partner", ["partner"]),
+      ...mapState("user", ["groups"])
     },
     methods: {
       ...mapActions("rgpd_rules", ["edit_rgpd_rules"]),

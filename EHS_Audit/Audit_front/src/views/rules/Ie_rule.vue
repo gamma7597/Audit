@@ -28,7 +28,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label for="ie_rules_1_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="ie_rules_1_impact">
         <select
           id="ie_rules_1_impact" 
           placeholder="Impact" 
@@ -64,7 +64,7 @@ Précisez le(s) hébergeur(s) concerné(s).</span>
           v-model="formData.ie_2_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label for="ie_rules_2_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="ie_rules_2_impact">
         <select
           id="ie_rules_2_impact" 
           placeholder="Impact" 
@@ -111,7 +111,8 @@ Précisez le(s) hébergeur(s) concerné(s).</span>
     },
     computed: {
       ...mapState("ie_rules", ["ie_rules"]),
-      ...mapState("partner", ["partner"])
+      ...mapState("partner", ["partner"]),
+      ...mapState("user", ["groups"])
     },
     methods: {
       ...mapActions("ie_rules", ["edit_ie_rules"]),

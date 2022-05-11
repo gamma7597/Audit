@@ -5,7 +5,7 @@
 
     <Overview/>
 
-    <ul class="cards">
+    <ul v-if="!groups.includes('GG-USR-APPCONFORMITE-METIER')" class="cards">
       <li class="card_item">
         <div class="card_content">
           <div class="card_title">Connexion</div>
@@ -24,6 +24,8 @@
           <button class="button_blue" @click="goToTdt(partner.company)">Voir</button>
         </div>
       </li>
+    </ul>
+    <ul v-if="!groups.includes('GG-USR-APPCONFORMITE-METIER')" class="cards">
       <li class="card_item">
         <div class="card_content">
           <div class="card_title">Gouvernance</div>
@@ -31,16 +33,6 @@
             Il faut s'assurer que le top management comprenne les enjeux liés à la cybersécurité.
           </p>
           <button class="button_blue" @click="goToG(partner.company)">Voir</button>
-        </div>
-      </li>
-      <li class="card_item">
-        <div class="card_content">
-          <div class="card_title">Ressource Humaine</div>
-          <p class="card_text">
-            Il faut s'assurer que les entreprises et leurs employés comprennent les risques, 
-            leurs responsabilités et s'engagent sur leur rôle en matière de cybersécurité.
-          </p>
-          <button class="button_blue" @click="goToRh(partner.company)">Voir</button>
         </div>
       </li>
       <li class="card_item">
@@ -55,13 +47,61 @@
       </li>
       <li class="card_item">
         <div class="card_content">
-          <div class="card_title">Actifs</div>
+          <div class="card_title">Ressource Humaine</div>
           <p class="card_text">
-            S'assurer de la sécurité de l'ensemble des actifs immatériels
-            (informations, organisations, procédures, services) et matériels
-            (documents papiers ou électroniques, hardware, software).
+            Il faut s'assurer que les entreprises et leurs employés comprennent les risques, 
+            leurs responsabilités et s'engagent sur leur rôle en matière de cybersécurité.
           </p>
-          <button class="button_blue" @click="goToA(partner.company)">Voir</button>
+          <button class="button_blue" @click="goToRh(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Gestion de la continuité d'activité</div>
+          <p class="card_text">
+            S'assurer qu'il existe des mesures mises en place pour assurer la
+            continuer d'activité et de garder les données disponibles.
+          </p>
+          <button class="button_blue" @click="goToGca(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Gestion des incidents</div>
+          <p class="card_text">
+            S'assurer de la présence d'un processus de gestion des incidents de
+            sécurité et d'alerte du RSSI.
+          </p>
+          <button class="button_blue" @click="goToGi(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Analyse des risques RGPD</div>
+          <p class="card_text">
+            Déterminer si la nature des données, leur niveau de confidentialité
+            et de sensibilité justifie une étude d'impact GDPR
+          </p>
+          <button class="button_blue" @click="goToRgpd(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Classification des données</div>
+          <p class="card_text">
+            Identifier les actifs et définir le niveau de protection requis
+          </p>
+          <button class="button_blue" @click="goToCd(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Relation avec les fournisseurs</div>
+          <p class="card_text">
+            S'assurer de la sécurité de l'information dans les relations
+            avec les tiers ainsi que de la présence d'une politique de sécurité.
+          </p>
+          <button class="button_blue" @click="goToRf(partner.company)">Voir</button>
         </div>
       </li>
       <li class="card_item">
@@ -87,6 +127,36 @@
       </li>
       <li class="card_item">
         <div class="card_content">
+          <div class="card_title">Actifs</div>
+          <p class="card_text">
+            S'assurer de la sécurité de l'ensemble des actifs immatériels
+            (informations, organisations, procédures, services) et matériels
+            (documents papiers ou électroniques, hardware, software).
+          </p>
+          <button class="button_blue" @click="goToA(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Inventaire des équipements on-prem/cloud</div>
+          <p class="card_text">
+            S'assurer que les équipements on-prem/cloud utilisés dans le cadre
+            de la prestation soient listés dans un inventaire
+          </p>
+          <button class="button_blue" @click="goToIe(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
+          <div class="card_title">Sécurité liée à l'exploitation</div>
+          <p class="card_text">
+            S'assurer de la sécurité lors de l'exploitation de la solution
+          </p>
+          <button class="button_blue" @click="goToSe(partner.company)">Voir</button>
+        </div>
+      </li>
+      <li class="card_item">
+        <div class="card_content">
           <div class="card_title">Accès aux données et flux réseaux</div>
           <p class="card_text">
             S'assurer que les flux et transferts de données sont sécurisés et
@@ -105,74 +175,6 @@
           <button class="button_blue" @click="goToAdm(partner.company)">Voir</button>
         </div>
       </li>
-      <li class="card_item">
-        <div class="card_content">
-          <div class="card_title">Sécurité liée à l'exploitation</div>
-          <p class="card_text">
-            S'assurer de la sécurité lors de l'exploitation de la solution
-          </p>
-          <button class="button_blue" @click="goToSe(partner.company)">Voir</button>
-        </div>
-      </li>
-      <li class="card_item">
-        <div class="card_content">
-          <div class="card_title">Relation avec les fournisseurs</div>
-          <p class="card_text">
-            S'assurer de la sécurité de l'information dans les relations
-            avec les tiers ainsi que de la présence d'une politique de sécurité.
-          </p>
-          <button class="button_blue" @click="goToRf(partner.company)">Voir</button>
-        </div>
-      </li>
-      <li class="card_item">
-        <div class="card_content">
-          <div class="card_title">Gestion des incidents</div>
-          <p class="card_text">
-            S'assurer de la présence d'un processus de gestion des incidents de
-            sécurité et d'alerte du RSSI.
-          </p>
-          <button class="button_blue" @click="goToGi(partner.company)">Voir</button>
-        </div>
-      </li>
-      <li class="card_item">
-        <div class="card_content">
-          <div class="card_title">Gestion de la continuité d'activité</div>
-          <p class="card_text">
-            S'assurer qu'il existe des mesures mises en place pour assurer la
-            continuer d'activité et de garder les données disponibles.
-          </p>
-          <button class="button_blue" @click="goToGca(partner.company)">Voir</button>
-        </div>
-      </li>
-      <li class="card_item">
-        <div class="card_content">
-          <div class="card_title">Inventaire des équipements on-prem/cloud</div>
-          <p class="card_text">
-            S'assurer que les équipements on-prem/cloud utilisés dans le cadre
-            de la prestation soient listés dans un inventaire
-          </p>
-          <button class="button_blue" @click="goToIe(partner.company)">Voir</button>
-        </div>
-      </li>
-      <li class="card_item">
-        <div class="card_content">
-          <div class="card_title">Analyse des risques RGPD</div>
-          <p class="card_text">
-            Déterminer si la nature des données, leur niveau de confidentialité
-            et de sensibilité justifie une étude d'impact GDPR
-          </p>
-          <button class="button_blue" @click="goToRgpd(partner.company)">Voir</button>
-        </div>
-      </li>
-      <li class="card_item">
-        <div class="card_content">
-          <div class="card_title">Classification des données</div>
-          <p class="card_text">
-            Identifier les actifs et définir le niveau de protection requis
-          </p>
-          <button class="button_blue" @click="goToCd(partner.company)">Voir</button>
-        </div>
-      </li>
     </ul>
   </div>
 </template>
@@ -185,6 +187,7 @@ export default {
     Overview
   },
   computed: {
+    ...mapState("user", ["groups"]),
     ...mapState("co_rules", ["co_rules", "co_longueur"]),
     ...mapState("a_rules", ["a_rules", "a_longueur"]),
     ...mapState("adm_rules", ["adm_rules", "adm_longueur"]),

@@ -4,7 +4,7 @@
         <h3 id="title">Bienvenue sur le compte {{ partner.company }}</h3>
 
         <EditPartner :partner="partner" />
-        <button class="button_blue" v-on:click="removePartner()">Supprimer le partenaire</button>
+        <button v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" class="button_blue" v-on:click="removePartner()">Supprimer le partenaire</button>
 
         <table class="table_style">
             <caption>Informations {{partner.company}}</caption>
@@ -65,7 +65,8 @@
             //AddEmployee
         },
         computed: {
-            ...mapState('partner', [ 'partner' ])
+            ...mapState('partner', [ 'partner' ]),
+            ...mapState("user", ["groups"])
         },
         methods: {
             removePartner() {
