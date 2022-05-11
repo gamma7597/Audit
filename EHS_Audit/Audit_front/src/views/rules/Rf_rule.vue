@@ -28,7 +28,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="rf_rules_1_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rf_rules_1_impact">
         <select
           id="rf_rules_1_impact" 
           placeholder="Impact" 
@@ -62,7 +62,7 @@
           v-model="formData.rf_2_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="rf_rules_2_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rf_rules_2_impact">
         <select
           id="rf_rules_2_impact" 
           placeholder="Impact" 
@@ -96,7 +96,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="rf_rules_3_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rf_rules_3_impact">
         <select
           id="rf_rules_3_impact" 
           placeholder="Impact" 

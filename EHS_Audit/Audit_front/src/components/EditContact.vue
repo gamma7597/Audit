@@ -52,7 +52,7 @@
       <button class="button_blue" type="submit">Modifier</button>
       <button class="button_blue"  type="reset">Reinitialiser le formulaire</button>
     </form>
-  </div>
+  </div>  
 </template>
 
 <script>
@@ -62,13 +62,7 @@
     data() {
       return {
         errors: [],
-        formData: {
-          last_name: '',
-          first_name: '',
-          phone: null,
-          mail: '',
-          job: ''
-        }
+        formData: {}
       }
     },
     computed: {
@@ -130,28 +124,24 @@
         }
       },
       handleSubmit() {
-        const { last_name, first_name, phone, mail, job } = this.formData
         const payload = {
           company: this.partner.company,
           data: {
             company: this.partner.company,
-            last_name,
-            first_name,
-            phone,
-            mail,
-            job,
+            last_name: this.formData.last_name,
+            first_name: this.formData.first_name,
+            phone: this.formData.phone,
+            mail: this.formData.mail,
+            job: this.formData.job,
             partnerId: this.partner.id
           }
         }
         this.editContact(payload)
-        this.formData = {
-          last_name: '',
-          first_name: '',
-          phone: null,
-          mail: '',
-          job: ''
-        }
+        this.formData = this.contacts
       }
+    },
+    mounted() {
+      this.formData = this.contacts;
     }
   }
 </script>

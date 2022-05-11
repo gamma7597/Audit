@@ -73,14 +73,7 @@
       return {
         errors: [],
         showPartnerForm: false,
-        formData: {
-          company: '',
-          contract_number: '',
-          location: '',
-          description: '',
-          start_service: '',
-          end_service: ''
-        }
+        formData: {}
       }
     },
     computed: {
@@ -145,29 +138,24 @@
         }
       },
       handleSubmit() {
-        const { company, contract_number, location, description, start_service, end_service } = this.formData
         const payload = {
           company: this.partner.company,
           data: {
-            company,
-            contract_number,
-            location,
-            description,
-            start_service,
-            end_service
+            company: this.formData.company,
+            contract_number: this.formData.contract_number,
+            location: this.formData.location,
+            description: this.formData.description,
+            start_service: this.formData.start_service,
+            end_service: this.formData.end_service
           }
         }
         this.editPartner(payload)
-        this.formData = {
-          company: '',
-          contract_number: '',
-          location: '',
-          description: '',
-          start_service: '',
-          end_service: ''
-        }
+        this.formData = this.partner
         this.togglePartnerForm()
       }
-    }
+    },
+    mounted() {
+      this.formData = this.partner;
+    },
   }
 </script>

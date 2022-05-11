@@ -28,7 +28,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="se_rules_1_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="se_rules_1_impact">
         <select
           id="se_rules_1_impact" 
           placeholder="Impact" 
@@ -64,7 +64,7 @@ Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions
           v-model="formData.se_2_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="se_rules_2_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="se_rules_2_impact">
         <select
           id="se_rules_2_impact" 
           placeholder="Impact" 
@@ -98,7 +98,7 @@ Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="se_rules_3_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="se_rules_3_impact">
         <select
           id="se_rules_3_impact" 
           placeholder="Impact" 
@@ -132,7 +132,7 @@ Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions
           v-model="formData.se_4_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="se_rules_4_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="se_rules_4_impact">
         <select
           id="se_rules_4_impact" 
           placeholder="Impact" 
@@ -165,7 +165,7 @@ Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions
           v-model="formData.se_5_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="se_rules_5_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="se_rules_5_impact">
         <select
           id="se_rules_5_impact" 
           placeholder="Impact" 
@@ -199,7 +199,7 @@ Précisez les antivirus utilisés sur les postes et les serveurs, leurs versions
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="se_rules_6_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="se_rules_6_impact">
         <select
           id="se_rules_6_impact" 
           placeholder="Impact" 

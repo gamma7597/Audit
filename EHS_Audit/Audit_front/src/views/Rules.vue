@@ -232,6 +232,7 @@ export default {
           partnerId: this.partner.id,
         },
       };
+      console.log(this.co_longueur)
       if (this.co_longueur === 0) {
         this.add_co_rules(payload);
       }

@@ -28,7 +28,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="ca_rules_1_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_1_impact">
         <select
           id="ca_rules_1_impact" 
           placeholder="Impact" 
@@ -62,7 +62,7 @@
           v-model="formData.ca_2_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="ca_rules_2_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_2_impact">
         <select
           id="ca_rules_2_impact" 
           placeholder="Impact" 
@@ -96,7 +96,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="ca_rules_3_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_3_impact">
         <select
           id="ca_rules_3_impact" 
           placeholder="Impact" 
@@ -130,7 +130,7 @@
           v-model="formData.ca_4_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="ca_rules_4_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_4_impact">
         <select
           id="ca_rules_4_impact" 
           placeholder="Impact" 
@@ -163,7 +163,7 @@
           v-model="formData.ca_5_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="ca_rules_5_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_5_impact">
         <select
           id="ca_rules_5_impact" 
           placeholder="Impact" 
@@ -197,7 +197,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="ca_rules_6_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_6_impact">
         <select
           id="ca_rules_6_impact" 
           placeholder="Impact" 
@@ -237,7 +237,7 @@
           v-model="formData.ca_7_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="ca_rules_7_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_7_impact">
         <select
           id="ca_rules_7_impact" 
           placeholder="Impact" 
@@ -271,7 +271,7 @@
         <span>Commentaire du partenaire</span>
       </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="ca_rules_8_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_8_impact">
         <select
           id="ca_rules_8_impact" 
           placeholder="Impact" 
@@ -307,7 +307,7 @@ En particulier, chiffrer les mots de passes en stockage et en transmission</span
           v-model="formData.ca_9_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="ca_rules_9_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_9_impact">
         <select
           id="ca_rules_9_impact" 
           placeholder="Impact" 
@@ -340,7 +340,7 @@ En particulier, chiffrer les mots de passes en stockage et en transmission</span
           v-model="formData.ca_10_comment" />
         <span>Commentaire du partenaire</span>
       </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-EHS')" for="ca_rules_10_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_10_impact">
         <select
           id="ca_rules_10_impact" 
           placeholder="Impact" 
