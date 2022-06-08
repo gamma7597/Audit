@@ -166,20 +166,9 @@ form{
   }
 }
 
-label{
-  margin-bottom:15px;
-  position: relative;
-  border-bottom:1px solid #ddd;
-
-  &:focus, &:hover{
-    border: none;
-  }
-}
 
 input, select{
   width:100%;
-  padding:10px 0px;
-  margin-top:30px;
   border:none;
   outline:none;
 
@@ -187,30 +176,6 @@ input, select{
     border-bottom:1px solid color.$blue-engie;
   }
 }
-input::placeholder, select::placeholder{
-  margin-top:50px;
-  opacity:0;
-}
-span{
-  position:absolute;
-  top:0;
-  left:0;
-  transform:translateY(30px);
-  font-size:0.825em;
-  transition-duration:300ms;
-}
-
-label:focus-within > span,
-input:not(:placeholder-shown) + span {
-    color: color.$blue-engie;
-    transform:translateY(0px);
-}
-
-/*label:focus-within > span,
-select:not(:placeholder-shown) + span {
-    color: color.$blue-engie;
-    transform:translateY(0px);
-}*/
 
 .cards {
   display: flex;
@@ -246,3 +211,31 @@ select:not(:placeholder-shown) + span {
     }
   }
 }
+
+.help {
+
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+
+  margin-left: 10%;
+  margin-right: 10%;
+  
+  ul{
+    list-style: none;
+  }
+
+  button {
+    margin: 2px;
+    background-color: white;
+    border: solid 1px color.$blue-engie;
+    color: color.$blue-engie;
+    border-radius: 5px;
+  
+    &:hover {
+      background-color: color.$blue-engie;
+      color: white;
+    }
+  }
+}
+

@@ -3,9 +3,14 @@ import { url } from '../axiosUrl'
 import Vue from 'vue'
 
 const state = () => ({
-  tdt_rules: {},
-  tdt_longueur: 0
+  tdt_rules: {}
 })
+
+const getters = {
+  active_tdt_rules(state){
+    return state.tdt_rules;
+  }
+}
 
 const actions = {
   get_tdt_rules: ({ commit }, payload) => {
@@ -21,7 +26,7 @@ const actions = {
   },
   add_tdt_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.post(url + 'api/tdt_rules/' + payload.company, payload.data, {
+    Axios.post(url + 'api/tdt_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
@@ -32,20 +37,13 @@ const actions = {
   },
   edit_tdt_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.put(url + 'api/tdt_rules/' + payload.company, payload.data, {
+    Axios.put(url + 'api/tdt_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
-    .then( () => {
-      Axios.get(url + 'api/tdt_rules/' + payload.company, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      })
-      .then(response => {
-        commit('GET_TDT_RULES_2', response.data)
-      })
+    .then( response => {
+      commit('EDIT_TDT_RULES', response)
     })
   }
 }
@@ -55,18 +53,17 @@ const mutations = {
     state.tdt_rules = rules
   },
   GET_TDT_RULES(state, rules) {
-    state.tdt_longueur = rules.data.length,
     state.tdt_rules = rules.data[0]
   },
-  GET_TDT_RULES_2(state, rules) {
-    state.tdt_longueur = rules.length,
-    state.tdt_rules = rules[0]
+  EDIT_TDT_RULES(state, rules) {
+    Vue.set(state.tdt_rules, rules)
   }
 }
 
 export default {
   namespaced: true,
   state,
+  getters,
   actions,
   mutations
 }

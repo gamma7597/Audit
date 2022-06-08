@@ -3,9 +3,14 @@ import { url } from '../axiosUrl'
 import Vue from 'vue'
 
 const state = () => ({
-  adm_rules: {},
-  adm_longueur: 0
+  adm_rules: {}
 })
+
+const getters = {
+  active_adm_rules(state){
+    return state.adm_rules;
+  }
+}
 
 const actions = {
   get_adm_rules: ({ commit }, payload) => {
@@ -21,7 +26,7 @@ const actions = {
   },
   add_adm_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.post(url + 'api/adm_rules/' + payload.company, payload.data, {
+    Axios.post(url + 'api/adm_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
@@ -32,20 +37,13 @@ const actions = {
   },
   edit_adm_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.put(url + 'api/adm_rules/' + payload.company, payload.data, {
+    Axios.put(url + 'api/adm_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
-    .then( () => {
-      Axios.get(url + 'api/adm_rules/' + payload.company, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      })
-      .then(response => {
-        commit('GET_ADM_RULES_2', response.data)
-      })
+    .then( response => {
+      commit('EDIT_ADM_RULES', response)
     })
   }
 }
@@ -55,18 +53,17 @@ const mutations = {
     state.adm_rules = rules
   },
   GET_ADM_RULES(state, rules) {
-    state.adm_longueur = rules.data.length,
     state.adm_rules = rules.data[0]
   },
-  GET_ADM_RULES_2(state, rules) {
-    state.adm_longueur = rules.length,
-    state.adm_rules = rules[0]
+  EDIT_ADM_RULES(state, rules) {
+    Vue.set(state.adm_rules, rules)
   }
 }
 
 export default {
   namespaced: true,
   state,
+  getters,
   actions,
   mutations
 }

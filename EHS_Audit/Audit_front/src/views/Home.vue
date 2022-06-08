@@ -9,7 +9,7 @@
     </p>
 
     <table class="table_style">
-      <caption>Interlocuteurs EHS</caption>
+      <caption>Interlocuteurs ENGIE Home Services</caption>
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -42,5 +42,16 @@
 
   </div>
 </template>
+
+
+<script>
+    export default {
+        name: "Home",
+        created() {
+            this.$store.dispatch('maturite/getMaturites');
+        }
+    }
+</script>
+
 
 

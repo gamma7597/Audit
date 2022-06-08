@@ -5,12 +5,14 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import Chart from "chart.js";
 export default {
   name: 'Overview',
   data() {
     return {
+      maturite: 0,
+      impact: 0,
       radarData: {
         type: "radar",
         data: {
@@ -91,36 +93,36 @@ export default {
           }
         }
       },
-      maturityScore_a: -1,
-      maturityScore_adm: -1,
-      maturityScore_c: -1,
-      maturityScore_ca: -1,
-      maturityScore_cd: -1,
-      maturityScore_gca: -1,
-      maturityScore_g: -1,
-      maturityScore_gi: -1,
-      maturityScore_ie: -1,
-      maturityScore_pt: -1,
-      maturityScore_rf: -1,
-      maturityScore_rgpd: -1,
-      maturityScore_rh: -1,
-      maturityScore_se: -1,
-      maturityScore_spe: -1,
-      impactScore_a: -1,
-      impactScore_adm: -1,
-      impactScore_c: -1,
-      impactScore_ca: -1,
-      impactScore_cd: -1,
-      impactScore_gca: -1,
-      impactScore_g: -1,
-      impactScore_gi: -1,
-      impactScore_ie: -1,
-      impactScore_pt: -1,
-      impactScore_rf: -1,
-      impactScore_rgpd: -1,
-      impactScore_rh: -1,
-      impactScore_se: -1,
-      impactScore_spe: -1,
+      maturityScore_a: 0,
+      maturityScore_adm: 0,
+      maturityScore_c: 0,
+      maturityScore_ca: 0,
+      maturityScore_cd: 0,
+      maturityScore_gca: 0,
+      maturityScore_g: 0,
+      maturityScore_gi: 0,
+      maturityScore_ie: 0,
+      maturityScore_pt: 0,
+      maturityScore_rf: 0,
+      maturityScore_rgpd: 0,
+      maturityScore_rh: 0,
+      maturityScore_se: 0,
+      maturityScore_spe: 0,
+      impactScore_a: 0,
+      impactScore_adm: 0,
+      impactScore_c: 0,
+      impactScore_ca: 0,
+      impactScore_cd: 0,
+      impactScore_gca: 0,
+      impactScore_g: 0,
+      impactScore_gi: 0,
+      impactScore_ie: 0,
+      impactScore_pt: 0,
+      impactScore_rf: 0,
+      impactScore_rgpd: 0,
+      impactScore_rh: 0,
+      impactScore_se: 0,
+      impactScore_spe: 0,
     };
   },
   computed: {
@@ -144,6 +146,7 @@ export default {
     ...mapState("partner", ["partner"]),
   },
   methods: {
+    ...mapActions("maturite", ["editMaturites"]),
     calcMaturityScore() {
       this.calcMaturityScore_g();
       this.calcMaturityScore_rh();
@@ -160,6 +163,7 @@ export default {
       this.calcMaturityScore_ie();  
       this.calcMaturityScore_rgpd();
       this.calcMaturityScore_cd(); 
+      this.calcMaturityScore_total();
     },
     calcMaturityScore_a() {
       let score = 0;
@@ -180,7 +184,12 @@ export default {
         }
       }
       this.maturityScore_a = score / count;
-      this.radarData.data.datasets[0].data[3] = this.maturityScore_a;
+      if(isNaN(this.maturityScore_a)){
+        this.radarData.data.datasets[0].data[3] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[3] = this.maturityScore_a;
+      }
     },
     calcMaturityScore_adm() {
       let score = 0;
@@ -201,7 +210,12 @@ export default {
         }
       }
       this.maturityScore_adm = score / count;
-      this.radarData.data.datasets[0].data[7] = this.maturityScore_adm;
+      if(isNaN(this.maturityScore_adm)){
+        this.radarData.data.datasets[0].data[7] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[7] = this.maturityScore_adm;
+      }
     },
     calcMaturityScore_c() {
       let score = 0;
@@ -222,7 +236,12 @@ export default {
         }
       }
       this.maturityScore_c = score / count;
-      this.radarData.data.datasets[0].data[6] = this.maturityScore_c;
+      if(isNaN(this.maturityScore_c)){
+        this.radarData.data.datasets[0].data[6] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[6] = this.maturityScore_c;
+      }
     },
     calcMaturityScore_ca() {
       let score = 0;
@@ -243,7 +262,12 @@ export default {
         }
       }
       this.maturityScore_ca = score / count;
-      this.radarData.data.datasets[0].data[4] = this.maturityScore_ca;
+      if(isNaN(this.maturityScore_ca)){
+        this.radarData.data.datasets[0].data[4] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[4] = this.maturityScore_ca;
+      }
     },
     calcMaturityScore_cd() {
       let score = 0;
@@ -264,7 +288,12 @@ export default {
         }
       }
       this.maturityScore_cd = score / count;
-      this.radarData.data.datasets[0].data[14] = this.maturityScore_cd;
+      if(isNaN(this.maturityScore_cd)){
+        this.radarData.data.datasets[0].data[14] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[14] = this.maturityScore_cd;
+      }
     },
     calcMaturityScore_gca() {
       let score = 0;
@@ -285,7 +314,12 @@ export default {
         }
       }
       this.maturityScore_gca = score / count;
-      this.radarData.data.datasets[0].data[11] = this.maturityScore_gca;
+      if(isNaN(this.maturityScore_gca)){
+        this.radarData.data.datasets[0].data[11] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[11] = this.maturityScore_gca;
+      }
     },
     calcMaturityScore_g() {
       let score = 0;
@@ -306,7 +340,12 @@ export default {
         }
       }
       this.maturityScore_g = score / count;
-      this.radarData.data.datasets[0].data[0] = this.maturityScore_g;
+      if(isNaN(this.maturityScore_g)){
+        this.radarData.data.datasets[0].data[0] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[0] = this.maturityScore_g;
+      }
     },
     calcMaturityScore_gi() {
       let score = 0;
@@ -327,7 +366,12 @@ export default {
         }
       }
       this.maturityScore_gi = score / count;
-      this.radarData.data.datasets[0].data[10] = this.maturityScore_gi;
+      if(isNaN(this.maturityScore_gi)){
+        this.radarData.data.datasets[0].data[10] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[10] = this.maturityScore_gi;
+      }
     },
     calcMaturityScore_ie() {
       let score = 0;
@@ -348,7 +392,12 @@ export default {
         }
       }
       this.maturityScore_ie = score / count;
-      this.radarData.data.datasets[0].data[12] = this.maturityScore_ie;
+      if(isNaN(this.maturityScore_ie)){
+        this.radarData.data.datasets[0].data[12] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[12] = this.maturityScore_ie;
+      }
     },
     calcMaturityScore_pt() {
       let score = 0;
@@ -369,7 +418,12 @@ export default {
         }
       }
       this.maturityScore_pt = score / count;
-      this.radarData.data.datasets[0].data[2] = this.maturityScore_pt;
+      if(isNaN(this.maturityScore_pt)){
+        this.radarData.data.datasets[0].data[2] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[2] = this.maturityScore_pt;
+      }
     },
     calcMaturityScore_rf() {
       let score = 0;
@@ -390,7 +444,12 @@ export default {
         }
       }
       this.maturityScore_rf = score / count;
-      this.radarData.data.datasets[0].data[9] = this.maturityScore_rf;
+      if(isNaN(this.maturityScore_rf)){
+        this.radarData.data.datasets[0].data[9] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[9] = this.maturityScore_rf;
+      }
     },
     calcMaturityScore_rgpd() {
       let score = 0;
@@ -411,7 +470,12 @@ export default {
         }
       }
       this.maturityScore_rgpd = score / count;
-      this.radarData.data.datasets[0].data[13] = this.maturityScore_rgpd;
+      if(isNaN(this.maturityScore_rgpd)){
+        this.radarData.data.datasets[0].data[13] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[13] = this.maturityScore_rgpd;
+      }
     },
     calcMaturityScore_rh() {
       let score = 0;
@@ -432,7 +496,12 @@ export default {
         }
       }
       this.maturityScore_rh = score / count;
-      this.radarData.data.datasets[0].data[1] = this.maturityScore_rh;
+      if(isNaN(this.maturityScore_rh)){
+        this.radarData.data.datasets[0].data[1] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[1] = this.maturityScore_rh;
+      }
     },
     calcMaturityScore_se() {
       let score = 0;
@@ -453,7 +522,12 @@ export default {
         }
       }
       this.maturityScore_se = score / count;
-      this.radarData.data.datasets[0].data[8] = this.maturityScore_se;
+      if(isNaN(this.maturityScore_se)){
+        this.radarData.data.datasets[0].data[8] = 0
+      }
+      else {
+        this.radarData.data.datasets[0].data[8] = this.maturityScore_se;
+      }
     },
     calcMaturityScore_spe() {
       let score = 0;
@@ -474,7 +548,33 @@ export default {
         }
       }
       this.maturityScore_spe = score / count;
-      this.radarData.data.datasets[0].data[5] = this.maturityScore_spe;
+      if(isNaN(this.maturityScore_spe))
+        this.radarData.data.datasets[0].data[5] = 0
+      else {
+        this.radarData.data.datasets[0].data[5] = this.maturityScore_spe;
+      }
+    },
+    calcMaturityScore_total(){
+      let count = 0;
+      let val = 0;
+      if (!isNaN(this.maturityScore_a)) {val += this.maturityScore_a; count = count++;}
+      if (!isNaN(this.maturityScore_adm)) {val += this.maturityScore_adm; count++}
+      if (!isNaN(this.maturityScore_c)) {val += this.maturityScore_c; count++}
+      if (!isNaN(this.maturityScore_ca)) {val += this.maturityScore_ca; count++}
+      if (!isNaN(this.maturityScore_cd)) {val += this.maturityScore_cd; count++}
+      if (!isNaN(this.maturityScore_gca)) {val += this.maturityScore_gca; count++}
+      if (!isNaN(this.maturityScore_g)) {val += this.maturityScore_g; count++}
+      if (!isNaN(this.maturityScore_gi)) {val += this.maturityScore_gi; count++}
+      if (!isNaN(this.maturityScore_ie)) {val += this.maturityScore_ie; count++}
+      if (!isNaN(this.maturityScore_pt)) {val += this.maturityScore_pt; count++}
+      if (!isNaN(this.maturityScore_rf)) {val += this.maturityScore_rf; count++}
+      if (!isNaN(this.maturityScore_rgpd)) {val += this.maturityScore_rgpd; count++}
+      if (!isNaN(this.maturityScore_rh)) {val += this.maturityScore_rh; count++}
+      if (!isNaN(this.maturityScore_se)) {val += this.maturityScore_se; count++}
+      if (!isNaN(this.maturityScore_spe)) {val += this.maturityScore_spe; count++}
+      if (count == 0) {val = 0}
+      else {val = val / count;}
+      this.maturite = val;
     },
     calcImpactScore() {
       this.calcImpactScore_g();
@@ -491,15 +591,16 @@ export default {
       this.calcImpactScore_gca();
       this.calcImpactScore_ie();  
       this.calcImpactScore_rgpd();
-      this.calcImpactScore_cd();  
+      this.calcImpactScore_cd(); 
+      this.calcImpactScore_total();
     },
     calcImpactScore_a() {
       let score = 0;
       let count = 0;
       for (let i in this.a_rules) {
-        if (typeof this.a_rules[i] == "number") {
+        if (typeof this.a_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.a_rules[i];
-          count++;
+          count++;      
         }
       }
       this.impactScore_a = score / count;
@@ -509,19 +610,20 @@ export default {
       let score = 0;
       let count = 0;
       for (let i in this.adm_rules) {
-        if (typeof this.adm_rules[i] == "number") {
+        if (typeof this.adm_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.adm_rules[i];
           count++;
         }
       }
       this.impactScore_adm = score / count;
-      this.radarData.data.datasets[1].data[7] = this.impactScore_adm;
+      this.radarData.data.datasets[1].data[7] = this.impactScore_adm;     
+      
     },
     calcImpactScore_c() {
       let score = 0;
       let count = 0;
       for (let i in this.c_rules) {
-        if (typeof this.c_rules[i] == "number") {
+        if (typeof this.c_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.c_rules[i];
           count++;
         }
@@ -533,7 +635,7 @@ export default {
       let score = 0;
       let count = 0;
       for (let i in this.ca_rules) {
-        if (typeof this.ca_rules[i] == "number") {
+        if (typeof this.ca_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.ca_rules[i];
           count++;
         }
@@ -545,7 +647,7 @@ export default {
       let score = 0;
       let count = 0;
       for (let i in this.cd_rules) {
-        if (typeof this.cd_rules[i] == "number") {
+        if (typeof this.cd_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.cd_rules[i];
           count++;
         }
@@ -557,7 +659,7 @@ export default {
       let score = 0;
       let count = 0;
       for (let i in this.gca_rules) {
-        if (typeof this.gca_rules[i] == "number") {
+        if (typeof this.gca_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.gca_rules[i];
           count++;
         }
@@ -569,7 +671,7 @@ export default {
       let score = 0;
       let count = 0;
       for (let i in this.g_rules) {
-        if (typeof this.g_rules[i] == "number") {
+        if (typeof this.g_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.g_rules[i];
           count++;
         }
@@ -581,7 +683,7 @@ export default {
       let score = 0;
       let count = 0;
       for (let i in this.gi_rules) {
-        if (typeof this.gi_rules[i] == "number") {
+        if (typeof this.gi_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.gi_rules[i];
           count++;
         }
@@ -593,7 +695,7 @@ export default {
       let score = 0;
       let count = 0;
       for (let i in this.ie_rules) {
-        if (typeof this.ie_rules[i] == "number") {
+        if (typeof this.ie_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.ie_rules[i];
           count++;
         }
@@ -605,7 +707,7 @@ export default {
       let score = 0;
       let count = 0;
       for (let i in this.pt_rules) {
-        if (typeof this.pt_rules[i] == "number") {
+        if (typeof this.pt_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.pt_rules[i];
           count++;
         }
@@ -617,7 +719,7 @@ export default {
       let score = 0;
       let count = 0;
       for (let i in this.rf_rules) {
-        if (typeof this.rf_rules[i] == "number") {
+        if (typeof this.rf_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.rf_rules[i];
           count++;
         }
@@ -629,7 +731,7 @@ export default {
       let score = 0;
       let count = 0;
       for (let i in this.rgpd_rules) {
-        if (typeof this.rgpd_rules[i] == "number") {
+        if (typeof this.rgpd_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.rgpd_rules[i];
           count++;
         }
@@ -641,7 +743,7 @@ export default {
       let score = 0;
       let count = 0;
       for (let i in this.rh_rules) {
-        if (typeof this.rh_rules[i] == "number") {
+        if (typeof this.rh_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.rh_rules[i];
           count++;
         }
@@ -653,7 +755,7 @@ export default {
       let score = 0;
       let count = 0;
       for (let i in this.se_rules) {
-        if (typeof this.se_rules[i] == "number") {
+        if (typeof this.se_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.se_rules[i];
           count++;
         }
@@ -665,7 +767,7 @@ export default {
       let score = 0;
       let count = 0;
       for (let i in this.spe_rules) {
-        if (typeof this.spe_rules[i] == "number") {
+        if (typeof this.spe_rules[i] == "number" && i != "id" && i != "partnerId") {
           score += this.spe_rules[i];
           count++;
         }
@@ -673,10 +775,37 @@ export default {
       this.impactScore_spe = score / count;
       this.radarData.data.datasets[1].data[5] = this.impactScore_spe;
     },
+    calcImpactScore_total(){
+      let val = 0
+      val = val + this.impactScore_a
+      val = val + this.impactScore_adm 
+      val = val + this.impactScore_c 
+      val = val + this.impactScore_ca
+      val = val + this.impactScore_cd
+      val = val + this.impactScore_gca
+      val = val + this.impactScore_g
+      val = val + this.impactScore_gi
+      val = val + this.impactScore_ie
+      val = val + this.impactScore_pt
+      val = val + this.impactScore_rf 
+      val = val + this.impactScore_rgpd
+      val = val + this.impactScore_rh
+      val = val + this.impactScore_se 
+      val = val + this.impactScore_spe;
+      val = val / 15;
+      this.impact = val;
+    },
   },
   mounted() {
     this.calcMaturityScore();
     this.calcImpactScore();
+    let payload = {
+      company: this.partner.company,
+      maturite: this.maturite,
+      impact: this.impact
+    }
+    this.editMaturites(payload)
+    this.$store.dispatch('maturite/getMaturites');
     const ctx = document.getElementById('radar');
     new Chart(ctx, this.radarData);
   },

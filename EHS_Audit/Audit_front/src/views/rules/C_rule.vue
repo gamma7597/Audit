@@ -2,7 +2,9 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="verifForm">
+    <h2>Accès aux données et flux réseaux</h2>
+
+    <form @submit.prevent="verifForm(c_rules)">
 
       <p v-if="errors.length">
         <b>Veuillez corriger les erreurs :</b>
@@ -11,294 +13,246 @@
         </ul>
       </p>
 
-      <label for="c_rules_1">
+      <label for="c_1">Le partenaire met à disposition d'EHS une architecture sécurisée</label>
         <select
-          id="c_rules_1" 
-          placeholder="Le partenaire doit proposer une architecture sécurisée (Réseau, Endpoint, Serveur, etc.). 
-Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la solution proposée" 
-          v-model="formData.c_1">
+          id="c_1" 
+          :value="active_c_rules.c_1"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit proposer une architecture sécurisée (Réseau, Endpoint, Serveur, etc.). 
-Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la solution proposée</span>
-      </label>
-      <label for="c_rules_1_comment">
-        <input type="text" 
-          id="c_rules_1_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.c_1_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_rules_1_impact">
+      <label for="c_1_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="c_1_comment" 
+          :value="active_c_rules.c_1_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_1_impact">Impact</label>
         <select
-          id="c_rules_1_impact" 
-          placeholder="Impact" 
-          v-model="formData.c_1_impact">
+          id="c_1_impact" 
+          :value="active_c_rules.c_1_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="c_rules_1_engie">
+      <label for="c_1_engie">Commentaire EHS</label>
         <input type="text" 
-          id="c_rules_1_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.c_1_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="c_1_engie" 
+          :value="active_c_rules.c_1_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="c_rules_2">
+      <label for="c_2">Le partenaire assure le chiffrement des données d'EHS en transmission</label>
         <select
-          id="c_rules_2" 
-          placeholder="Le partenaire doit assurer le chiffrement des données d'EHS en transmission" 
-          v-model="formData.c_2">
+          id="c_2" 
+          :value="active_c_rules.c_2"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit assurer le chiffrement des données d'EHS en transmission</span>
-      </label>
-      <label for="c_rules_2_comment">
+
+      <label for="c_2_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="c_rules_2_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.c_2_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_rules_2_impact">
+          id="c_2_comment"  
+          :value="active_c_rules.c_2_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_2_impact">Impact</label>
         <select
-          id="c_rules_2_impact" 
-          placeholder="Impact" 
-          v-model="formData.c_2_impact">
+          id="c_2_impact" 
+          :value="active_c_rules.c_2_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="c_rules_2_engie">
-        <input type="text" 
-          id="c_rules_2_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.c_2_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="c_rules_3">
+      <label for="c_2_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="c_2_engie" 
+          :value="active_c_rules.c_2_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="c_3">Présence d'une matrice de flux à jour</label>
         <select
-          id="c_rules_3" 
-          placeholder="Présence d'une matrice de flux à jour : le partenaire doit envoyer à EHS la matrice de flux listant tous les flux utilisés pour la réalisation de la prestation." 
-          v-model="formData.c_3">
+          id="c_3" 
+          :value="active_c_rules.c_3"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Présence d'une matrice de flux à jour : le partenaire doit envoyer à EHS la matrice de flux listant tous les flux utilisés pour la réalisation de la prestation.</span>
-      </label>
-      <label for="c_rules_3_comment">
-        <input type="text" 
-          id="c_rules_3_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.c_3_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_rules_3_impact">
+      <label for="c_3_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="c_3_comment" 
+          :value="active_c_rules.c_3_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_3_impact">Impact</label>
         <select
-          id="c_rules_3_impact" 
-          placeholder="Impact" 
-          v-model="formData.c_3_impact">
+          id="c_3_impact" 
+          :value="active_c_rules.c_3_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="c_rules_3_engie">
+      <label for="c_3_engie">Commentaire EHS</label>
         <input type="text" 
-          id="c_rules_3_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.c_3_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="c_3_engie" 
+          :value="active_c_rules.c_3_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="c_rules_4">
+      <label for="c_4">Le partenaire met en œuvre des composants de détection, de prévention et de monitoring sur tous les flux entrants</label>
         <select
-          id="c_rules_4" 
-          placeholder="Le partenaire doit mettre en œuvre des composants de détection, de prévention et de monitoring (IDS,IPS) sur tous les flux entrants" 
-          v-model="formData.c_4">
+          id="c_4" 
+          :value="active_c_rules.c_4"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit mettre en œuvre des composants de détection, de prévention et de monitoring (IDS,IPS) sur tous les flux entrants</span>
-      </label>
-      <label for="c_rules_4_comment">
+
+      <label for="c_4_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="c_rules_4_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.c_4_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_rules_4_impact">
+          id="c_4_comment" 
+          :value="active_c_rules.c_4_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_4_impact">Impact</label>
         <select
-          id="c_rules_4_impact" 
-          placeholder="Impact" 
-          v-model="formData.c_4_impact">
+          id="c_4_impact" 
+          :value="active_c_rules.c_4_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="c_rules_4_engie">
-        <input type="text" 
-          id="c_rules_4_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.c_4_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="c_rules_5">
+      <label for="c_4_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="c_4_engie" 
+          :value="active_c_rules.c_4_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="c_5">Le partenaire met en œuvre des composants spécifiques de filtrage</label>
         <select
-          id="c_rules_5" 
-          placeholder="Le partenaire doit mettre en œuvre des composants spécifiques de filtrage" 
-          v-model="formData.c_5">
+          id="c_5" 
+          :value="active_c_rules.c_5"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit mettre en œuvre des composants spécifiques de filtrage</span>
-      </label>
-      <label for="c_rules_5_comment">
+
+      <label for="c_5_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="c_rules_5_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.c_5_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_rules_5_impact">
+          id="c_5_comment" 
+          :value="active_c_rules.c_5_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_5_impact">Impact</label>
         <select
-          id="c_rules_5_impact" 
-          placeholder="Impact" 
-          v-model="formData.c_5_impact">
+          id="c_5_impact" 
+          :value="active_c_rules.c_5_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="c_rules_5_engie">
-        <input type="text" 
-          id="c_rules_5_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.c_5_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="c_rules_6">
+      <label for="c_5_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="c_5_engie" 
+          :value="active_c_rules.c_5_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="c_6">Le partenaire sécurise les accès distants par VPN et les flux Wi-Fi</label>
         <select
-          id="c_rules_6" 
-          placeholder="Le partenaire doit sécuriser les accès distants par VPN et les flux Wi-Fi à minima par protocole WPA2 ou WPA2-PSK" 
-          v-model="formData.c_6">
+          id="c_6" 
+          :value="active_c_rules.c_6"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit sécuriser les accès distants par VPN et les flux Wi-Fi à minima par protocole WPA2 ou WPA2-PSK</span>
-      </label>
-      <label for="c_rules_6_comment">
-        <input type="text" 
-          id="c_rules_6_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.c_6_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_rules_6_impact">
+      <label for="c_6_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="c_6_comment"  
+          :value="active_c_rules.c_6_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_6_impact">Impact</label>
         <select
-          id="c_rules_6_impact" 
-          placeholder="Impact" 
-          v-model="formData.c_6_impact">
+          id="c_6_impact" 
+          :value="active_c_rules.c_6_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="c_rules_6_engie">
+      <label for="c_6_engie">Commentaire EHS</label>
         <input type="text" 
-          id="c_rules_6_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.c_6_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="c_6_engie" 
+          :value="active_c_rules.c_6_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="c_rules_7">
+      <label for="c_7">Le partenaire met en place un outil permettant la détection de fuite de données sensibles</label>
         <select
-          id="c_rules_7" 
-          placeholder="Le partenaire doit mettre en place un outil permettant la détection de fuite de données sensibles" 
-          v-model="formData.c_7">
+          id="c_7" 
+          :value="active_c_rules.c_7"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit mettre en place un outil permettant la détection de fuite de données sensibles</span>
-      </label>
-      <label for="c_rules_7_comment">
+
+      <label for="c_7_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="c_rules_7_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.c_7_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_rules_7_impact">
+          id="c_7_comment" 
+          :value="active_c_rules.c_7_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_7_impact">Impact</label>
         <select
-          id="c_rules_7_impact" 
-          placeholder="Impact" 
-          v-model="formData.c_7_impact">
+          id="c_7_impact" 
+          :value="active_c_rules.c_7_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="c_rules_7_engie">
-        <input type="text" 
-          id="c_rules_7_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.c_7_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="c_rules_8">
+      <label for="c_7_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="c_7_engie" 
+          :value="active_c_rules.c_7_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="c_8">Une protection contre les attaques de type déni de service est en œuvre pour protéger le service fourni à EHS</label>
         <select
-          id="c_rules_8" 
-          placeholder="Une protection contre les attaques de type déni de service doit être mise en œuvre pour protéger le service fourni à EHS" 
-          v-model="formData.c_8">
+          id="c_8" 
+          :value="active_c_rules.c_8"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Une protection contre les attaques de type déni de service doit être mise en œuvre pour protéger le service fourni à EHS</span>
-      </label>
-      <label for="c_rules_8_comment">
-        <input type="text" 
-          id="c_rules_8_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.c_8_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_rules_8_impact">
+      <label for="c_8_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="c_8_comment" 
+          :value="active_c_rules.c_8_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="c_8_impact">Impact</label>
         <select
-          id="c_rules_8_impact" 
-          placeholder="Impact" 
-          v-model="formData.c_8_impact">
+          id="c_8_impact" 
+          :value="active_c_rules.c_8_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="c_rules_8_engie">
+      <label for="c_8_engie">Commentaire EHS</label>
         <input type="text" 
-          id="c_rules_8_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.c_8_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="c_8_engie" 
+          :value="active_c_rules.c_8_engie"
+          @input="updateLocalContact($event)" />
 
-      <button class="button_blue" type="submit">Envoyer</button>
-      <button class="button_blue" type="reset" >Reinitialiser</button>
+      <div>
+        <input class="button_form" type="submit" value="Modifier" />
+        <input class="button_form" type="button" @click="get_c_rules(active_c_rules.company)" value="Reinitialiser" />
+      </div>
     </form>
 
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+  import { mapState, mapActions, mapGetters } from "vuex";
   export default {
     data() {
       return {
         errors: [],
-        formData: {},
+        c_rules: {},
         options: [
           { value: "N/A", text: "N/A" },
           { value: "Oui", text: "Oui" },
@@ -315,13 +269,35 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
       }
     },
     computed: {
-      ...mapState("c_rules", ["c_rules"]),
+      ...mapGetters("c_rules", ["active_c_rules"]),
       ...mapState("partner", ["partner"]),
       ...mapState("user", ["groups"])
     },
+    watch: {
+      active_c_rules: {
+        handler(){
+          this.c_rules = this.active_c_rules
+        },
+      immediate: true
+      }
+    },
     methods: {
+      ...mapActions("c_rules", ["get_c_rules"]),
       ...mapActions("c_rules", ["edit_c_rules"]),
-      verifForm() {
+      updateLocalContact(e) {
+        this.$set(this.c_rules, e.target.id, e.target.value);
+      },
+      verifForm(c_rules) {
+
+        c_rules.c_1_impact = parseInt(c_rules.c_1_impact)
+        c_rules.c_2_impact = parseInt(c_rules.c_2_impact)
+        c_rules.c_3_impact = parseInt(c_rules.c_3_impact)
+        c_rules.c_4_impact = parseInt(c_rules.c_4_impact)
+        c_rules.c_5_impact = parseInt(c_rules.c_5_impact)
+        c_rules.c_6_impact = parseInt(c_rules.c_6_impact)
+        c_rules.c_7_impact = parseInt(c_rules.c_7_impact)
+        c_rules.c_8_impact = parseInt(c_rules.c_8_impact)
+
         this.errors = [];
 
         const { c_1, c_1_comment, c_1_engie, 
@@ -331,7 +307,7 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
           c_5, c_5_comment, c_5_engie,
           c_6, c_6_comment, c_6_engie,
           c_7, c_7_comment, c_7_engie,
-          c_8, c_8_comment, c_8_engie } = this.formData
+          c_8, c_8_comment, c_8_engie } = this.c_rules
         
         if(!c_1 || !c_2 || !c_3 || !c_4 || !c_5 || !c_6 || !c_7 || !c_8) {
           this.errors.push("Vous devez repondre à toutes les questions !");
@@ -344,63 +320,16 @@ Le partenaire doit envoyer à EHS le schéma d'architecture sécurité de la sol
 
         if (this.errors.length != 0)
         {
-          console.log(this.errors.length)
           return true;
         }
         else {
-          this.handleSubmit()
+          this.edit_c_rules(c_rules);
+          this.goToRules(this.partner.company)
         }
-      },
-      handleSubmit() {
-        const payload = {
-          company: this.c_rules.company,
-          data: {
-            company: this.c_rules.company,
-            c_1: this.formData.c_1,
-            c_1_comment: this.formData.c_1_comment,
-            c_1_impact: this.formData.c_1_impact,
-            c_1_engie: this.formData.c_1_engie,
-            c_2: this.formData.c_2,
-            c_2_comment: this.formData.c_2_comment,
-            c_2_impact: this.formData.c_2_impact,
-            c_2_engie: this.formData.c_2_engie,
-            c_3: this.formData.c_3,
-            c_3_comment: this.formData.c_3_comment,
-            c_3_impact: this.formData.c_3_impact,
-            c_3_engie: this.formData.c_3_engie,
-            c_4: this.formData.c_4,
-            c_4_comment: this.formData.c_4_comment,
-            c_4_impact: this.formData.c_4_impact,
-            c_4_engie: this.formData.c_4_engie,
-            c_5: this.formData.c_5,
-            c_5_comment: this.formData.c_5_comment,
-            c_5_impact: this.formData.c_5_impact,
-            c_5_engie: this.formData.c_5_engie,
-            c_6: this.formData.c_6,
-            c_6_comment: this.formData.c_6_comment,
-            c_6_impact: this.formData.c_6_impact,
-            c_6_engie: this.formData.c_6_engie,
-            c_7: this.formData.c_7,
-            c_7_comment: this.formData.c_7_comment,
-            c_7_impact: this.formData.c_7_impact,
-            c_7_engie: this.formData.c_7_engie,
-            c_8: this.formData.c_8,
-            c_8_comment: this.formData.c_8_comment,
-            c_8_impact: this.formData.c_8_impact,
-            c_8_engie: this.formData.c_8_engie,
-            partnerId: this.c_rules.partnerId,
-          },
-        };
-        this.edit_c_rules(payload);
-        this.formData = this.c_rules;
-        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)
       }
-    },
-     mounted() {
-      this.formData = this.c_rules
     }
   }
 </script>

@@ -2,7 +2,9 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="verifForm">
+    <h2>Inventaire des équipements on-prem/cloud</h2>
+
+    <form @submit.prevent="verifForm(ie_rules)">
 
       <p v-if="errors.length">
         <b>Veuillez corriger les erreurs :</b>
@@ -11,89 +13,77 @@
         </ul>
       </p>
 
-      <label for="ie_rules_1">
+      <label for="ie_1">Le partenaire maintient un inventaire des actifs utilisés dans le cadre de la prestation</label>
         <select
-          id="ie_rules_1" 
-          placeholder="Le partenaire maintient un inventaire des postes de travail, serveurs, shares, applicatifs et équipements de sécurité utilisés dans le cadre de la prestation" 
-          v-model="formData.ie_1">
+          id="ie_1" 
+          :value="active_ie_rules.ie_1"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire maintient un inventaire des postes de travail, serveurs, shares, applicatifs et équipements de sécurité utilisés dans le cadre de la prestation</span>
-      </label>
-      <label for="ie_rules_1_comment">
-        <input type="text" 
-          id="ie_rules_1_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.ie_1_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ie_rules_1_impact">
+      <label for="ie_1_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="ie_1_comment" 
+          :value="active_ie_rules.ie_1_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ie_1_impact">Impact</label>
         <select
-          id="ie_rules_1_impact" 
-          placeholder="Impact" 
-          v-model="formData.ie_1_impact">
+          id="ie_1_impact" 
+          :value="active_ie_rules.ie_1_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="ie_rules_1_engie">
+      <label for="ie_1_engie">Commentaire EHS</label>
         <input type="text" 
-          id="ie_rules_1_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.ie_1_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="ie_1_engie" 
+          :value="active_ie_rules.ie_1_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="ie_rules_2">
+      <label for="ie_2">Le partenaire maintient un inventaire des instances et/ou applicatifs cloud accédés</label>
         <select
-          id="ie_rules_2" 
-          placeholder="Le partenaire maintient un inventaire des instances et/ou applicatifs cloud accédés.
-Précisez le(s) hébergeur(s) concerné(s)." 
-          v-model="formData.ie_2">
+          id="ie_2" 
+          :value="active_ie_rules.ie_2"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire maintient un inventaire des instances et/ou applicatifs cloud accédés.
-Précisez le(s) hébergeur(s) concerné(s).</span>
-      </label>
-      <label for="ie_rules_2_comment">
+
+      <label for="ie_2_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="ie_rules_2_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.ie_2_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ie_rules_2_impact">
+          id="ie_2_comment" 
+          :value="active_ie_rules.ie_2_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ie_2_impact">Impact</label>
         <select
-          id="ie_rules_2_impact" 
-          placeholder="Impact" 
-          v-model="formData.ie_2_impact">
+          id="ie_2_impact" 
+          :value="active_ie_rules.ie_2_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="ie_rules_2_engie">
-        <input type="text" 
-          id="ie_rules_2_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.ie_2_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <button class="button_blue" type="submit">Envoyer</button>
-      <button class="button_blue" type="reset" >Reinitialiser</button>
+      <label for="ie_2_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="ie_2_engie" 
+          :value="active_ie_rules.ie_2_engie"
+          @input="updateLocalContact($event)" />
+
+      <div>
+        <input class="button_form" type="submit" value="Modifier" />
+        <input class="button_form" type="button" @click="get_ie_rules(active_ie_rules.company)" value="Reinitialiser" />
+      </div>
     </form>
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+  import { mapState, mapActions, mapGetters } from "vuex";
   export default {
     data() {
       return {
         errors: [],
-        formData: {},
+        ie_rules: {},
         options: [
           { value: "N/A", text: "N/A" },
           { value: "Oui", text: "Oui" },
@@ -110,17 +100,33 @@ Précisez le(s) hébergeur(s) concerné(s).</span>
       }
     },
     computed: {
-      ...mapState("ie_rules", ["ie_rules"]),
+      ...mapGetters("ie_rules", ["active_ie_rules"]),
       ...mapState("partner", ["partner"]),
       ...mapState("user", ["groups"])
     },
+    watch: {
+      active_ie_rules: {
+        handler(){
+          this.ie_rules = this.active_ie_rules
+        },
+      immediate: true
+      }
+    },
     methods: {
+      ...mapActions("ie_rules", ["get_ie_rules"]),
       ...mapActions("ie_rules", ["edit_ie_rules"]),
-      verifForm() {
+      updateLocalContact(e) {
+        this.$set(this.ie_rules, e.target.id, e.target.value);
+      },
+      verifForm(ie_rules) {
+
+        ie_rules.ie_1_impact = parseInt(ie_rules.ie_1_impact)
+        ie_rules.ie_2_impact = parseInt(ie_rules.ie_2_impact)
+
         this.errors = [];
 
         const { ie_1, ie_1_comment, ie_1_engie, 
-          ie_2, ie_2_comment, ie_2_engie} = this.formData
+          ie_2, ie_2_comment, ie_2_engie} = this.ie_rules
         
         if(!ie_1 || !ie_2) {
           this.errors.push("Vous devez repondre à toutes les questions !");
@@ -133,39 +139,17 @@ Précisez le(s) hébergeur(s) concerné(s).</span>
 
         if (this.errors.length != 0)
         {
-          console.log(this.errors.length)
+          
           return true;
         }
         else {
-          this.handleSubmit()
+          this.edit_ie_rules(ie_rules);
+          this.goToRules(this.partner.company)
         }
-      },
-      handleSubmit() {
-        const payload = {
-          company: this.ie_rules.company,
-          data: {
-            company: this.ie_rules.company,
-            ie_1: this.formData.ie_1,
-            ie_1_comment: this.formData.ie_1_comment,
-            ie_1_impact: this.formData.ie_1_impact,
-            ie_1_engie: this.formData.ie_1_engie,
-            ie_2: this.formData.ie_2,
-            ie_2_comment: this.formData.ie_2_comment,
-            ie_2_impact: this.formData.ie_2_impact,
-            ie_2_engie: this.formData.ie_2_engie,
-            partnerId: this.ie_rules.partnerId,
-          },
-        };
-        this.edit_ie_rules(payload);
-        this.formData = this.ie_rules
-        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)
       }
-    },
-    mounted() {
-      this.formData = this.ie_rules
     }
   }
 </script>

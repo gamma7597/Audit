@@ -21,7 +21,7 @@ db.sequelize = sequelize;
 
 db.partners = require("./partner.model.js")(sequelize, Sequelize);
 db.contacts = require("./contact.model.js")(sequelize, Sequelize);
-db.employees = require("./employee.model.js")(sequelize, Sequelize);
+//db.employees = require("./employee.model.js")(sequelize, Sequelize);
 db.g_rules = require("./rules/g_rule.model.js")(sequelize, Sequelize);
 db.rh_rules = require("./rules/rh_rule.model.js")(sequelize, Sequelize);
 db.pt_rules = require("./rules/pt_rule.model.js")(sequelize, Sequelize);
@@ -39,12 +39,13 @@ db.rgpd_rules = require("./rules/rgpd_rule.model.js")(sequelize, Sequelize);
 db.cd_rules = require("./rules/cd_rule.model.js")(sequelize, Sequelize);
 db.co_rules = require("./rules/co_rule.model.js")(sequelize, Sequelize);
 db.tdt_rules = require("./rules/tdt_rule.model.js")(sequelize, Sequelize);
+db.maturites = require("./maturite.model.js")(sequelize, Sequelize);
 
 db.partners.hasMany(db.contacts, { as: "contacts", onDelete: 'cascade' })
 db.contacts.belongsTo(db.partners, { foreignKey: "partnerId", as: "partner", onDelete: 'cascade' })
 
-db.partners.hasMany(db.employees, { as: "employees", onDelete: 'cascade' })
-db.employees.belongsTo(db.partners, { foreignKey: "partnerId", as: "partner", onDelete: 'cascade' })
+//db.partners.hasMany(db.employees, { as: "employees", onDelete: 'cascade' })
+//db.employees.belongsTo(db.partners, { foreignKey: "partnerId", as: "partner", onDelete: 'cascade' })
 
 db.partners.hasOne(db.g_rules, { onDelete: 'cascade' })
 db.g_rules.belongsTo(db.partners, { as: "partner", onDelete: 'cascade' })
@@ -96,5 +97,8 @@ db.co_rules.belongsTo(db.partners, { as: "partner", onDelete: 'cascade' })
 
 db.partners.hasOne(db.tdt_rules, { onDelete: 'cascade' })
 db.tdt_rules.belongsTo(db.partners, { as: "partner", onDelete: 'cascade' })
+
+db.partners.hasOne(db.maturites, { onDelete: 'cascade' })
+db.maturites.belongsTo(db.partners, { as: "partner", onDelete: 'cascade' })
 
 module.exports = db;

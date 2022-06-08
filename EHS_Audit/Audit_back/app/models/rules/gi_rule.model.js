@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     gi_1_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     gi_1_engie: {
       type: Sequelize.STRING
@@ -22,13 +22,13 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     gi_2_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     gi_2_engie: {
       type: Sequelize.STRING
     },
     gi_3_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     gi_3_engie: {
       type: Sequelize.STRING
@@ -40,7 +40,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     gi_3_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     gi_3_engie: {
       type: Sequelize.STRING

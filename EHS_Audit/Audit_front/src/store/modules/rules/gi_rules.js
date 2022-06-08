@@ -3,9 +3,14 @@ import { url } from '../axiosUrl'
 import Vue from 'vue'
 
 const state = () => ({
-  gi_rules: {},
-  gi_longueur: 0
+  gi_rules: {}
 })
+
+const getters = {
+  active_gi_rules(state){
+    return state.gi_rules;
+  }
+}
 
 const actions = {
   get_gi_rules: ({ commit }, payload) => {
@@ -21,7 +26,7 @@ const actions = {
   },
   add_gi_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.post(url + 'api/gi_rules/' + payload.company, payload.data, {
+    Axios.post(url + 'api/gi_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
@@ -32,20 +37,13 @@ const actions = {
   },
   edit_gi_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.put(url + 'api/gi_rules/' + payload.company, payload.data, {
+    Axios.put(url + 'api/gi_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
-    .then( () => {
-      Axios.get(url + 'api/gi_rules/' + payload.company, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      })
-      .then(response => {
-        commit('GET_GI_RULES_2', response.data)
-      })
+    .then( response => {
+      commit('EDIT_GI_RULES', response)
     })
   }
 }
@@ -55,18 +53,17 @@ const mutations = {
     state.gi_rules = rules
   },
   GET_GI_RULES(state, rules) {
-    state.gi_longueur = rules.data.length,
     state.gi_rules = rules.data[0]
   },
-  GET_GI_RULES_2(state, rules) {
-    state.gi_longueur = rules.length,
-    state.gi_rules = rules[0]
+  EDIT_GI_RULES(state, rules) {
+    Vue.set(state.gi_rules, rules)
   }
 }
 
 export default {
   namespaced: true,
   state,
+  getters,
   actions,
   mutations
 }

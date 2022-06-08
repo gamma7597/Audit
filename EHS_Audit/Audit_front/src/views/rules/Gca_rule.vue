@@ -2,7 +2,9 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="verifForm">
+    <h2>Gestion de la continuité d'activité</h2>
+
+    <form @submit.prevent="verifForm(gca_rules)">
 
       <p v-if="errors.length">
         <b>Veuillez corriger les erreurs :</b>
@@ -11,123 +13,106 @@
         </ul>
       </p>
 
-      <label for="gca_rules_1">
+      <label for="gca_1">Présence d'un PCA [Plan de Continuité d'Activité] maintenu et testé</label>
         <select
-          id="gca_rules_1" 
-          placeholder="Présence d'un PCA [Plan de Continuité d'Activité] maintenu et testé" 
-          v-model="formData.gca_1">
+          id="gca_1" 
+          :value="active_gca_rules.gca_1"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Présence d'un PCA [Plan de Continuité d'Activité] maintenu et testé</span>
-      </label>
-      <label for="gca_rules_1_comment">
-        <input type="text" 
-          id="gca_rules_1_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.gca_1_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="gca_rules_1_impact">
+      <label for="gca_1_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="gca_1_comment" 
+          :value="active_gca_rules.gca_1_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="gca_1_impact">Impact</label>
         <select
-          id="gca_rules_1_impact" 
-          placeholder="Impact" 
-          v-model="formData.gca_1_impact">
+          id="gca_1_impact" 
+          :value="active_gca_rules.gca_1_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="gca_rules_1_engie">
+      <label for="gca_1_engie">Commentaire EHS</label>
         <input type="text" 
-          id="gca_rules_1_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.gca_1_engie"/>
-        <span>Commentaire EHS</span>
-      </label>
+          id="gca_1_engie" 
+          :value="active_gca_rules.gca_1_engie"
+          @input="updateLocalContact($event)"/>
 
-      <label for="gca_rules_2">
+      <label for="gca_2">Présence d'un PRA [Plan de Reprise d'Activité] maintenu et testé</label>
         <select
-          id="gca_rules_2" 
-          placeholder="Présence d'un PRA [Plan de Reprise d'Activité] maintenu et testé" 
-          v-model="formData.gca_2">
+          id="gca_2" 
+          :value="active_gca_rules.gca_2"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Présence d'un PRA [Plan de Reprise d'Activité] maintenu et testé</span>
-      </label>
-      <label for="gca_rules_2_comment">
+
+      <label for="gca_2_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="gca_rules_2_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.gca_2_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="gca_rules_2_impact">
+          id="gca_2_comment" 
+          :value="active_gca_rules.gca_2_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="gca_2_impact">Impact</label>
         <select
-          id="gca_rules_2_impact" 
-          placeholder="Impact" 
-          v-model="formData.gca_2_impact">
+          id="gca_2_impact" 
+          :value="active_gca_rules.gca_2_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="gca_rules_2_engie">
-        <input type="text" 
-          id="gca_rules_2_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.gca_2_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="gca_rules_3">
+      <label for="gca_2_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="gca_2_engie" 
+          :value="active_gca_rules.gca_2_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="gca_3">Présence d'un PSR [Plan de Sauvegarde et Restitution] maintenu et testé</label>
         <select
-          id="gca_rules_3" 
-          placeholder="Présence d'un PSR [Plan de Sauvegarde et Restitution] maintenu et testé" 
-          v-model="formData.gca_3">
+          id="gca_3" 
+          :value="active_gca_rules.gca_3"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Présence d'un PSR [Plan de Sauvegarde et Restitution] maintenu et testé</span>
-      </label>
-      <label for="gca_rules_3_comment">
-        <input type="text" 
-          id="gca_rules_3_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.gca_3_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="gca_rules_3_impact">
+      <label for="gca_3_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="gca_3_comment" 
+          :value="active_gca_rules.gca_3_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="gca_3_impact">Impact</label>
         <select
-          id="gca_rules_3_impact" 
-          placeholder="Impact" 
-          v-model="formData.gca_3_impact">
+          id="gca_3_impact" 
+          :value="active_gca_rules.gca_3_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="gca_rules_3_engie">
+      <label for="gca_3_engie">Commentaire EHS</label>
         <input type="text" 
-          id="gca_rules_3_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.gca_3_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="gca_3_engie" 
+          :value="active_gca_rules.gca_3_engie"
+          @input="updateLocalContact($event)" />
 
-      <button class="button_blue" type="submit">Envoyer</button>
-      <button class="button_blue" type="reset" >Reinitialiser</button>
+      <div>
+        <input class="button_form" type="submit" value="Modifier" />
+        <input class="button_form" type="button" @click="get_gca_rules(active_gca_rules.company)" value="Reinitialiser" />
+      </div>
     </form>
 
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+  import { mapState, mapActions, mapGetters } from "vuex";
   export default {
     data() {
       return {
         errors: [],
-        formData: {},
+        gca_rules: {},
         options: [
           { value: "N/A", text: "N/A" },
           { value: "Oui", text: "Oui" },
@@ -144,18 +129,35 @@
       }
     },
     computed: {
-      ...mapState("gca_rules", ["gca_rules"]),
+      ...mapGetters("gca_rules", ["active_gca_rules"]),
       ...mapState("partner", ["partner"]),
       ...mapState("user", ["groups"])
     },
+    watch: {
+      active_gca_rules: {
+        handler(){
+          this.gca_rules = this.active_gca_rules
+        },
+      immediate: true
+      }
+    },
     methods: {
+      ...mapActions("gca_rules", ["get_gca_rules"]),
       ...mapActions("gca_rules", ["edit_gca_rules"]),
-      verifForm() {
+      updateLocalContact(e) {
+        this.$set(this.gca_rules, e.target.id, e.target.value);
+      },
+      verifForm(gca_rules) {
+
+        gca_rules.gca_1_impact = parseInt(gca_rules.gca_1_impact)
+        gca_rules.gca_2_impact = parseInt(gca_rules.gca_2_impact)
+        gca_rules.gca_3_impact = parseInt(gca_rules.gca_3_impact)
+
         this.errors = [];
 
         const { gca_1, gca_1_comment, gca_1_engie, 
           gca_2, gca_2_comment, gca_2_engie,
-          gca_3, gca_3_comment, gca_3_engie } = this.formData
+          gca_3, gca_3_comment, gca_3_engie } = this.gca_rules
         
         if(!gca_1 || !gca_2 || !gca_3) {
           this.errors.push("Vous devez repondre à toutes les questions !");
@@ -168,43 +170,17 @@
 
         if (this.errors.length != 0)
         {
-          console.log(this.errors.length)
+          
           return true;
         }
         else {
-          this.handleSubmit()
+          this.edit_gca_rules(gca_rules);
+          this.goToRules(this.partner.company)
         }
-      },
-      handleSubmit() {
-        const payload = {
-          company: this.gca_rules.company,
-          data: {
-            company: this.gca_rules.company,
-            gca_1: this.formData.gca_1,
-            gca_1_comment: this.formData.gca_1_comment,
-            gca_1_impact: this.formData.gca_1_impact,
-            gca_1_engie: this.formData.gca_1_engie,
-            gca_2: this.formData.gca_2,
-            gca_2_comment: this.formData.gca_2_comment,
-            gca_2_impact: this.formData.gca_2_impact,
-            gca_2_engie: this.formData.gca_2_engie,
-            gca_3: this.formData.gca_3,
-            gca_3_comment: this.formData.gca_3_comment,
-            gca_3_impact: this.formData.gca_3_impact,
-            gca_3_engie: this.formData.gca_3_engie,
-            partnerId: this.gca_rules.partnerId,
-          },
-        };
-        this.edit_gca_rules(payload);
-        this.formData = this.gca_rules
-        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)
       }
-    },
-    mounted() {
-      this.formData = this.gca_rules
     }
   }
 </script>

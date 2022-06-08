@@ -3,9 +3,14 @@ import { url } from '../axiosUrl'
 import Vue from 'vue'
 
 const state = () => ({
-  ca_rules: {},
-  ca_longueur: 0
+  ca_rules: {}
 })
+
+const getters = {
+  active_ca_rules(state){
+    return state.ca_rules;
+  }
+}
 
 const actions = {
   get_ca_rules: ({ commit }, payload) => {
@@ -21,7 +26,7 @@ const actions = {
   },
   add_ca_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.post(url + 'api/ca_rules/' + payload.company, payload.data, {
+    Axios.post(url + 'api/ca_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
@@ -32,20 +37,13 @@ const actions = {
   },
   edit_ca_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.put(url + 'api/ca_rules/' + payload.company, payload.data, {
+    Axios.put(url + 'api/ca_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
-    .then( () => {
-      Axios.get(url + 'api/ca_rules/' + payload.company, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      })
-      .then(response => {
-        commit('GET_CA_RULES_2', response.data)
-      })
+    .then( response => {
+      commit('EDIT_CA_RULES', response)
     })
   }
 }
@@ -55,18 +53,17 @@ const mutations = {
     state.ca_rules = rules
   },
   GET_CA_RULES(state, rules) {
-    state.ca_longueur = rules.data.length,
     state.ca_rules = rules.data[0]
   },
-  GET_CA_RULES_2(state, rules) {
-    state.ca_longueur = rules.length,
-    state.ca_rules = rules[0]
+  EDIT_CA_RULES(state, rules) {
+    Vue.set(state.ca_rules, rules)
   }
 }
 
 export default {
   namespaced: true,
   state,
+  getters,
   actions,
   mutations
 }

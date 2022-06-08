@@ -7,7 +7,7 @@ module.exports = app => {
   
     router.get("/:company", contacts.findAll);
   
-    //router.get("/:partnerId/:contactId", contacts.findOne);
+    router.get("/:company/:last_name", contacts.findOne);
   
     router.put("/:company/:last_name", contacts.update);
   

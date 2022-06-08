@@ -3,8 +3,6 @@ const Contact = db.contacts;
 
 exports.create = (req, res) => {
 
-    console.log("test ______________________________")
-
     const company = req.params.company
     
     const contact = {
@@ -16,8 +14,6 @@ exports.create = (req, res) => {
         job: req.body.job,
         partnerId: req.body.partnerId
     };
-
-    console.log(contact)
 
     var phone_regex = new RegExp(/(?:(?:\+|00)33|0)[1-9](?:[\s.-]*\d{2}){4}/)
     var mail_regex = new RegExp(/\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+/)
@@ -53,6 +49,30 @@ exports.findAll = (req, res) => {
                 res.status(500).send({
                     message:
                         err.message || "Some error occurred while retrieving contacts."
+                });
+            });
+    }
+};
+
+exports.findOne = (req, res) => {
+
+    const company = req.params.company;
+    const last_name = req.params.last_name;
+
+    if(company != null && company.toUpperCase() && last_name != null) {
+        Contact.findOne({ where: { company: company, last_name: last_name }})
+            .then(data => {
+                if (data) {
+                    res.send(data);
+                } else {
+                    res.status(404).send({
+                        message: `Cannot find Partner with company=${company}.`
+                    });
+                }
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: "Error retrieving Partner with company=" + company
                 });
             });
     }

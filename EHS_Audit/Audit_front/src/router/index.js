@@ -2,6 +2,7 @@ import Vue from 'vue'
 import store from '../store'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Help from '../views/Help.vue'
 import PartnerList from '../views/PartnerList.vue'
 import Partner from '../views/Partner.vue'
 import Rules from '../views/Rules.vue'
@@ -93,6 +94,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/aide/',
+    name: 'Help',
+    component: Help
   },
   {
     path: '/callback',

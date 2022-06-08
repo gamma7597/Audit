@@ -3,9 +3,14 @@ import { url } from '../axiosUrl'
 import Vue from 'vue'
 
 const state = () => ({
-  gca_rules: {},
-  gca_longueur: 0
+  gca_rules: {}
 })
+
+const getters = {
+  active_gca_rules(state){
+    return state.gca_rules;
+  }
+}
 
 const actions = {
   get_gca_rules: ({ commit }, payload) => {
@@ -21,7 +26,7 @@ const actions = {
   },
   add_gca_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.post(url + 'api/gca_rules/' + payload.company, payload.data, {
+    Axios.post(url + 'api/gca_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
@@ -32,20 +37,13 @@ const actions = {
   },
   edit_gca_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.put(url + 'api/gca_rules/' + payload.company, payload.data, {
+    Axios.put(url + 'api/gca_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
-    .then( () => {
-      Axios.get(url + 'api/gca_rules/' + payload.company, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      })
-      .then(response => {
-        commit('GET_GCA_RULES_2', response.data)
-      })
+    .then( response => {
+      commit('EDIT_GCA_RULES', response)
     })
   }
 }
@@ -55,18 +53,17 @@ const mutations = {
     state.gca_rules = rules
   },
   GET_GCA_RULES(state, rules) {
-    state.gca_longueur = rules.data.length,
     state.gca_rules = rules.data[0]
   },
-  GET_GCA_RULES_2(state, rules) {
-    state.gca_longueur = rules.length,
-    state.gca_rules = rules[0]
+  EDIT_GCA_RULES(state, rules) {
+    Vue.set(state.gca_rules, rules)
   }
 }
 
 export default {
   namespaced: true,
   state,
+  getters,
   actions,
   mutations
 }

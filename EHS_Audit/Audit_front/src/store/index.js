@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import partner from './modules/partner'
+import maturite from './modules/maturite'
 import contact from './modules/contact'
 import user from './modules/user'
 import employee from './modules/employee'
@@ -28,6 +29,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {
     partner,
+    maturite,
     contact,
     user,
     employee,

@@ -7,75 +7,81 @@ const state = () => ({
   partner: {}
 })
 
+const getters = {
+  partnerList(state){
+    return state.partners;
+  },
+  activePartner(state){
+    return state.partner;
+  }
+}
+
 const actions = {
-  getPartners: ({ commit }) => {
+  async getPartners({ commit }) {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.get(url + 'api/partners/', {
+    await Axios.get(url + 'api/partners/', {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
     .then(response => {
-      commit('GET_PARTNERS', response.data)
+      commit('GET_PARTNERS', response)
     })
   },
-  getOnePartner: ({ commit }, payload) => {
+  async getOnePartner({ commit }, payload) {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.get(url + 'api/partners/' + payload, {
+    await Axios.get(url + 'api/partners/' + payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
     .then(response => {
-     commit('GET_ONE_PARTNER', response.data)
+     commit('GET_ONE_PARTNER', response)
     })
   },
-  addPartner: ({ commit }, payload) => {
+  async addPartner({ commit }, payload) {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.post(url + 'api/partners/', payload, {
+    await Axios.post(url + 'api/partners/', payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
     .then(response => {
-      commit('ADD_PARTNERS', response.data)
+      commit('ADD_PARTNER', response)
     })
   },
-  editPartner: ({ commit }, payload) => {
+  async editPartner({ commit }, payload) {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.put(url + 'api/partners/' + payload.company, payload.data, {
+    await Axios.put(url + 'api/partners/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
-    .then( () => {
-      Axios.get(url + 'api/partners/' + payload.company, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      })
-      .then(response => {
-        commit('GET_ONE_PARTNER', response.data)
-      })
+    .then(response => {
+      commit('EDIT_PARTNER', response);
     })
   },
-  removePartner: ({ commit }, payload) => {
-    Axios.delete(url + 'api/partners/' + payload)
+  async removePartner({ commit }, payload) {
+    await Axios.delete(url + 'api/partners/' + payload)
     .then(response => {
-      commit('REMOVE_PARTNER', response.data)
+      commit('REMOVE_PARTNER', response)
     })
   }
 }
 
 const mutations = {
   GET_PARTNERS(state, partners) {
-    state.partners = partners
+    state.partners = partners.data
   },
   GET_ONE_PARTNER(state, partner) {
-    state.partner = partner
+    state.partner = partner.data
   },
-  ADD_PARTNERS(state, partner) {
-    state.partners.push(partner)
+  ADD_PARTNER(state, partner) {
+    state.partners.push(partner.data)
+    state.partner = partner.data
+  },
+  EDIT_PARTNER(state, partner) {
+    Vue.set(state.partner, partner)
   },
   REMOVE_PARTNER(state, partner) {
     state.partners.pop(partner)
@@ -84,6 +90,7 @@ const mutations = {
 
 export default {
   namespaced: true,
+  getters,
   state,
   actions,
   mutations

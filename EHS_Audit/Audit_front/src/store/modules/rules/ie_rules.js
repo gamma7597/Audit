@@ -3,9 +3,14 @@ import { url } from '../axiosUrl'
 import Vue from 'vue'
 
 const state = () => ({
-  ie_rules: {},
-  ie_longueur: 0
+  ie_rules: {}
 })
+
+const getters = {
+  active_ie_rules(state){
+    return state.ie_rules;
+  }
+}
 
 const actions = {
   get_ie_rules: ({ commit }, payload) => {
@@ -21,7 +26,7 @@ const actions = {
   },
   add_ie_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.post(url + 'api/ie_rules/' + payload.company, payload.data, {
+    Axios.post(url + 'api/ie_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
@@ -32,20 +37,13 @@ const actions = {
   },
   edit_ie_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.put(url + 'api/ie_rules/' + payload.company, payload.data, {
+    Axios.put(url + 'api/ie_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
-    .then( () => {
-      Axios.get(url + 'api/ie_rules/' + payload.company, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      })
-      .then(response => {
-        commit('GET_IE_RULES_2', response.data)
-      })
+    .then( response => {
+      commit('EDIT_IE_RULES', response)
     })
   }
 }
@@ -55,18 +53,17 @@ const mutations = {
     state.ie_rules = rules
   },
   GET_IE_RULES(state, rules) {
-    state.ie_longueur = rules.data.length,
     state.ie_rules = rules.data[0]
   },
-  GET_IE_RULES_2(state, rules) {
-    state.ie_longueur = rules.length,
-    state.ie_rules = rules[0]
+  EDIT_IE_RULES(state, rules) {
+    Vue.set(state.ie_rules, rules)
   }
 }
 
 export default {
   namespaced: true,
   state,
+  getters,
   actions,
   mutations
 }

@@ -3,9 +3,14 @@ import { url } from '../axiosUrl'
 import Vue from 'vue'
 
 const state = () => ({
-  spe_rules: {},
-  spe_longueur: 0
+  spe_rules: {}
 })
+
+const getters = {
+  active_spe_rules(state){
+    return state.spe_rules;
+  }
+}
 
 const actions = {
   get_spe_rules: ({ commit }, payload) => {
@@ -21,7 +26,7 @@ const actions = {
   },
   add_spe_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.post(url + 'api/spe_rules/' + payload.company, payload.data, {
+    Axios.post(url + 'api/spe_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
@@ -32,20 +37,13 @@ const actions = {
   },
   edit_spe_rules: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.put(url + 'api/spe_rules/' + payload.company, payload.data, {
+    Axios.put(url + 'api/spe_rules/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
-    .then( () => {
-      Axios.get(url + 'api/spe_rules/' + payload.company, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      })
-      .then(response => {
-        commit('GET_SPE_RULES_2', response.data)
-      })
+    .then( response => {
+      commit('EDIT_SPE_RULES', response)
     })
   }
 }
@@ -55,18 +53,17 @@ const mutations = {
     state.spe_rules = rules
   },
   GET_SPE_RULES(state, rules) {
-    state.spe_longueur = rules.data.length,
     state.spe_rules = rules.data[0]
   },
-  GET_SPE_RULES_2(state, rules) {
-    state.spe_longueur = rules.length,
-    state.spe_rules = rules[0]
+  EDIT_SPE_RULES(state, rules) {
+    Vue.set(state.spe_rules, rules)
   }
 }
 
 export default {
   namespaced: true,
   state,
+  getters,
   actions,
   mutations
 }

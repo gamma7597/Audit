@@ -2,7 +2,9 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <b-form @submit.prevent="verifForm">
+    <h2>Ressources humaines</h2>
+
+    <form @submit.prevent="verifForm(rh_rules)">
 
       <p v-if="errors.length">
         <b>Veuillez corriger les erreurs :</b>
@@ -11,88 +13,78 @@
         </ul>
       </p>
 
-      <label for="rh_rules_1">
+      <label for="rh_1">Une procédure de sensibilisation et de formation à la sécurité existe, est appliquée et est à jour</label>
         <select
-          id="rh_rules_1" 
-          placeholder="Une procédure de sensibilisation et de formation à la sécurité existe, est appliquée et est à jour" 
-          v-model="formData.rh_1">
+          id="rh_1" 
+          :value="active_rh_rules.rh_1"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Une procédure de sensibilisation et de formation à la sécurité existe, est appliquée et est à jour</span>
-      </label>
-      <label for="rh_rules_1_comment">
-        <input type="text" 
-          id="rh_rules_1_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.rh_1_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rh_rules_1_impact">
+      <label for="rh_1_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="rh_1_comment" 
+          :value="active_rh_rules.rh_1_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rh_1_impact">Impact</label>
         <select
-          id="rh_rules_1_impact" 
-          placeholder="Impact" 
-          v-model="formData.rh_1_impact">
+          id="rh_1_impact" 
+          :value="active_rh_rules.rh_1_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="rh_rules_1_engie">
+      <label for="rh_1_engie">Commentaire EHS</label>
         <input type="text" 
-          id="rh_rules_1_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.rh_1_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="rh_1_engie" 
+          :value="active_rh_rules.rh_1_engie" 
+          @input="updateLocalContact($event)"/>
 
-      <label for="rh_rules_2">
+      <label for="rh_2">Les exigences en matière de non divulgation et de protection des informations sont identifiées et documentées [signature d'un NDA]</label>
         <select
-          id="rh_rules_2" 
-          placeholder="Les exigences en matière de non divulgation reflétant les besoins en matière de protection des informations sont identifiées et documentées [signature d'un NDA]" 
-          v-model="formData.rh_2">
+          id="rh_2" 
+          :value="active_rh_rules.rh_2"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Les exigences en matière de non divulgation reflétant les besoins en matière de protection des informations sont identifiées et documentées [signature d'un NDA]</span>
-      </label>
-      <label for="rh_rules_2_comment">
+
+      <label for="rh_2_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="rh_rules_2_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.rh_2_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rh_rules_2_impact">
+          id="rh_2_comment" 
+          :value="active_rh_rules.rh_2_comment" 
+          @input="updateLocalContact($event)"/>
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rh_2_impact">Impact</label>
         <select
-          id="rh_rules_2_impact" 
-          placeholder="Impact" 
-          v-model="formData.rh_2_impact">
+          id="rh_2_impact" 
+          :value="active_rh_rules.rh_2_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="rh_rules_2_engie">
+
+      <label for="rh_2_engie">Commentaire EHS</label>
         <input type="text" 
-          id="rh_rules_2_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.rh_2_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="rh_2_engie" 
+          :value="active_rh_rules.rh_2_engie"
+          @input="updateLocalContact($event)" />
 
-      <button class="button_blue" type="submit">Envoyer</button>
-      <button class="button_blue" type="reset">Reinitialiser</button>
-    </b-form>
+      <div>
+        <input class="button_form" type="submit" value="Modifier" />
+        <input class="button_form" type="button" @click="get_rh_rules(active_rh_rules.company)" value="Reinitialiser" />
+      </div>
 
+    </form>
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+  import { mapState, mapActions, mapGetters } from "vuex";
   export default {
     data() {
       return {
         errors: [],
-        formData: {},
+        rh_rules: {},
         options: [
           { value: "N/A", text: "N/A" },
           { value: "Oui", text: "Oui" },
@@ -109,17 +101,33 @@
       }
     },
     computed: {
-      ...mapState("rh_rules", ["rh_rules"]),
+      ...mapGetters('rh_rules', [ 'active_rh_rules' ]),
       ...mapState("partner", ["partner"]),
       ...mapState("user", ["groups"])
     },
+    watch: {
+      active_rh_rules: {
+        handler(){
+          this.rh_rules = this.active_rh_rules
+        },
+      immediate: true
+      }
+    },
     methods: {
       ...mapActions("rh_rules", ["edit_rh_rules"]),
-      verifForm() {
+      ...mapActions("rh_rules", ["get_rh_rules"]),
+      updateLocalContact(e) {
+        this.$set(this.rh_rules, e.target.id, e.target.value);
+      },
+      verifForm(rh_rules) {
+
+        rh_rules.rh_1_impact = parseInt(rh_rules.rh_1_impact)
+        rh_rules.rh_2_impact = parseInt(rh_rules.rh_2_impact)
+
         this.errors = [];
 
         const { rh_1, rh_1_comment, rh_1_engie, 
-          rh_2, rh_2_comment, rh_2_engie } = this.formData
+          rh_2, rh_2_comment, rh_2_engie } = this.rh_rules
         
         if(!rh_1 || !rh_2) {
           this.errors.push("Vous devez repondre à toutes les questions !");
@@ -132,39 +140,17 @@
 
         if (this.errors.length != 0)
         {
-          console.log(this.errors.length)
+          
           return true;
         }
         else {
-          this.handleSubmit()
+          this.edit_rh_rules(rh_rules);
+          this.goToRules(this.partner.company)
         }
-      },
-      handleSubmit() {
-        const payload = {
-          company: this.rh_rules.company,
-          data: {
-            company: this.rh_rules.company,
-            rh_1: this.formData.rh_1,
-            rh_1_comment: this.formData.rh_1_comment,
-            rh_1_impact: this.formData.rh_1_impact,
-            rh_1_engie: this.formData.rh_1_engie,
-            rh_2: this.formData.rh_2,
-            rh_2_comment: this.formData.rh_2_comment,
-            rh_2_impact: this.formData.rh_2_impact,
-            rh_2_engie: this.formData.rh_2_engie,
-            partnerId: this.rh_rules.partnerId,
-          },
-        };
-        this.edit_rh_rules(payload);
-        this.formData = this.rh_rules
-        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)
       }
     },
-    mounted() {
-      this.formData = this.rh_rules
-    }
   }
 </script>

@@ -1,14 +1,14 @@
 <template>
     <div>
         
-        <h3 id="title">Bienvenue sur le compte {{ partner.company }}</h3>
+        <h3 id="title">Bienvenue sur le compte {{ activePartner.company }}</h3>
 
-        <button v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" class="button_blue" v-on:click="removePartner()">Supprimer le partenaire</button>
+        <button v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" class="button_blue" v-on:click="remove()">Supprimer le partenaire</button>
 
-        <EditPartner :partner="partner" />
+        <EditPartner />
         
         <table class="table_style">
-            <caption>Informations {{partner.company}}</caption>
+            <caption>Informations {{activePartner.company}}</caption>
             <thead>
                 <tr>
                     <th scope="col">Partenaire</th>
@@ -21,18 +21,18 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{partner.company}}</td>
-                    <td>{{partner.contract_number}}</td>
-                    <td>{{partner.location}}</td>
-                    <td>{{partner.description}}</td>
-                    <td>{{partner.start_service}}</td>
-                    <td>{{partner.end_service}}</td>
+                    <td>{{activePartner.company}}</td>
+                    <td>{{activePartner.contract_number}}</td>
+                    <td>{{activePartner.location}}</td>
+                    <td>{{activePartner.description}}</td>
+                    <td>{{activePartner.start_service}}</td>
+                    <td>{{activePartner.end_service}}</td>
                 </tr>
             </tbody>
         </table>
 
-        <button class="button_blue" @click="goToRules(partner.company)">Règles</button>
-        <button class="button_blue" @click="goToFiles(partner.company)">Fichiers</button>
+        <button class="button_blue" @click="goToRules(activePartner.company)">Règles</button>
+        <button class="button_blue" @click="goToFiles(activePartner.company)">Fichiers</button>
 
         <p id="container">
             Cet audit cybersécurité permet un suivi de votre maturité sur la durée. <br />
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
+    import { mapActions, mapGetters, mapState } from 'vuex'
     import EditPartner from '@/components/EditPartner.vue'
     import ContactTable from '@/components/ContactTable.vue'
     import AddContact from '@/components/AddContact.vue' 
@@ -66,12 +66,13 @@
             //AddEmployee
         },
         computed: {
-            ...mapState('partner', [ 'partner' ]),
+            ...mapGetters('partner', [ 'activePartner' ]),
             ...mapState("user", ["groups"])
         },
         methods: {
-            removePartner() {
-                this.$store.dispatch('partner/removePartner', this.partner.company)
+            ...mapActions('partner', [ 'removePartner' ]),
+            remove() {
+                this.removePartner(this.activePartner.company)
                 this.$router.push("/partnerList")
             },
             goToRules(partner){
@@ -81,7 +82,7 @@
                 this.$router.push(partner+"/files/")
             }
         },
-        mounted() {
+        created() {
             this.$store.dispatch('partner/getOnePartner', this.$route.params.company)
             this.$store.dispatch("contact/getContacts", this.$route.params.company)
             //this.$store.dispatch("employee/getEmployees", this.$route.params.company)

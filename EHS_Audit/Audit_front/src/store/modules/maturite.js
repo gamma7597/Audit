@@ -1,62 +1,63 @@
 import Axios from "axios"
-import { url } from '../axiosUrl'
+import { url } from './axiosUrl'
 import Vue from 'vue'
 
 const state = () => ({
-  cd_rules: {}
+  maturites: {},
+  listMaturites: []
 })
 
 const getters = {
-  active_cd_rules(state){
-    return state.cd_rules;
+  active_maturites(state){
+    return state.maturites;
   }
 }
 
 const actions = {
-  get_cd_rules: ({ commit }, payload) => {
+  getMaturites: ({ commit }) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.get(url + 'api/cd_rules/' + payload, {
+    Axios.get(url + 'api/maturites/', {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
     .then(response => {
-      commit('GET_CD_RULES', response)
+      commit('GET_MATURITES', response.data)
     })
   },
-  add_cd_rules: ({ commit }, payload) => {
+  addMaturites: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.post(url + 'api/cd_rules/' + payload.company, payload, {
+    Axios.post(url + 'api/maturites/', payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
     .then(response => {
-      commit('ADD_CD_RULES', response.data)
+      commit('ADD_MATURITES', response.data)
     })
   },
-  edit_cd_rules: ({ commit }, payload) => {
+  editMaturites: ({ commit }, payload) => {
     var accessToken = Vue.prototype.$auth.getAccessToken();
-    Axios.put(url + 'api/cd_rules/' + payload.company, payload, {
+    Axios.put(url + 'api/maturites/' + payload.company, payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
     })
     .then( response => {
-      commit('EDIT_CD_RULES', response)
+      commit('EDIT_MATURITES', response)
     })
-  }
+  },
 }
 
 const mutations = {
-  ADD_CD_RULES(state, rules) {
-    state.cd_rules = rules
+  ADD_MATURITES(state, maturites) {
+    state.maturites = maturites
   },
-  GET_CD_RULES(state, rules) {
-    state.cd_rules = rules.data[0]
+  GET_MATURITES(state, maturites) {
+    state.listMaturites = maturites
   },
-  EDIT_CD_RULES(state, rules) {
-    Vue.set(state.cd_rules, rules)
+  EDIT_MATURITES(state, maturites) {
+    Vue.set(state.maturites, maturites)
   }
 }
 

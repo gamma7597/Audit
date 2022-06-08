@@ -2,7 +2,9 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="verifForm">
+    <h2>Connexion</h2>
+
+    <form @submit.prevent="verifForm(co_rules)">
 
       <p v-if="errors.length">
         <b>Veuillez corriger les erreurs :</b>
@@ -11,127 +13,105 @@
         </ul>
       </p>
 
-      <label for="co_rules_1">
+      <label for="co_1">Accès applicatif (ex : filtrage applicatif)</label>
         <select
-          id="co_rules_1" 
-          placeholder="Accès applicatif (ex : filtrage applicatif)" 
-          v-model="formData.co_1">
+          id="co_1" 
+          :value="active_co_rules.co_1"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Accès applicatif (ex : filtrage applicatif)</span>
-      </label>
 
-      <label for="co_rules_1_comment">
+      <label for="co_1_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="co_rules_1_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.co_1_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
+          id="co_1_comment" 
+          :value="active_co_rules.co_1_comment"
+          @input="updateLocalContact($event)" />
 
-      <label for="co_rules_2">
+      <label for="co_2">Accès VPN (Global Protect) / Firewall</label>
         <select
-          id="co_rules_2" 
-          placeholder="Accès VPN (Global Protect) / Firewall" 
-          v-model="formData.co_2">
+          id="co_2" 
+          :value="active_co_rules.co_2"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Accès VPN (Global Protect) / Firewall</span>
-      </label>
 
-      <label for="co_rules_2_comment">
+      <label for="co_2_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="co_rules_2_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.co_2_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
+          id="co_2_comment" 
+          :value="active_co_rules.co_2_comment"
+          @input="updateLocalContact($event)" />
 
-      <label for="co_rules_3">
+      <label for="co_3">Accès ZPA</label>
         <select
-          id="co_rules_3" 
-          placeholder="Accès ZPA" 
-          v-model="formData.co_3">
+          id="co_3" 
+          :value="active_co_rules.co_3"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Accès ZPA</span>
-      </label>
 
-      <label for="co_rules_3_comment">
+      <label for="co_3_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="co_rules_3_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.co_3_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
+          id="co_3_comment" 
+          :value="active_co_rules.co_3_comment"
+          @input="updateLocalContact($event)" />
 
-      <label for="co_rules_4">
+      <label for="co_4">Accès lien réseau Wan dédié (MPLS)</label>
         <select
-          id="co_rules_4" 
-          placeholder="Accès lien réseau Wan dédié (MPLS)" 
-          v-model="formData.co_4">
+          id="co_4" 
+          :value="active_co_rules.co_4"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Accès lien réseau Wan dédié (MPLS)</span>
-      </label>
 
-      <label for="co_rules_4_comment">
+      <label for="co_4_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="co_rules_4_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.co_4_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
+          id="co_4_comment" 
+          :value="active_co_rules.co_4_comment"
+          @input="updateLocalContact($event)" />
 
-      <label for="co_rules_5">
+      <label for="co_5">Accès depuis un réseau externe en SSO ENGIE avec OKTA</label>
         <select
-          id="co_rules_5" 
-          placeholder="Depuis un réseau externe en SSO ENGIE avec OKTA" 
-          v-model="formData.co_5">
+          id="co_5" 
+          :value="active_co_rules.co_5"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Depuis un réseau externe en SSO ENGIE avec OKTA</span>
-      </label>
 
-      <label for="co_rules_5_comment">
+      <label for="co_5_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="co_rules_5_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.co_5_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
+          id="co_5_comment" 
+          :value="active_co_rules.co_5_comment"
+          @input="updateLocalContact($event)" />
 
-      <label for="co_rules_6">
+      <label for="co_6">Accès depuis un réseau externe en MFA avec OKTA</label>
         <select
-          id="co_rules_6" 
-          placeholder="Depuis un réseau externe en MFA avec OKTA" 
-          v-model="formData.co_6">
+          id="co_6" 
+          :value="active_co_rules.co_6"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Depuis un réseau externe en MFA avec OKTA</span>
-      </label>
 
-      <label for="co_rules_6_comment">
+      <label for="co_6_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="co_rules_6_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.co_6_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
+          id="co_6_comment" 
+          :value="active_co_rules.co_6_comment"
+          @input="updateLocalContact($event)" />
 
-      <button class="button_blue" type="submit">Envoyer</button>
-      <button class="button_blue" type="reset">Reinitialiser</button>
+      <div>
+        <input class="button_form" type="submit" value="Modifier" />
+        <input class="button_form" type="button" @click="get_co_rules(active_co_rules.company)" value="Reinitialiser" />
+      </div>
     </form>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
       errors: [],
-      formData: {},
+      co_rules: {},
       options: [
         { value: "Oui", text: "Oui" },
         { value: "Non", text: "Non" },
@@ -139,13 +119,25 @@ export default {
     };
   },
   computed: {
-    ...mapState("co_rules", ["co_rules"]),
-    ...mapState("partner", ["partner"]),
-    ...mapState("user", ["groups"])
-  },
+      ...mapGetters("co_rules", ["active_co_rules"]),
+      ...mapState("partner", ["partner"]),
+      ...mapState("user", ["groups"])
+    },
+    watch: {
+      active_co_rules: {
+        handler(){
+          this.co_rules = this.active_co_rules
+        },
+      immediate: true
+      }
+    },
   methods: {
+    ...mapActions("co_rules", ["get_co_rules"]),
     ...mapActions("co_rules", ["edit_co_rules"]),
-    verifForm() {
+    updateLocalContact(e) {
+        this.$set(this.co_rules, e.target.id, e.target.value);
+      },
+    verifForm(co_rules) {
       this.errors = [];
 
       const { co_1, co_1_comment, 
@@ -153,7 +145,7 @@ export default {
         co_3, co_3_comment, 
         co_4, co_4_comment,
         co_5, co_5_comment,
-        co_6, co_6_comment } = this.formData
+        co_6, co_6_comment } = this.co_rules
       
       if(!co_1 || !co_2 || !co_3 || !co_4 || !co_5 || !co_6) {
         this.errors.push("Vous devez repondre à toutes les questions !");
@@ -165,43 +157,17 @@ export default {
 
       if (this.errors.length != 0)
       {
-        console.log(this.errors.length)
+        
         return true;
       }
       else {
-        this.handleSubmit()
+        this.edit_co_rules(co_rules);
+        this.goToRules(this.partner.company)
       }
-    },
-    handleSubmit() {
-      const payload = {
-        company: this.co_rules.company,
-        data: {
-          company: this.co_rules.company,
-          co_1: this.formData.co_1,
-          co_1_comment: this.formData.co_1_comment,
-          co_2: this.formData.co_2,
-          co_2_comment: this.formData.co_2_comment,
-          co_3: this.formData.co_3,
-          co_3_comment: this.formData.co_3_comment,
-          co_4: this.formData.co_4,
-          co_4_comment: this.formData.co_4_comment,
-          co_5: this.formData.co_5,
-          co_5_comment: this.formData.co_5_comment,
-          co_6: this.formData.co_6,
-          co_6_comment: this.formData.co_6_comment,
-          partnerId: this.co_rules.partnerId,
-        },
-      };
-      this.edit_co_rules(payload);
-      this.formData = this.co_rules;
-      this.goToRules(this.partner.company)
     },
     goToRules(partner){
       this.$router.push("/rules/" + partner)
     }
-  },
-  mounted() {
-    this.formData = this.co_rules;
-  },
+  }
 };
 </script>

@@ -2,6 +2,7 @@
   <div class="addContact">
 
     <button class="button_blue" @click="toggleContactForm">Ajouter un contact</button>
+
     <form @submit.prevent="verifForm" v-if="showContactForm">
 
       <p v-if="errors.length">
@@ -11,45 +12,30 @@
         </ul>
       </p>
 
-      <label for="last_nameInput">
-        <input type="text" 
-          id="last_nameInput" 
-          placeholder="Nom du contact" 
-          v-model="formData.last_name" />
-        <span>Nom du contact</span>
-      </label>
+      <label for="last_name">Nom du contact</label>
+      <input type="text" 
+        id="last_name" 
+        v-model="formData.last_name" />
 
-      <label for="first_nameInput">
-        <input type="text" 
-          id="first_nameInput" 
-          placeholder="Prenom du contact" 
-          v-model="formData.first_name" />
-        <span>Prenom du contact</span>
-      </label>
+      <label for="first_name">Prenom du contact</label>
+      <input type="text" 
+        id="first_name" 
+        v-model="formData.first_name" />
 
-      <label for="phoneInput">
-        <input type="number" 
-          id="phoneInput" 
-          placeholder="Telephone du contact" 
-          v-model="formData.phone" />
-        <span>Telephone du contact</span>
-      </label>
+      <label for="phone">Telephone du contact</label>
+      <input type="number" 
+        id="phone" 
+        v-model="formData.phone" />
 
-      <label for="mailInput">
-        <input type="text" 
-          id="mailInput" 
-          placeholder="Mail du contact" 
-          v-model="formData.mail" />
-        <span>Mail du contact</span>
-      </label>
+      <label for="mail">Mail du contact</label>
+      <input type="text" 
+        id="mail" 
+        v-model="formData.mail" />
 
-      <label for="jobInput">
-        <input type="text" 
-          id="jobInput" 
-          placeholder="Fonction du contact" 
-          v-model="formData.job"  />
-        <span>Fonction du contact</span>
-      </label>
+      <label for="job">Fonction du contact</label>
+      <input type="text" 
+        id="job" 
+        v-model="formData.job"  />
 
       <button class="button_form" type="submit">Ajouter</button>
       <button class="button_form" type="reset">Réinitialiser le formulaire</button>
@@ -58,7 +44,7 @@
 </template>
 
 <script>
-  import { mapActions, mapState } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex'
   export default {
     name: 'AddContact',
     data() {
@@ -75,7 +61,7 @@
       }
     },
     computed: {
-        ...mapState('partner', [ 'partner' ])
+        ...mapGetters('partner', [ 'activePartner' ]),
     },
     methods: {
       ...mapActions('contact', [ 'addContact' ]),
@@ -135,15 +121,15 @@
       handleSubmit() {
         const { last_name, first_name, phone, mail, job } = this.formData
         const payload = {
-          company: this.partner.company,
+          company: this.activePartner.company,
           data: {
-            company: this.partner.company,
+            company: this.activePartner.company,
             last_name,
             first_name,
             phone,
             mail,
             job,
-            partnerId: this.partner.id
+            partnerId: this.activePartner.id
           }
         }
         this.addContact(payload)

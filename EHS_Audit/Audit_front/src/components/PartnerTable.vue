@@ -1,6 +1,7 @@
 <template>
   <div>
     <table class="table_style">
+      <caption>Partenaires ENGIE Home Services</caption>
       <thead>
         <tr>
           <th scope="col">Partenaire</th>
@@ -12,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(partner, index) in partners" :key="index">
+        <tr v-for="(partner, index) in partnerList" :key="index">
           <td><router-link :to="`/partner/${partner.company}`">
                 {{ partner.company }}
               </router-link></td>
@@ -28,11 +29,13 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapGetters } from 'vuex'
     export default {
         computed: {
-            ...mapState('partner', ['partners']),
-            
+          ...mapGetters('partner', ['partnerList'])
+        },
+        created() {
+          this.$store.dispatch("partner/getPartners")
         }
     }
 </script>

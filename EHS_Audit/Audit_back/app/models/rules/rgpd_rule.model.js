@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     rgpd_1_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     rgpd_1_engie: {
       type: Sequelize.STRING
@@ -22,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     rgpd_2_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     rgpd_2_engie: {
       type: Sequelize.STRING

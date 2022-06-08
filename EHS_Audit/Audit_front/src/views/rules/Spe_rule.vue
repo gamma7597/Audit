@@ -2,7 +2,9 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="verifForm">
+    <h2>Sécurité physique et environnementale</h2>
+
+    <form @submit.prevent="verifForm(spe_rules)">
 
       <p v-if="errors.length">
         <b>Veuillez corriger les erreurs :</b>
@@ -11,197 +13,162 @@
         </ul>
       </p>
 
-      <label for="spe_rules_1">
+      <label for="spe_1">Le partenaire garentie le cloisonnement des environnements, des réseaux et des données.</label>
         <select
-          id="spe_rules_1" 
-          placeholder="Le partenaire doit garantir le cloisonnement : 
-- Des environnements (Préproduction, test, production, etc.) 
-- Des réseaux 
-- Des données EHS vis-à-vis des données des autres clients" 
-          v-model="formData.spe_1">
+          id="spe_1" 
+          :value="active_spe_rules.spe_1"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit garantir le cloisonnement : 
-- Des environnements (Préproduction, test, production, etc.) 
-- Des réseaux 
-- Des données EHS vis-à-vis des données des autres clients</span>
-      </label>
-      <label for="spe_rules_1_comment">
-        <input type="text" 
-          id="spe_rules_1_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.spe_1_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="spe_rules_1_impact">
+      <label for="spe_1_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="spe_1_comment" 
+          :value="active_spe_rules.spe_1_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="spe_1_impact">Impact</label>
         <select
-          id="spe_rules_1_impact" 
-          placeholder="Impact" 
-          v-model="formData.spe_1_impact">
+          id="spe_1_impact" 
+          :value="active_spe_rules.spe_1_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="spe_rules_1_engie">
+      <label for="spe_1_engie">Commentaire EHS</label>
         <input type="text" 
-          id="spe_rules_1_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.spe_1_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="spe_1_engie" 
+          :value="active_spe_rules.spe_1_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="spe_rules_2">
+      <label for="spe_2">Les données EHS ne sont pas partagées avec d'autres tiers</label>
         <select
-          id="spe_rules_2" 
-          placeholder="Les données EHS ne sont pas partagées avec d'autres tiers (sous-traitant ultérieur)
-Dans le cas contraire, indiquez quelles données et quel(s) tier(s) sont concernés" 
-          v-model="formData.spe_2">
+          id="spe_2" 
+          :value="active_spe_rules.spe_2"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Les données EHS ne sont pas partagées avec d'autres tiers (sous-traitant ultérieur)
-Dans le cas contraire, indiquez quelles données et quel(s) tier(s) sont concernés</span>
-      </label>
-      <label for="spe_rules_2_comment">
+
+      <label for="spe_2_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="spe_rules_2_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.spe_2_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="spe_rules_2_impact">
+          id="spe_2_comment" 
+          :value="active_spe_rules.spe_2_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="spe_2_impact">Impact</label>
         <select
-          id="spe_rules_2_impact" 
-          placeholder="Impact" 
-          v-model="formData.spe_2_impact">
+          id="spe_2_impact" 
+          :value="active_spe_rules.spe_2_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="spe_rules_2_engie">
-        <input type="text" 
-          id="spe_rules_2_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.spe_2_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="spe_rules_3">
+      <label for="spe_2_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="spe_2_engie" 
+          :value="active_spe_rules.spe_2_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="spe_3">Le partenaire précise la liste de tous les lieux de stockage des données de EHS</label>
         <select
-          id="spe_rules_3" 
-          placeholder="Le partenaire doit préciser la liste de tous les lieux de stockage des données de EHS (site d’hébergement principal, sites de secours, etc.) et s’engager à tenir informé EHS en cas de changement de localisation des données" 
-          v-model="formData.spe_3">
+          id="spe_3" 
+          :value="active_spe_rules.spe_3"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit préciser la liste de tous les lieux de stockage des données de EHS (site d’hébergement principal, sites de secours, etc.) et s’engager à tenir informé EHS en cas de changement de localisation des données</span>
-      </label>
-      <label for="spe_rules_3_comment">
-        <input type="text" 
-          id="spe_rules_3_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.spe_3_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="spe_rules_3_impact">
+      <label for="spe_3_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="spe_3_comment" 
+          :value="active_spe_rules.spe_3_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="spe_3_impact">Impact</label>
         <select
-          id="spe_rules_3_impact" 
-          placeholder="Impact" 
-          v-model="formData.spe_3_impact">
+          id="spe_3_impact" 
+          :value="active_spe_rules.spe_3_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="spe_rules_3_engie">
+      <label for="spe_3_engie">Commentaire EHS</label>
         <input type="text" 
-          id="spe_rules_3_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.spe_3_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="spe_3_engie" 
+          :value="active_spe_rules.spe_3_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="spe_rules_4">
+      <label for="spe_4">Les visiteurs sont identifiés et escortés durant leur visite</label>
         <select
-          id="spe_rules_4" 
-          placeholder="Les visiteurs sont identifiés et escortés durant leur visite" 
-          v-model="formData.spe_4">
+          id="spe_4" 
+          :value="active_spe_rules.spe_4"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Les visiteurs sont identifiés et escortés durant leur visite</span>
-      </label>
-      <label for="spe_rules_4_comment">
+
+      <label for="spe_4_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="spe_rules_4_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.spe_4_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="spe_rules_4_impact">
+          id="spe_4_comment" 
+          :value="active_spe_rules.spe_4_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="spe_4_impact">Impact</label>
         <select
-          id="spe_rules_4_impact" 
-          placeholder="Impact" 
-          v-model="formData.spe_4_impact">
+          id="spe_4_impact" 
+          :value="active_spe_rules.spe_4_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="spe_rules_4_engie">
-        <input type="text" 
-          id="spe_rules_4_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.spe_4_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="spe_rules_5">
+      <label for="spe_4_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="spe_4_engie" 
+          :value="active_spe_rules.spe_4_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="spe_5">Les lieux d’hébergement des actifs EHS doivent satisfaire les exigences de sécurité physique</label>
         <select
-          id="spe_rules_5" 
-          placeholder="Les lieux d’hébergement des actifs EHS doivent satisfaire les exigences de sécurité physique (contrôles des accès physiques, alarme anti-intrusion, dispositif anti-incendie, protection contre les dégâts des eaux, etc.)" 
-          v-model="formData.spe_5">
+          id="spe_5" 
+          :value="active_spe_rules.spe_5"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Les lieux d’hébergement des actifs EHS doivent satisfaire les exigences de sécurité physique (contrôles des accès physiques, alarme anti-intrusion, dispositif anti-incendie, protection contre les dégâts des eaux, etc.)</span>
-      </label>
-      <label for="spe_rules_5_comment">
+
+      <label for="spe_5_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="spe_rules_5_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.spe_5_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="spe_rules_5_impact">
+          id="spe_5_comment" 
+          :value="active_spe_rules.spe_5_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="spe_5_impact">Impact</label>
         <select
-          id="spe_rules_5_impact" 
-          placeholder="Impact" 
-          v-model="formData.spe_5_impact">
+          id="spe_5_impact" 
+          :value="active_spe_rules.spe_5_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="spe_rules_5_engie">
-        <input type="text" 
-          id="spe_rules_5_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.spe_5_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <button class="button_blue" type="submit">Envoyer</button>
-      <button class="button_blue" type="reset" >Reinitialiser</button>
+      <label for="spe_5_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="spe_5_engie" 
+          :value="active_spe_rules.spe_5_engie"
+          @input="updateLocalContact($event)" />
+
+      <div>
+        <input class="button_form" type="submit" value="Modifier" />
+        <input class="button_form" type="button" @click="get_spe_rules(active_spe_rules.company)" value="Reinitialiser" />
+      </div>
     </form>
 
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+  import { mapState, mapActions, mapGetters } from "vuex";
   export default {
     data() {
       return {
         errors: [],
-        formData: {},
+        spe_rules: {},
         options: [
           { value: "N/A", text: "N/A" },
           { value: "Oui", text: "Oui" },
@@ -218,20 +185,39 @@ Dans le cas contraire, indiquez quelles données et quel(s) tier(s) sont concern
       }
     },
     computed: {
-      ...mapState("spe_rules", ["spe_rules"]),
+      ...mapGetters("spe_rules", ["active_spe_rules"]),
       ...mapState("partner", ["partner"]),
       ...mapState("user", ["groups"])
     },
+    watch: {
+      active_spe_rules: {
+        handler(){
+          this.spe_rules = this.active_spe_rules
+        },
+      immediate: true
+      }
+    },
     methods: {
+      ...mapActions("spe_rules", ["get_spe_rules"]),
       ...mapActions("spe_rules", ["edit_spe_rules"]),
-      verifForm() {
+      updateLocalContact(e) {
+        this.$set(this.spe_rules, e.target.id, e.target.value);
+      },
+      verifForm(spe_rules) {
+
+        spe_rules.spe_1_impact = parseInt(spe_rules.spe_1_impact)
+        spe_rules.spe_2_impact = parseInt(spe_rules.spe_2_impact)
+        spe_rules.spe_3_impact = parseInt(spe_rules.spe_3_impact)
+        spe_rules.spe_4_impact = parseInt(spe_rules.spe_4_impact)
+        spe_rules.spe_5_impact = parseInt(spe_rules.spe_5_impact)
+
         this.errors = [];
 
         const { spe_1, spe_1_comment, spe_1_engie, 
           spe_2, spe_2_comment, spe_2_engie, 
           spe_3, spe_3_comment, spe_3_engie, 
           spe_4, spe_4_comment, spe_4_engie,
-          spe_5, spe_5_comment, spe_5_engie } = this.formData
+          spe_5, spe_5_comment, spe_5_engie } = this.spe_rules
         
         if(!spe_1 || !spe_2 || !spe_3 || !spe_4 || !spe_5) {
           this.errors.push("Vous devez repondre à toutes les questions !");
@@ -244,51 +230,17 @@ Dans le cas contraire, indiquez quelles données et quel(s) tier(s) sont concern
 
         if (this.errors.length != 0)
         {
-          console.log(this.errors.length)
+          
           return true;
         }
         else {
-          this.handleSubmit()
+          this.edit_spe_rules(spe_rules);
+          this.goToRules(this.partner.company)
         }
-      },
-      handleSubmit() {
-        const payload = {
-          company: this.spe_rules.company,
-          data: {
-            company: this.spe_rules.company,
-            spe_1: this.formData.spe_1,
-            spe_1_comment: this.formData.spe_1_comment,
-            spe_1_impact: this.formData.spe_1_impact,
-            spe_1_engie: this.formData.spe_1_engie,
-            spe_2: this.formData.spe_2,
-            spe_2_comment: this.formData.spe_2_comment,
-            spe_2_impact: this.formData.spe_2_impact,
-            spe_2_engie: this.formData.spe_2_engie,
-            spe_3: this.formData.spe_3,
-            spe_3_comment: this.formData.spe_3_comment,
-            spe_3_impact: this.formData.spe_3_impact,
-            spe_3_engie: this.formData.spe_3_engie,
-            spe_4: this.formData.spe_4,
-            spe_4_comment: this.formData.spe_4_comment,
-            spe_4_impact: this.formData.spe_4_impact,
-            spe_4_engie: this.formData.spe_4_engie,
-            spe_5: this.formData.spe_5,
-            spe_5_comment: this.formData.spe_5_comment,
-            spe_5_impact: this.formData.spe_5_impact,
-            spe_5_engie: this.formData.spe_5_engie,
-            partnerId: this.spe_rules.partnerId,
-          },
-        };
-        this.edit_spe_rules(payload);
-        this.formData = this.spe_rules
-        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)
       }
-    },
-    mounted() {
-      this.formData = this.spe_rules
     }
   }
 </script>

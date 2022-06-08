@@ -40,8 +40,8 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
     Partner.findAll()
-        .then(data => {
-            res.send(data);
+        .then(response => {
+            res.send(response);
         })
         .catch(err => {
             res.status(500).send({
@@ -84,7 +84,6 @@ exports.update = (req, res) => {
                 where: { company: company }
             })
                 .then(() => {
-                    console.log(res.data)
                     res.send(res.data)
                 })
                 .catch(err => {

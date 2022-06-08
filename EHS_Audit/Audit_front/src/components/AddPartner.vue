@@ -12,55 +12,35 @@
         </ul>
       </p>
 
-      <label for="companyInput">
-        <input type="text" 
-          id="companyInput" 
-          placeholder="Nom du partenaire"
-          v-model="formData.company" />
-        <span>Nom du partenaire</span>
-      </label>
+      <label for="company">Nom du partenaire</label>
+      <input type="text" 
+        id="company" 
+        v-model="formData.company" />
       
-      <label for="contract_numberInput">
-        <input type="text" 
-          id="contract_numberInput" 
-          placeholder="Numero de contrat" 
-          v-model="formData.contract_number" />
-        <span>Numero de contrat</span>
-      </label>
+      <label for="contract_number">Numero de contrat</label>
+      <input type="text" 
+        id="contract_number" 
+        v-model="formData.contract_number" />
 
-      <label for="locationInput">
-        <input type="text" 
-          id="locationInput" 
-          placeholder="Localisation" 
-          v-model="formData.location" />
-        <span>Localisation</span>
-      </label>
+      <label for="location">Localisation</label>
+      <input type="text" 
+        id="location" 
+        v-model="formData.location" />
 
-      <label for="descriptionInput">
-        <input type="text" 
-          id="descriptionInput" 
-          placeholder="Description" 
-          v-model="formData.description" />
-        <span>Description</span>
-      </label>
+      <label for="description">Description</label>
+      <input type="text" 
+        id="description" 
+        v-model="formData.description" />
 
-      <label for="start_serviceInput">
-        <input type="date" 
-          id="start_serviceInput" 
-          placeholder="Debut de la prestation" 
-          v-model="formData.start_service"
-          value="" />
-        <span>Debut de la prestation</span>
-      </label>
+      <label for="start_service">Debut de la prestation</label>
+      <input type="date" 
+        id="start_service" 
+        v-model="formData.start_service"/>
 
-      <label for="end_serviceInput">
-        <input type="date" 
-          id="end_serviceInput" 
-          placeholder="Fin de la prestation"
-          v-model="formData.end_service"
-          value="" />
-        <span>Fin de la prestation</span>
-      </label>
+      <label for="end_service">Fin de la prestation</label>
+      <input type="date" 
+        id="end_service" 
+        v-model="formData.end_service"/>
 
       <button class="button_form" type="submit">Ajouter</button>
       <button class="button_form" type="reset">Réinitialiser le formulaire</button>
@@ -78,17 +58,35 @@
         showPartnerForm: false,
         formData: {
           company: '',
-          contract_number: null,
+          contract_number: '',
           location: '',
           description: '',
           start_service: '',
           end_service: ''
-        },
-        partnerId: null
+        }
       }
     },
     methods: {
       ...mapActions('partner', [ 'addPartner' ]),
+      ...mapActions('partner', [ 'getOnePartner' ]),
+      ...mapActions("co_rules", ["add_co_rules"]),
+      ...mapActions("a_rules", ["add_a_rules"]),
+      ...mapActions("adm_rules", ["add_adm_rules"]),
+      ...mapActions("c_rules", ["add_c_rules"]),
+      ...mapActions("ca_rules", ["add_ca_rules"]),
+      ...mapActions("gca_rules", ["add_gca_rules"]),
+      ...mapActions("cd_rules", ["add_cd_rules"]),
+      ...mapActions("g_rules", ["add_g_rules"]),
+      ...mapActions("gi_rules", ["add_gi_rules"]),
+      ...mapActions("ie_rules", ["add_ie_rules"]),
+      ...mapActions("pt_rules", ["add_pt_rules"]),
+      ...mapActions("rf_rules", ["add_rf_rules"]),
+      ...mapActions("rgpd_rules", ["add_rgpd_rules"]),
+      ...mapActions("tdt_rules", ["add_tdt_rules"]),
+      ...mapActions("rh_rules", ["add_rh_rules"]),
+      ...mapActions("se_rules", ["add_se_rules"]),
+      ...mapActions("spe_rules", ["add_spe_rules"]),
+      ...mapActions("maturite", ["addMaturites"]),
       togglePartnerForm() {
         this.showPartnerForm = !this.showPartnerForm
       },
@@ -138,14 +136,13 @@
 
         if (this.errors.length != 0)
         {
-          console.log(this.errors.length)
           return true;
         }
         else {
           this.handleSubmit()
         }
       },
-      handleSubmit() {
+      async handleSubmit() {
         const { company, contract_number, location, description, start_service, end_service } = this.formData
 
         const payload = {
@@ -156,16 +153,41 @@
           start_service,
           end_service
         }
-        this.addPartner(payload)
+        await this.addPartner(payload)
         this.formData = {
           company: '',
-          contract_number: null,
+          contract_number: '',
           location: '',
           description: '',
           start_service: '',
           end_service: ''
         }
         this.togglePartnerForm()
+        this.addRules()
+      },
+      addRules(){
+        const payload = {
+          company: this.$store.state.partner.partner.company,
+          partnerId: this.$store.state.partner.partner.id,
+        };
+        this.add_co_rules(payload);
+        this.add_a_rules(payload);
+        this.add_adm_rules(payload);
+        this.add_c_rules(payload);
+        this.add_ca_rules(payload);
+        this.add_gca_rules(payload);
+        this.add_cd_rules(payload);
+        this.add_g_rules(payload);
+        this.add_gi_rules(payload);
+        this.add_ie_rules(payload);
+        this.add_pt_rules(payload);
+        this.add_rf_rules(payload);
+        this.add_rgpd_rules(payload);
+        this.add_tdt_rules(payload);
+        this.add_rh_rules(payload);
+        this.add_se_rules(payload);
+        this.add_spe_rules(payload);
+        this.addMaturites(payload);
       }
     }
   }

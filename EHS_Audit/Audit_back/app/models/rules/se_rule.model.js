@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     se_1_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     se_1_engie: {
       type: Sequelize.STRING
@@ -22,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     se_2_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     se_2_engie: {
       type: Sequelize.STRING
@@ -34,7 +34,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     se_3_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     se_3_engie: {
       type: Sequelize.STRING
@@ -46,7 +46,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     se_4_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     se_4_engie: {
       type: Sequelize.STRING
@@ -58,7 +58,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     se_5_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     se_5_engie: {
       type: Sequelize.STRING
@@ -70,7 +70,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     se_6_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     se_6_engie: {
       type: Sequelize.STRING

@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     ie_1_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     ie_1_engie: {
       type: Sequelize.STRING
@@ -22,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     ie_2_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     ie_2_engie: {
       type: Sequelize.STRING

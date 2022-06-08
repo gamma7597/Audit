@@ -19,8 +19,6 @@ var app = express();
 
 global.__basedir = __dirname;
 
-console.log(global.__basedir)
-
 var corsOptions = {
   origin: "*"
 }
@@ -103,6 +101,7 @@ require("./app/routes/rules/cd_rule.routes")(app);
 require("./app/routes/rules/co_rule.routes")(app);
 require("./app/routes/rules/tdt_rule.routes")(app);
 require("./app/routes/file.routes")(app);
+require("./app/routes/maturite.routes")(app);
 
 // set port, listen for requests
 //const PORT = process.env.PORT || 8080;

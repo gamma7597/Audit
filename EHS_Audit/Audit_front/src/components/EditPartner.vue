@@ -1,8 +1,9 @@
 <template>
   <div class="home">
+
     <button class="button_blue" @click="togglePartnerForm">Modifier le partenaire</button>
 
-    <form @submit.prevent="verifForm" v-if="showPartnerForm">
+    <form @submit.prevent="verifForm(partner)" v-if="showPartnerForm">
 
       <p v-if="errors.length">
         <b>Veuillez corriger les erreurs :</b>
@@ -11,83 +12,81 @@
         </ul>
       </p>
 
-      <label for="companyInput">
-        <input type="text" 
-          id="companyInput" 
-          placeholder="Nom du partenaire" 
-          v-model="formData.company" />
-        <span>Nom du partenaire</span>
-      </label>
-
-      <label for="contract_numberInput">
-        <input type="text" 
-          id="contract_numberInput" 
-          placeholder="Numero de contrat" 
-          v-model="formData.contract_number" />
-        <span>Numero de contrat</span>
-      </label>
+      <label for="company">Nom du partenaire</label>
+      <input id="company" 
+        :value="activePartner.company"
+        @input="updateLocalPartner($event)" />
       
-      <label for="locationInput">
-        <input type="text" 
-          id="locationInput" 
-          placeholder="Localisation" 
-          v-model="formData.location" />
-        <span>Localisation</span>
-      </label>
+      <label for="contract_number">Numero de contrat</label>
+      <input id="contract_number" 
+        :value="activePartner.contract_number"
+        @input="updateLocalPartner($event)" />
 
-      <label for="descriptionInput">
-        <input type="text" 
-          id="descriptionInput" 
-          placeholder="Description" 
-          v-model="formData.description" />
-        <span>Description</span>
-      </label>
+      <label for="location">Localisation</label>
+      <input id="location" 
+        :value="activePartner.location"
+        @input="updateLocalPartner($event)" />
 
-      <label for="start_serviceInput">
-        <input type="date" 
-          id="start_serviceInput" 
-          placeholder="Debut de la prestation" 
-          v-model="formData.start_service" />
-        <span>Debut de la prestation</span>
-      </label>
+      <label for="description">Description</label>
+      <input id="description" 
+        :value="activePartner.description"
+        @input="updateLocalPartner($event)" />
 
-      <label for="end_serviceInput">
-        <input type="date" 
-          id="end_serviceInput" 
-          placeholder="Fin de la prestation" 
-          v-model="formData.end_service" />
-        <span>Fin de la prestation</span>
-      </label>
+      <label for="start_service">Debut de la prestation</label>
+      <input id="start_service" 
+        type="date"
+        :value="activePartner.start_service"
+        @input="updateLocalPartner($event)" />
 
-      <button class="button_blue" type="submit">Modifier</button>
-      <button class="button_blue"  type="reset">Reinitialiser le formulaire</button>
+      <label for="end_serviceInput">Fin de la prestation</label>
+      <input id="end_serviceInput" 
+        type="date"
+        :value="activePartner.end_service"
+        @input="updateLocalPartner($event)" />
+
+      <div>
+        <input class="button_form" type="submit" value="Modifier" />
+        <input class="button_form" type="button" @click="getOnePartner(activePartner.company)" value="Reinitialiser" />
+      </div>
     </form>
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex'
   export default {
     name: 'Home',
     data() {
       return {
         errors: [],
         showPartnerForm: false,
-        formData: {}
+        partner: {}
       }
     },
     computed: {
-      ...mapState('partner', [ 'partner' ])
+      ...mapGetters('partner', [ 'activePartner' ])
+    },
+    watch: {
+      activePartner: {
+        handler(){
+          this.partner = this.activePartner
+        },
+      immediate: true
+      }
     },
     methods: {
       ...mapActions('partner', [ 'editPartner' ]),
+      ...mapActions('partner', [ 'getOnePartner' ]),
+      updateLocalPartner(e) {
+        this.$set(this.partner, e.target.id, e.target.value);
+      },
       togglePartnerForm() {
         this.showPartnerForm = !this.showPartnerForm
       },
-      verifForm() {
+      verifForm(partner) {
         this.errors = [];
 
-        const { company, contract_number, location, description, start_service, end_service } = this.formData
+        const { company, contract_number, location, description, start_service, end_service } = this.partner
         
         if(!company) {
           this.errors.push("Le nom du partenaire ne peut pas être vide !");
@@ -130,32 +129,13 @@
 
         if (this.errors.length != 0)
         {
-          console.log(this.errors.length)
           return true;
         }
         else {
-          this.handleSubmit()
+          this.togglePartnerForm()
+          this.editPartner(partner)
         }
-      },
-      handleSubmit() {
-        const payload = {
-          company: this.partner.company,
-          data: {
-            company: this.formData.company,
-            contract_number: this.formData.contract_number,
-            location: this.formData.location,
-            description: this.formData.description,
-            start_service: this.formData.start_service,
-            end_service: this.formData.end_service
-          }
-        }
-        this.editPartner(payload)
-        this.formData = this.partner
-        this.togglePartnerForm()
       }
-    },
-    mounted() {
-      this.formData = this.partner;
-    },
+    }
   }
 </script>

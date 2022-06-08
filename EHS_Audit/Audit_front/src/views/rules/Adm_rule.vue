@@ -2,7 +2,9 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="verifForm">
+    <h2>Acquisition, développement et maintenance des SI</h2>
+
+    <form @submit.prevent="verifForm(adm_rules)">
 
       <p v-if="errors.length">
         <b>Veuillez corriger les erreurs :</b>
@@ -11,263 +13,218 @@
         </ul>
       </p>
 
-      <label for="adm_rules_1">
+      <label for="adm_1">Le code source de l'application fait l'objet de revues de sécurité</label>
         <select
-          id="adm_rules_1" 
-          placeholder="Le code source de l'application doit faire l'objet de revues de sécurité (manuelle ou via un outil automatisé)" 
-          v-model="formData.adm_1">
+          id="adm_1" 
+          :value="active_adm_rules.adm_1"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le code source de l'application doit faire l'objet de revues de sécurité (manuelle ou via un outil automatisé)</span>
-      </label>
-      <label for="adm_rules_1_comment">
-        <input type="text" 
-          id="adm_rules_1_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.adm_1_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_rules_1_impact">
+      <label for="adm_1_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="adm_1_comment" 
+          :value="active_adm_rules.adm_1_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_1_impact">Impact</label>
         <select
-          id="adm_rules_1_impact" 
-          placeholder="Impact" 
-          v-model="formData.adm_1_impact">
+          id="adm_1_impact" 
+          :value="active_adm_rules.adm_1_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="adm_rules_1_engie">
+      <label for="adm_1_engie">Commentaire EHS</label>
         <input type="text" 
-          id="adm_rules_1_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.adm_1_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="adm_1_engie" 
+          :value="active_adm_rules.adm_1_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="adm_rules_2">
+      <label for="adm_2">Le partenaire utilise des algorithmes et des protocoles de chiffrement non obsolètes</label>
         <select
-          id="adm_rules_2" 
-          placeholder="Le partenaire doit utiliser des algorithmes et des protocoles de chiffrement non obsolètes. 
-Préciser lesquelles" 
-          v-model="formData.adm_2">
+          id="adm_2" 
+          :value="active_adm_rules.adm_2"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit utiliser des algorithmes et des protocoles de chiffrement non obsolètes. 
-Préciser lesquelles</span>
-      </label>
-      <label for="adm_rules_2_comment">
+
+      <label for="adm_2_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="adm_rules_2_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.adm_2_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_rules_2_impact">
+          id="adm_2_comment" 
+          :value="active_adm_rules.adm_2_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_2_impact">Impact</label>
         <select
-          id="adm_rules_2_impact" 
-          placeholder="Impact" 
-          v-model="formData.adm_2_impact">
+          id="adm_2_impact" 
+          :value="active_adm_rules.adm_2_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="adm_rules_2_engie">
-        <input type="text" 
-          id="adm_rules_2_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.adm_2_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="adm_rules_3">
+      <label for="adm_2_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="adm_2_engie" 
+          :value="active_adm_rules.adm_2_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="adm_3">Le partenaire protège les clés de chiffrement</label>
         <select
-          id="adm_rules_3" 
-          placeholder="Le partenaire doit protéger les clés de chiffrement (Ex: utilisation d'un coffre fort)" 
-          v-model="formData.adm_3">
+          id="adm_3" 
+          :value="active_adm_rules.adm_3"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit protéger les clés de chiffrement (Ex: utilisation d'un coffre fort)</span>
-      </label>
-      <label for="adm_rules_3_comment">
-        <input type="text" 
-          id="adm_rules_3_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.adm_3_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_rules_3_impact">
+      <label for="adm_3_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="adm_3_comment" 
+          :value="active_adm_rules.adm_3_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_3_impact">Impact</label>
         <select
-          id="adm_rules_3_impact" 
-          placeholder="Impact" 
-          v-model="formData.adm_3_impact">
+          id="adm_3_impact" 
+          :value="active_adm_rules.adm_3_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="adm_rules_3_engie">
+      <label for="adm_3_engie">Commentaire EHS</label>
         <input type="text" 
-          id="adm_rules_3_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.adm_3_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="adm_3_engie" 
+          :value="active_adm_rules.adm_3_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="adm_rules_4">
+      <label for="adm_4">L'environnement de développement est sécurisé</label>
         <select
-          id="adm_rules_4" 
-          placeholder="L'environnement de développement (données de test, code source) doit être sécurisé (contrôle des accès, traçabilité..)" 
-          v-model="formData.adm_4">
+          id="adm_4" 
+          :value="active_adm_rules.adm_4"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>L'environnement de développement (données de test, code source) doit être sécurisé (contrôle des accès, traçabilité..)</span>
-      </label>
-      <label for="adm_rules_4_comment">
+
+      <label for="adm_4_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="adm_rules_4_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.adm_4_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_rules_4_impact">
+          id="adm_4_comment" 
+          :value="active_adm_rules.adm_4_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_4_impact">Impact</label>
         <select
-          id="adm_rules_4_impact" 
-          placeholder="Impact" 
-          v-model="formData.adm_4_impact">
+          id="adm_4_impact" 
+          :value="active_adm_rules.adm_4_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="adm_rules_4_engie">
-        <input type="text" 
-          id="adm_rules_4_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.adm_4_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="adm_rules_5">
+      <label for="adm_4_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="adm_4_engie" 
+          :value="active_adm_rules.adm_4_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="adm_5">Le partenaire sécurise les API</label>
         <select
-          id="adm_rules_5" 
-          placeholder="Le partenaire doit sécuriser les API" 
-          v-model="formData.adm_5">
+          id="adm_5" 
+          :value="active_adm_rules.adm_5"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit sécuriser les API</span>
-      </label>
-      <label for="adm_rules_5_comment">
+
+      <label for="adm_5_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="adm_rules_5_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.adm_5_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_rules_5_impact">
+          id="adm_5_comment" 
+          :value="active_adm_rules.adm_5_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_5_impact">Impact</label>
         <select
-          id="adm_rules_5_impact" 
-          placeholder="Impact" 
-          v-model="formData.adm_5_impact">
+          id="adm_5_impact" 
+          :value="active_adm_rules.adm_5_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="adm_rules_5_engie">
-        <input type="text" 
-          id="adm_rules_5_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.adm_5_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="adm_rules_6">
+      <label for="adm_5_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="adm_5_engie" 
+          :value="active_adm_rules.adm_5_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="adm_6">Les développeurs sont sensibilisés aux bonnes pratiques de développement</label>
         <select
-          id="adm_rules_6" 
-          placeholder="Présence de règles de développement :
-les développeurs doivent être sensibilisés aux bonnes pratiques de développement telles que la configuration des web application headers ou les principales menaces telles que décrites dans l'OWASP
-https://owasp.org/www-project-top-ten/" 
-          v-model="formData.adm_6">
+          id="adm_6" 
+          :value="active_adm_rules.adm_6"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Présence de règles de développement :
-les développeurs doivent être sensibilisés aux bonnes pratiques de développement telles que la configuration des web application headers ou les principales menaces telles que décrites dans l'OWASP
-https://owasp.org/www-project-top-ten/</span>
-      </label>
-      <label for="adm_rules_6_comment">
-        <input type="text" 
-          id="adm_rules_6_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.adm_6_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_rules_6_impact">
+      <label for="adm_6_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="adm_6_comment" 
+          :value="active_adm_rules.adm_6_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_6_impact">Impact</label>
         <select
-          id="adm_rules_6_impact" 
-          placeholder="Impact" 
-          v-model="formData.adm_6_impact">
+          id="adm_6_impact" 
+          :value="active_adm_rules.adm_6_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="adm_rules_6_engie">
+      <label for="adm_6_engie">Commentaire EHS</label>
         <input type="text" 
-          id="adm_rules_6_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.adm_6_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="adm_6_engie" 
+          :value="active_adm_rules.adm_6_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="adm_rules_7">
+      <label for="adm_7">Les données de production sont utilisées seulement sur des environnements de production</label>
         <select
-          id="adm_rules_7" 
-          placeholder="Les données de production doivent être utilisées seulement sur des environnements de production" 
-          v-model="formData.adm_7">
+          id="adm_7" 
+          :value="active_adm_rules.adm_7"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Les données de production doivent être utilisées seulement sur des environnements de production</span>
-      </label>
-      <label for="adm_rules_7_comment">
+
+      <label for="adm_7_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="adm_rules_7_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.adm_7_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_rules_7_impact">
+          id="adm_7_comment"  
+          :value="active_adm_rules.adm_7_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="adm_7_impact">Impact</label>
         <select
-          id="adm_rules_7_impact" 
-          placeholder="Impact" 
-          v-model="formData.adm_7_impact">
+          id="adm_7_impact" 
+          :value="active_adm_rules.adm_7_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="adm_rules_7_engie">
-        <input type="text" 
-          id="adm_rules_7_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.adm_7_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <button class="button_blue" type="submit">Envoyer</button>
-      <button class="button_blue" type="reset" >Reinitialiser</button>
+      <label for="adm_7_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="adm_7_engie" 
+          :value="active_adm_rules.adm_7_engie"
+          @input="updateLocalContact($event)" />
+
+      <div>
+        <input class="button_form" type="submit" value="Modifier" />
+        <input class="button_form" type="button" @click="get_adm_rules(active_adm_rules.company)" value="Reinitialiser" />
+      </div>
     </form>
 
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+  import { mapState, mapActions, mapGetters } from "vuex";
   export default {
     data() {
       return {
         errors: [],
-        formData: {},
+        adm_rules: {},
         options: [
           { value: "N/A", text: "N/A" },
           { value: "Oui", text: "Oui" },
@@ -284,13 +241,34 @@ https://owasp.org/www-project-top-ten/</span>
       }
     },
     computed: {
-      ...mapState("adm_rules", ["adm_rules"]),
+      ...mapGetters('adm_rules', [ 'active_adm_rules' ]),
       ...mapState("partner", ["partner"]),
       ...mapState("user", ["groups"])
     },
+    watch: {
+      active_adm_rules: {
+        handler(){
+          this.adm_rules = this.active_adm_rules
+        },
+      immediate: true
+      }
+    },
     methods: {
+      ...mapActions("adm_rules", ["get_adm_rules"]),
       ...mapActions("adm_rules", ["edit_adm_rules"]),
-      verifForm() {
+      updateLocalContact(e) {
+        this.$set(this.adm_rules, e.target.id, e.target.value);
+      },
+      verifForm(adm_rules) {
+
+        adm_rules.adm_1_impact = parseInt(adm_rules.adm_1_impact)
+        adm_rules.adm_2_impact = parseInt(adm_rules.adm_2_impact)
+        adm_rules.adm_3_impact = parseInt(adm_rules.adm_3_impact)
+        adm_rules.adm_4_impact = parseInt(adm_rules.adm_4_impact)
+        adm_rules.adm_5_impact = parseInt(adm_rules.adm_5_impact)
+        adm_rules.adm_6_impact = parseInt(adm_rules.adm_6_impact)
+        adm_rules.adm_7_impact = parseInt(adm_rules.adm_7_impact)
+
         this.errors = [];
 
         const { adm_1, adm_1_comment, adm_1_engie, 
@@ -299,7 +277,7 @@ https://owasp.org/www-project-top-ten/</span>
           adm_4, adm_4_comment, adm_4_engie,
           adm_5, adm_5_comment, adm_5_engie,
           adm_6, adm_6_comment, adm_6_engie,
-          adm_7, adm_7_comment, adm_7_engie } = this.formData
+          adm_7, adm_7_comment, adm_7_engie } = this.adm_rules
         
         if(!adm_1 || !adm_2 || !adm_3 || !adm_4 || !adm_5 || !adm_6 || !adm_7) {
           this.errors.push("Vous devez repondre à toutes les questions !");
@@ -312,59 +290,16 @@ https://owasp.org/www-project-top-ten/</span>
 
         if (this.errors.length != 0)
         {
-          console.log(this.errors.length)
           return true;
         }
         else {
-          this.handleSubmit()
+          this.edit_adm_rules(adm_rules);
+          this.goToRules(this.partner.company)
         }
-      },
-      handleSubmit() {
-        const payload = {
-          company: this.adm_rules.company,
-          data: {
-            company: this.adm_rules.company,
-            adm_1: this.formData.adm_1,
-            adm_1_comment: this.formData.adm_1_comment,
-            adm_1_impact: this.formData.adm_1_impact,
-            adm_1_engie: this.formData.adm_1_engie,
-            adm_2: this.formData.adm_2,
-            adm_2_comment: this.formData.adm_2_comment,
-            adm_2_impact: this.formData.adm_2_impact,
-            adm_2_engie: this.formData.adm_2_engie,
-            adm_3: this.formData.adm_3,
-            adm_3_comment: this.formData.adm_3_comment,
-            adm_3_impact: this.formData.adm_3_impact,
-            adm_3_engie: this.formData.adm_3_engie,
-            adm_4: this.formData.adm_4,
-            adm_4_comment: this.formData.adm_4_comment,
-            adm_4_impact: this.formData.adm_4_impact,
-            adm_4_engie: this.formData.adm_4_engie,
-            adm_5: this.formData.adm_5,
-            adm_5_comment: this.formData.adm_5_comment,
-            adm_5_impact: this.formData.adm_5_impact,
-            adm_5_engie: this.formData.adm_5_engie,
-            adm_6: this.formData.adm_6,
-            adm_6_comment: this.formData.adm_6_comment,
-            adm_6_impact: this.formData.adm_6_impact,
-            adm_6_engie: this.formData.adm_6_engie,
-            adm_7: this.formData.adm_7,
-            adm_7_comment: this.formData.adm_7_comment,
-            adm_7_impact: this.formData.adm_7_impact,
-            adm_7_engie: this.formData.adm_7_engie,
-            partnerId: this.adm_rules.partnerId,
-          },
-        };
-        this.edit_adm_rules(payload);
-        this.formData = this.adm_rules;
-        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)
       }
-    },
-    mounted() {
-      this.formData = this.adm_rules
     }
   }
 </script>

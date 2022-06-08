@@ -4,7 +4,6 @@ const multer = require("multer");
 let storage = multer.diskStorage({
   
   destination: (req, file, cb) => {
-    console.log(__dirname)
     const company = req.params.company;
     cb(null, __basedir + "/resources/static/assets/uploads/" + company);
   },

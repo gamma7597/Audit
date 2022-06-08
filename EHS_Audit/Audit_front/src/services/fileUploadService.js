@@ -5,7 +5,6 @@ import { url } from '../store/modules/axiosUrl'
 
 class FileUploadService {
   upload(company, file, onUploadProgress) {
-    console.log("test upload")
     let formData = new FormData();
 
     formData.append("file", file);

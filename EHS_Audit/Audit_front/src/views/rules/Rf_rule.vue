@@ -2,7 +2,9 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="verifForm">
+    <h2>Relation avec les fournisseurs</h2>
+
+    <form @submit.prevent="verifForm(rf_rules)">
 
       <p v-if="errors.length">
         <b>Veuillez corriger les erreurs :</b>
@@ -11,123 +13,106 @@
         </ul>
       </p>
 
-      <label for="rf_rules_1">
+      <label for="rf_1">Le partenaire déclare l’existence de sous-traitants en lien avec la prestation et la nature des relations avec ces derniers sur le plan des responsabilités</label>
         <select
-          id="rf_rules_1" 
-          placeholder="Le partenaire doit déclarer l’existence de sous-traitants en lien avec la prestation et la nature des relations avec ces derniers sur le plan des responsabilités" 
-          v-model="formData.rf_1">
+          id="rf_1" 
+          :value="active_rf_rules.rf_1"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit déclarer l’existence de sous-traitants en lien avec la prestation et la nature des relations avec ces derniers sur le plan des responsabilités</span>
-      </label>
-      <label for="rf_rules_1_comment">
-        <input type="text" 
-          id="rf_rules_1_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.rf_1_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rf_rules_1_impact">
+      <label for="rf_1_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="rf_1_comment" 
+          :value="active_rf_rules.rf_1_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rf_1_impact">Impact</label>
         <select
-          id="rf_rules_1_impact" 
-          placeholder="Impact" 
-          v-model="formData.rf_1_impact">
+          id="rf_1_impact" 
+          :value="active_rf_rules.rf_1_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="rf_rules_1_engie">
+      <label for="rf_1_engie">Commentaire EHS</label>
         <input type="text" 
-          id="rf_rules_1_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.rf_1_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="rf_1_engie" 
+          :value="active_rf_rules.rf_1_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="rf_rules_2">
+      <label for="rf_2">Le partenaire maitrise la sécurité de ses sous-traitants</label>
         <select
-          id="rf_rules_2" 
-          placeholder="Le partenaire doit maitriser la sécurité de ses sous-traitants" 
-          v-model="formData.rf_2">
+          id="rf_2" 
+          :value="active_rf_rules.rf_2"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit maitriser la sécurité de ses sous-traitants</span>
-      </label>
-      <label for="rf_rules_2_comment">
+
+      <label for="rf_2_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="rf_rules_2_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.rf_2_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rf_rules_2_impact">
+          id="rf_2_comment" 
+          :value="active_rf_rules.rf_2_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rf_2_impact">Impact</label>
         <select
-          id="rf_rules_2_impact" 
-          placeholder="Impact" 
-          v-model="formData.rf_2_impact">
+          id="rf_2_impact" 
+          :value="active_rf_rules.rf_2_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="rf_rules_2_engie">
-        <input type="text" 
-          id="rf_rules_2_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.rf_2_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="rf_rules_3">
+      <label for="rf_2_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="rf_2_engie" 
+          :value="active_rf_rules.rf_2_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="rf_3">Les sous-traitants signent une clause de confidentialité</label>
         <select
-          id="rf_rules_3" 
-          placeholder="Les fournisseurs signent une clause de confidentialité" 
-          v-model="formData.rf_3">
+          id="rf_3" 
+          :value="active_rf_rules.rf_3"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Les fournisseurs signent une clause de confidentialité</span>
-      </label>
-      <label for="rf_rules_3_comment">
-        <input type="text" 
-          id="rf_rules_3_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.rf_3_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rf_rules_3_impact">
+      <label for="rf_3_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="rf_3_comment" 
+          :value="active_rf_rules.rf_3_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rf_3_impact">Impact</label>
         <select
-          id="rf_rules_3_impact" 
-          placeholder="Impact" 
-          v-model="formData.rf_3_impact">
+          id="rf_3_impact" 
+          :value="active_rf_rules.rf_3_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="rf_rules_3_engie">
+      <label for="rf_3_engie">Commentaire EHS</label>
         <input type="text" 
-          id="rf_rules_3_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.rf_3_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="rf_3_engie" 
+          :value="active_rf_rules.rf_3_engie"
+          @input="updateLocalContact($event)" />
 
-      <button class="button_blue" type="submit">Envoyer</button>
-      <button class="button_blue" type="reset" >Reinitialiser</button>
+      <div>
+        <input class="button_form" type="submit" value="Modifier" />
+        <input class="button_form" type="button" @click="get_rf_rules(active_rf_rules.company)" value="Reinitialiser" />
+      </div>
     </form>
 
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+  import { mapState, mapActions, mapGetters } from "vuex";
   export default {
     data() {
       return {
         errors: [],
-        formData: {},
+        rf_rules: {},
         options: [
           { value: "N/A", text: "N/A" },
           { value: "Oui", text: "Oui" },
@@ -144,18 +129,35 @@
       }
     },
     computed: {
-      ...mapState("rf_rules", ["rf_rules"]),
+      ...mapGetters("rf_rules", ["active_rf_rules"]),
       ...mapState("partner", ["partner"]),
       ...mapState("user", ["groups"])
     },
+    watch: {
+      active_rf_rules: {
+        handler(){
+          this.rf_rules = this.active_rf_rules
+        },
+      immediate: true
+      }
+    },
     methods: {
+      ...mapActions("rf_rules", ["get_rf_rules"]),
       ...mapActions("rf_rules", ["edit_rf_rules"]),
-      verifForm() {
+      updateLocalContact(e) {
+        this.$set(this.rf_rules, e.target.id, e.target.value);
+      },
+      verifForm(rf_rules) {
+
+        rf_rules.rf_1_impact = parseInt(rf_rules.rf_1_impact)
+        rf_rules.rf_2_impact = parseInt(rf_rules.rf_2_impact)
+        rf_rules.rf_3_impact = parseInt(rf_rules.rf_3_impact)
+
         this.errors = [];
 
         const { rf_1, rf_1_comment, rf_1_engie, 
           rf_2, rf_2_comment, rf_2_engie,
-          rf_3, rf_3_comment, rf_3_engie } = this.formData
+          rf_3, rf_3_comment, rf_3_engie } = this.rf_rules
         
         if(!rf_1 || !rf_2 || !rf_3) {
           this.errors.push("Vous devez repondre à toutes les questions !");
@@ -168,43 +170,17 @@
 
         if (this.errors.length != 0)
         {
-          console.log(this.errors.length)
+          
           return true;
         }
         else {
-          this.handleSubmit()
+          this.edit_rf_rules(rf_rules);
+          this.goToRules(this.partner.company)
         }
-      },
-      handleSubmit() {
-        const payload = {
-          company: this.rf_rules.company,
-          data: {
-            company: this.rf_rules.company,
-            rf_1: this.formData.rf_1,
-            rf_1_comment: this.formData.rf_1_comment,
-            rf_1_impact: this.formData.rf_1_impact,
-            rf_1_engie: this.formData.rf_1_engie,
-            rf_2: this.formData.rf_2,
-            rf_2_comment: this.formData.rf_2_comment,
-            rf_2_impact: this.formData.rf_2_impact,
-            rf_2_engie: this.formData.rf_2_engie,
-            rf_3: this.formData.rf_3,
-            rf_3_comment: this.formData.rf_3_comment,
-            rf_3_impact: this.formData.rf_3_impact,
-            rf_3_engie: this.formData.rf_3_engie,
-            partnerId: this.rf_rules.partnerId,
-          },
-        };
-        this.edit_rf_rules(payload);
-        this.formData = this.rf_rules
-        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)
       }
-    },
-    mounted() {
-      this.formData = this.rf_rules
     }
   }
 </script>

@@ -2,7 +2,9 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="verifForm">
+    <h2>Gestion des incidents</h2>
+
+    <form @submit.prevent="verifForm(gi_rules)">
 
       <p v-if="errors.length">
         <b>Veuillez corriger les erreurs :</b>
@@ -11,127 +13,106 @@
         </ul>
       </p>
 
-      <label for="gi_rules_1">
+      <label for="gi_1">Un processus de surveillance et d'alerte en cas d'incident de sécurité est présent</label>
         <select
-          id="gi_rules_1" 
-          placeholder="Un système de surveillance et d'alerte en cas d'incident de sécurité est présent" 
-          v-model="formData.gi_1">
+          id="gi_1" 
+          :value="active_gi_rules.gi_1"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Un système de surveillance et d'alerte en cas d'incident de sécurité est présent</span>
-      </label>
-      <label for="gi_rules_1_comment">
-        <input type="text" 
-          id="gi_rules_1_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.gi_1_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="gi_rules_1_impact">
+      <label for="gi_1_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="gi_1_comment" 
+          :value="active_gi_rules.gi_1_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="gi_1_impact">Impact</label>
         <select
-          id="gi_rules_1_impact" 
-          placeholder="Impact" 
-          v-model="formData.gi_1_impact">
+          id="gi_1_impact" 
+          :value="active_gi_rules.gi_1_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="gi_rules_1_engie">
+      <label for="gi_1_engie">Commentaire EHS</label>
         <input type="text" 
-          id="gi_rules_1_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.gi_1_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="gi_1_engie" 
+          :value="active_gi_rules.gi_1_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="gi_rules_2">
+      <label for="gi_2">Un processus de résolution d'incident est présent</label>
         <select
-          id="gi_rules_2" 
-          placeholder="Un système de résolution d'incident est présent" 
-          v-model="formData.gi_2">
+          id="gi_2" 
+          :value="active_gi_rules.gi_2"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Un système de résolution d'incident est présent</span>
-      </label>
-      <label for="gi_rules_2_comment">
+
+      <label for="gi_2_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="gi_rules_2_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.gi_2_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="gi_rules_2_impact">
+          id="gi_2_comment" 
+          :value="active_gi_rules.gi_2_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="gi_2_impact">Impact</label>
         <select
-          id="gi_rules_2_impact" 
-          placeholder="Impact" 
-          v-model="formData.gi_2_impact">
+          id="gi_2_impact" 
+          :value="active_gi_rules.gi_2_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="gi_rules_2_engie">
-        <input type="text" 
-          id="gi_rules_2_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.gi_2_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="gi_rules_3">
+      <label for="gi_2_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="gi_2_engie" 
+          :value="active_gi_rules.gi_2_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="gi_3">Un processus pour alerter EHS rapidement en cas d'incident impactant le service du partenaire est présent</label>
         <select
-          id="gi_rules_3" 
-          placeholder="Il existe un processus pour alerter EHS rapidement en cas d'incident impactant le service du partenaire. 
-Ce processus doit être connu par tous les employés du partenaire.
-Préciser les délais de notification." 
-          v-model="formData.gi_3">
+          id="gi_3" 
+          :value="active_gi_rules.gi_3"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Il existe un processus pour alerter EHS rapidement en cas d'incident impactant le service du partenaire. 
-Ce processus doit être connu par tous les employés du partenaire.
-Préciser les délais de notification.</span>
-      </label>
-      <label for="gi_rules_3_comment">
-        <input type="text" 
-          id="gi_rules_3_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.gi_3_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="gi_rules_3_impact">
+      <label for="gi_3_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="gi_3_comment" 
+          :value="active_gi_rules.gi_3_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="gi_3_impact">Impact</label>
         <select
-          id="gi_rules_3_impact" 
-          placeholder="Impact" 
-          v-model="formData.gi_3_impact">
+          id="gi_3_impact" 
+          :value="active_gi_rules.gi_3_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="gi_rules_3_engie">
+      <label for="gi_3_engie">Commentaire EHS</label>
         <input type="text" 
-          id="gi_rules_3_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.gi_3_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="gi_3_engie" 
+          :value="active_gi_rules.gi_3_engie"
+          @input="updateLocalContact($event)" />
 
-      <button class="button_blue" type="submit">Envoyer</button>
-      <button class="button_blue" type="reset" >Reinitialiser</button>
+      <div>
+        <input class="button_form" type="submit" value="Modifier" />
+        <input class="button_form" type="button" @click="get_gi_rules(active_gi_rules.company)" value="Reinitialiser" />
+      </div>
     </form>
 
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+  import { mapState, mapActions, mapGetters } from "vuex";
   export default {
     data() {
       return {
         errors: [],
-        formData: {},
+        gi_rules: {},
         options: [
           { value: "N/A", text: "N/A" },
           { value: "Oui", text: "Oui" },
@@ -148,18 +129,35 @@ Préciser les délais de notification.</span>
       }
     },
     computed: {
-      ...mapState("gi_rules", ["gi_rules"]),
+      ...mapGetters("gi_rules", ["active_gi_rules"]),
       ...mapState("partner", ["partner"]),
       ...mapState("user", ["groups"])
     },
+    watch: {
+      active_gi_rules: {
+        handler(){
+          this.gi_rules = this.active_gi_rules
+        },
+      immediate: true
+      }
+    },
     methods: {
+      ...mapActions("gi_rules", ["get_gi_rules"]),
       ...mapActions("gi_rules", ["edit_gi_rules"]),
-      verifForm() {
+      updateLocalContact(e) {
+        this.$set(this.gi_rules, e.target.id, e.target.value);
+      },
+      verifForm(gi_rules) {
+
+        gi_rules.gi_1_impact = parseInt(gi_rules.gi_1_impact)
+        gi_rules.gi_2_impact = parseInt(gi_rules.gi_2_impact)
+        gi_rules.gi_3_impact = parseInt(gi_rules.gi_3_impact)
+
         this.errors = [];
 
         const { gi_1, gi_1_comment, gi_1_engie, 
           gi_2, gi_2_comment, gi_2_engie,
-          gi_3, gi_3_comment, gi_3_engie } = this.formData
+          gi_3, gi_3_comment, gi_3_engie } = this.gi_rules
         
         if(!gi_1 || !gi_2 || !gi_3) {
           this.errors.push("Vous devez repondre à toutes les questions !");
@@ -172,43 +170,17 @@ Préciser les délais de notification.</span>
 
         if (this.errors.length != 0)
         {
-          console.log(this.errors.length)
+          
           return true;
         }
         else {
-          this.handleSubmit()
+          this.edit_gi_rules(gi_rules);
+          this.goToRules(this.partner.company)
         }
-      },
-      handleSubmit() {
-        const payload = {
-          company: this.gi_rules.company,
-          data: {
-            company: this.gi_rules.company,
-            gi_1: this.formData.gi_1,
-            gi_1_comment: this.formData.gi_1_comment,
-            gi_1_impact: this.formData.gi_1_impact,
-            gi_1_engie: this.formData.gi_1_engie,
-            gi_2: this.formData.gi_2,
-            gi_2_comment: this.formData.gi_2_comment,
-            gi_2_impact: this.formData.gi_2_impact,
-            gi_2_engie: this.formData.gi_2_engie,
-            gi_3: this.formData.gi_3,
-            gi_3_comment: this.formData.gi_3_comment,
-            gi_3_impact: this.formData.gi_3_impact,
-            gi_3_engie: this.formData.gi_3_engie,
-            partnerId: this.gi_rules.partnerId,
-          },
-        };
-        this.edit_gi_rules(payload);
-        this.formData = this.gi_rules
-        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)
       }
-    },
-    mounted() {
-      this.formData = this.gi_rules
     }
   }
 </script>

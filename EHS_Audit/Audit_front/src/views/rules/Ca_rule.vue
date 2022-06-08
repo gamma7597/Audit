@@ -2,7 +2,9 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="verifForm">
+    <h2>Controle d'accès</h2>
+
+    <form @submit.prevent="verifForm(ca_rules)">
 
       <p v-if="errors.length">
         <b>Veuillez corriger les erreurs :</b>
@@ -11,366 +13,302 @@
         </ul>
       </p>
 
-      <label for="ca_rules_1">
+      <label for="ca_1">Le partenaire effectue une revue régulière des accès et des habilitations de ses employés</label>
         <select
-          id="ca_rules_1" 
-          placeholder="Le partenaire doit effectuer une revue régulière (au moins une fois par an) des accès et des habilitations de ses employés" 
-          v-model="formData.ca_1">
+          id="ca_1" 
+          :value="active_ca_rules.ca_1"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit effectuer une revue régulière (au moins une fois par an) des accès et des habilitations de ses employés</span>
-      </label>
-      <label for="ca_rules_1_comment">
+ 
+      <label for="ca_1_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="ca_rules_1_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.ca_1_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
+          id="ca_1_comment" 
+          :value="active_ca_rules.ca_1_comment"
+          @input="updateLocalContact($event)" />
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_1_impact">
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_1_impact">Impact</label>
         <select
-          id="ca_rules_1_impact" 
-          placeholder="Impact" 
-          v-model="formData.ca_1_impact">
+          id="ca_1_impact" 
+          :value="active_ca_rules.ca_1_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="ca_rules_1_engie">
+      <label for="ca_1_engie">Commentaire EHS</label>
         <input type="text" 
-          id="ca_rules_1_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.ca_1_engie"/>
-        <span>Commentaire EHS</span>
-      </label>
+          id="ca_1_engie" 
+          :value="active_ca_rules.ca_1_engie"
+          @input="updateLocalContact($event)"/>
 
-      <label for="ca_rules_2">
+      <label for="ca_2">La liste des employés du partenaire qui accèdent aux données d'EHS est maintenue et à jour</label>
         <select
-          id="ca_rules_2" 
-          placeholder="Liste des employés du partenaire qui accèdent aux données d'EHS maintenue et à jour" 
-          v-model="formData.ca_2">
+          id="ca_2" 
+          :value="active_ca_rules.ca_2"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Liste des employés du partenaire qui accèdent aux données d'EHS maintenue et à jour</span>
-      </label>
-      <label for="ca_rules_2_comment">
+
+      <label for="ca_2_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="ca_rules_2_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.ca_2_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_2_impact">
+          id="ca_2_comment" 
+          :value="active_ca_rules.ca_2_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_2_impact">Impact</label>
         <select
-          id="ca_rules_2_impact" 
-          placeholder="Impact" 
-          v-model="formData.ca_2_impact">
+          id="ca_2_impact" 
+          :value="active_ca_rules.ca_2_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="ca_rules_2_engie">
-        <input type="text" 
-          id="ca_rules_2_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.ca_2_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="ca_rules_3">
+      <label for="ca_2_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="ca_2_engie" 
+          :value="active_ca_rules.ca_2_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="ca_3">Le partenaire applique les principes du moindre privilège et de la séparation des tâches pour ses employés</label>
         <select
-          id="ca_rules_3" 
-          placeholder="Le partenaire doit appliquer les principes du moindre privilège et de la séparation des tâches pour ses employés" 
-          v-model="formData.ca_3">
+          id="ca_3" 
+          :value="active_ca_rules.ca_3"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit appliquer les principes du moindre privilège et de la séparation des tâches pour ses employés</span>
-      </label>
-      <label for="ca_rules_3_comment">
-        <input type="text" 
-          id="ca_rules_3_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.ca_3_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_3_impact">
+      <label for="ca_3_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="ca_3_comment" 
+          :value="active_ca_rules.ca_3_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_3_impact">Impact</label>
         <select
-          id="ca_rules_3_impact" 
-          placeholder="Impact" 
-          v-model="formData.ca_3_impact" >
+          id="ca_3_impact" 
+          :value="active_ca_rules.ca_3_impact"
+          @input="updateLocalContact($event)" >
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="ca_rules_3_engie">
+      <label for="ca_3_engie">Commentaire EHS</label>
         <input type="text" 
-          id="ca_rules_3_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.ca_3_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="ca_3_engie" 
+          :value="active_ca_rules.ca_3_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="ca_rules_4">
+      <label for="ca_4">Les employés du partenaire possèdent un identifiant unique</label>
         <select
-          id="ca_rules_4" 
-          placeholder="Les employés du partenaire possèdent un identifiant unique. Dans le cas échéant, les comptes génériques doivent être bien identifiés et référencés" 
-          v-model="formData.ca_4">
+          id="ca_4" 
+          :value="active_ca_rules.ca_4"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Les employés du partenaire possèdent un identifiant unique. Dans le cas échéant, les comptes génériques doivent être bien identifiés et référencés</span>
-      </label>
-      <label for="ca_rules_4_comment">
+
+      <label for="ca_4_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="ca_rules_4_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.ca_4_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_4_impact">
+          id="ca_4_comment" 
+          :value="active_ca_rules.ca_4_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_4_impact">Impact</label>
         <select
-          id="ca_rules_4_impact" 
-          placeholder="Impact" 
-          v-model="formData.ca_4_impact">
+          id="ca_4_impact" 
+          :value="active_ca_rules.ca_4_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="ca_rules_4_engie">
-        <input type="text" 
-          id="ca_rules_4_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.ca_4_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="ca_rules_5">
+      <label for="ca_4_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="ca_4_engie" 
+          :value="active_ca_rules.ca_4_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="ca_5">Le partenaire propose une authentification multi facteurs à minima pour les administrateurs</label>
         <select
-          id="ca_rules_5" 
-          placeholder="Le partenaire doit pouvoir proposer une authentification multi facteurs pour les administrateurs et pour les utilisateurs si applicable" 
-          v-model="formData.ca_5">
+          id="ca_5" 
+          :value="active_ca_rules.ca_5"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit pouvoir proposer une authentification multi facteurs pour les administrateurs et pour les utilisateurs si applicable</span>
-      </label>
-      <label for="ca_rules_5_comment">
+
+      <label for="ca_5_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="ca_rules_5_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.ca_5_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_5_impact">
+          id="ca_5_comment" 
+          :value="active_ca_rules.ca_5_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_5_impact">Impact</label>
         <select
-          id="ca_rules_5_impact" 
-          placeholder="Impact" 
-          v-model="formData.ca_5_impact">
+          id="ca_5_impact" 
+          :value="active_ca_rules.ca_5_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="ca_rules_5_engie">
-        <input type="text" 
-          id="ca_rules_5_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.ca_5_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="ca_rules_6">
+      <label for="ca_5_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="ca_5_engie" 
+          :value="active_ca_rules.ca_5_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="ca_6">Le partenaire précise les moyens de sécurité supplémentaires dédiées à la gestion de ses comptes administrateurs</label>
         <select
-          id="ca_rules_6" 
-          placeholder="Le partenaire doit préciser les moyens de sécurité supplémentaires dédiées à la gestion de ses comptes administrateurs (la procédure d'habilitation, de révocation, la revue des comptes et des habilitations)" 
-          v-model="formData.ca_6">
+          id="ca_6" 
+          :value="active_ca_rules.ca_6"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit préciser les moyens de sécurité supplémentaires dédiées à la gestion de ses comptes administrateurs (la procédure d'habilitation, de révocation, la revue des comptes et des habilitations)</span>
-      </label>
-      <label for="ca_rules_6_comment">
-        <input type="text" 
-          id="ca_rules_6_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.ca_6_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_6_impact">
+      <label for="ca_6_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="ca_6_comment" 
+          :value="active_ca_rules.ca_6_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_6_impact">Impact</label>
         <select
-          id="ca_rules_6_impact" 
-          placeholder="Impact" 
-          v-model="formData.ca_6_impact">
+          id="ca_6_impact" 
+          :value="active_ca_rules.ca_6_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="ca_rules_6_engie">
+      <label for="ca_6_engie">Commentaire EHS</label>
         <input type="text" 
-          id="ca_rules_6_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.ca_6_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="ca_6_engie" 
+          :value="active_ca_rules.ca_6_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="ca_rules_7">
+      <label for="ca_7">Le management standard des mots de passe chez le partenaire est bien défini</label>
         <select
-          id="ca_rules_7" 
-          placeholder="Le management standard des mots de passe chez le partenaire est défini au minimum par :
-- Longueur / complexité
-- Une période de validité
-- Le nombre de tentatives d'authentification avant blocage du compte" 
-          v-model="formData.ca_7">
+          id="ca_7" 
+          :value="active_ca_rules.ca_7"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le management standard des mots de passe chez le partenaire est défini au minimum par :
-- Longueur / complexité
-- Une période de validité
-- Le nombre de tentatives d'authentification avant blocage du compte</span>
-      </label>
-      <label for="ca_rules_7_comment">
+
+      <label for="ca_7_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="ca_rules_7_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.ca_7_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_7_impact">
+          id="ca_7_comment" 
+          :value="active_ca_rules.ca_7_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_7_impact">Impact</label>
         <select
-          id="ca_rules_7_impact" 
-          placeholder="Impact" 
-          v-model="formData.ca_7_impact">
+          id="ca_7_impact" 
+          :value="active_ca_rules.ca_7_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="ca_rules_7_engie">
-        <input type="text" 
-          id="ca_rules_7_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.ca_7_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="ca_rules_8">
+      <label for="ca_7_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="ca_7_engie" 
+          :value="active_ca_rules.ca_7_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="ca_8">Le partenaire journalise les logs de connexions réussies et échouées</label>
         <select
-          id="ca_rules_8" 
-          placeholder="Le partenaire doit pouvoir journaliser les logs de connexions réussies et échouées" 
-          v-model="formData.ca_8">
+          id="ca_8" 
+          :value="active_ca_rules.ca_8"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit pouvoir journaliser les logs de connexions réussies et échouées</span>
-      </label>
-      <label for="ca_rules_8_comment">
-        <input type="text" 
-          id="ca_rules_8_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.ca_8_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_8_impact">
+      <label for="ca_8_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="ca_8_comment" 
+          :value="active_ca_rules.ca_8_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_8_impact">Impact</label>
         <select
-          id="ca_rules_8_impact" 
-          placeholder="Impact" 
-          v-model="formData.ca_8_impact">
+          id="ca_8_impact" 
+          :value="active_ca_rules.ca_8_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="ca_rules_8_engie">
+      <label for="ca_8_engie">Commentaire EHS</label>
         <input type="text" 
-          id="ca_rules_8_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.ca_8_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="ca_8_engie" 
+          :value="active_ca_rules.ca_8_engie"
+          @input="updateLocalContact($event)" />
 
-      <label for="ca_rules_9">
+      <label for="ca_9">Le partenaire met en œuvre des moyens pour protéger la confidentialité des données d'authentification.</label>
         <select
-          id="ca_rules_9" 
-          placeholder="Le partenaire doit mettre en œuvre des moyens pour protéger la confidentialité des données d'authentification.
-En particulier, chiffrer les mots de passes en stockage et en transmission" 
-          v-model="formData.ca_9">
+          id="ca_9" 
+          :value="active_ca_rules.ca_9"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Le partenaire doit mettre en œuvre des moyens pour protéger la confidentialité des données d'authentification.
-En particulier, chiffrer les mots de passes en stockage et en transmission</span>
-      </label>
-      <label for="ca_rules_9_comment">
+
+      <label for="ca_9_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="ca_rules_9_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.ca_9_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_9_impact">
+          id="ca_9_comment" 
+          :value="active_ca_rules.ca_9_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_9_impact">Impact</label>
         <select
-          id="ca_rules_9_impact" 
-          placeholder="Impact" 
-          v-model="formData.ca_9_impact">
+          id="ca_9_impact" 
+          :value="active_ca_rules.ca_9_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="ca_rules_9_engie">
-        <input type="text" 
-          id="ca_rules_9_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.ca_9_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <label for="ca_rules_10">
+      <label for="ca_9_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="ca_9_engie" 
+          :value="active_ca_rules.ca_9_engie"
+          @input="updateLocalContact($event)" />
+
+      <label for="ca_10">L’ensemble des actions utilisateurs et administrateurs sur les données EHS sont tracées et rendues disponibles</label>
         <select
-          id="ca_rules_10" 
-          placeholder="L’ensemble des actions utilisateurs et administrateurs sur les données EHS doivent être tracées et doivent être rendues disponibles, soit directement dans l’interface utilisateur de l’outil, soit dans l’interface administrateur, soit via une demande explicite de EHS. (Fourniture des traces demandées sous 2 jours ouvrés, en particulier dans le cadre du traitement d’incidents)" 
-          v-model="formData.ca_10">
+          id="ca_10" 
+          :value="active_ca_rules.ca_10"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>L’ensemble des actions utilisateurs et administrateurs sur les données EHS doivent être tracées et doivent être rendues disponibles, soit directement dans l’interface utilisateur de l’outil, soit dans l’interface administrateur, soit via une demande explicite de EHS. (Fourniture des traces demandées sous 2 jours ouvrés, en particulier dans le cadre du traitement d’incidents)</span>
-      </label>
-      <label for="ca_rules_10_comment">
+
+      <label for="ca_10_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="ca_rules_10_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.ca_10_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_rules_10_impact">
+          id="ca_10_comment" 
+          :value="active_ca_rules.ca_10_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="ca_10_impact">Impact</label>
         <select
-          id="ca_rules_10_impact" 
-          placeholder="Impact" 
-          v-model="formData.ca_10_impact">
+          id="ca_10_impact" 
+          :value="active_ca_rules.ca_10_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="ca_rules_10_engie">
-        <input type="text" 
-          id="ca_rules_10_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.ca_10_engie" />
-        <span>Commentaire EHS</span>
-      </label>
 
-      <button class="button_blue" type="submit">Envoyer</button>
-      <button class="button_blue" type="reset" >Reinitialiser</button>
+      <label for="ca_10_engie">Commentaire EHS</label>
+        <input type="text" 
+          id="ca_10_engie" 
+          :value="active_ca_rules.ca_10_engie"
+          @input="updateLocalContact($event)" />
+
+      <div>
+        <input class="button_form" type="submit" value="Modifier" />
+        <input class="button_form" type="button" @click="get_ca_rules(active_ca_rules.company)" value="Reinitialiser" />
+      </div>
     </form>
 
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+  import { mapState, mapActions, mapGetters } from "vuex";
   export default {
     data() {
       return {
         errors: [],
-        formData: {},
+        ca_rules: {},
         options: [
           { value: "N/A", text: "N/A" },
           { value: "Oui", text: "Oui" },
@@ -387,13 +325,37 @@ En particulier, chiffrer les mots de passes en stockage et en transmission</span
       }
     },
     computed: {
-      ...mapState("ca_rules", ["ca_rules"]),
+      ...mapGetters("ca_rules", ["active_ca_rules"]),
       ...mapState("partner", ["partner"]),
       ...mapState("user", ["groups"])
     },
+    watch: {
+      active_ca_rules: {
+        handler(){
+          this.ca_rules = this.active_ca_rules
+        },
+      immediate: true
+      }
+    },
     methods: {
+      ...mapActions("ca_rules", ["get_ca_rules"]),
       ...mapActions("ca_rules", ["edit_ca_rules"]),
-      verifForm() {
+      updateLocalContact(e) {
+        this.$set(this.ca_rules, e.target.id, e.target.value);
+      },
+      verifForm(ca_rules) {
+
+        ca_rules.ca_1_impact = parseInt(ca_rules.ca_1_impact)
+        ca_rules.ca_2_impact = parseInt(ca_rules.ca_2_impact)
+        ca_rules.ca_3_impact = parseInt(ca_rules.ca_3_impact)
+        ca_rules.ca_4_impact = parseInt(ca_rules.ca_4_impact)
+        ca_rules.ca_5_impact = parseInt(ca_rules.ca_5_impact)
+        ca_rules.ca_6_impact = parseInt(ca_rules.ca_6_impact)
+        ca_rules.ca_7_impact = parseInt(ca_rules.ca_7_impact)
+        ca_rules.ca_8_impact = parseInt(ca_rules.ca_8_impact)
+        ca_rules.ca_9_impact = parseInt(ca_rules.ca_9_impact)
+        ca_rules.ca_10_impact = parseInt(ca_rules.ca_10_impact)
+
         this.errors = [];
 
         const { ca_1, ca_1_comment, ca_1_engie, 
@@ -405,7 +367,7 @@ En particulier, chiffrer les mots de passes en stockage et en transmission</span
           ca_7, ca_7_comment, ca_7_engie,
           ca_8, ca_8_comment, ca_8_engie,
           ca_9, ca_9_comment, ca_9_engie,
-          ca_10, ca_10_comment, ca_10_engie } = this.formData
+          ca_10, ca_10_comment, ca_10_engie } = this.ca_rules
         
         if(!ca_1 || !ca_2 || !ca_3 || !ca_4 || !ca_5 || !ca_6 || !ca_7 || !ca_8 || !ca_9 || !ca_10) {
           this.errors.push("Vous devez repondre à toutes les questions !");
@@ -418,71 +380,17 @@ En particulier, chiffrer les mots de passes en stockage et en transmission</span
 
         if (this.errors.length != 0)
         {
-          console.log(this.errors.length)
+          
           return true;
         }
         else {
-          this.handleSubmit()
+          this.edit_ca_rules(ca_rules);
+          this.goToRules(this.partner.company)
         }
-      },
-      handleSubmit() {
-        const payload = {
-          company: this.ca_rules.company,
-          data: {
-            company: this.ca_rules.company,
-            ca_1: this.formData.ca_1,
-            ca_1_comment: this.formData.ca_1_comment,
-            ca_1_impact: this.formData.ca_1_impact,
-            ca_1_engie: this.formData.ca_1_engie,
-            ca_2: this.formData.ca_2,
-            ca_2_comment: this.formData.ca_2_comment,
-            ca_2_impact: this.formData.ca_2_impact,
-            ca_2_engie: this.formData.ca_2_engie,
-            ca_3: this.formData.ca_3,
-            ca_3_comment: this.formData.ca_3_comment,
-            ca_3_impact: this.formData.ca_3_impact,
-            ca_3_engie: this.formData.ca_3_engie,
-            ca_4: this.formData.ca_4,
-            ca_4_comment: this.formData.ca_4_comment,
-            ca_4_impact: this.formData.ca_4_impact,
-            ca_4_engie: this.formData.ca_4_engie,
-            ca_5: this.formData.ca_5,
-            ca_5_comment: this.formData.ca_5_comment,
-            ca_5_impact: this.formData.ca_5_impact,
-            ca_5_engie: this.formData.ca_5_engie,
-            ca_6: this.formData.ca_6,
-            ca_6_comment: this.formData.ca_6_comment,
-            ca_6_impact: this.formData.ca_6_impact,
-            ca_6_engie: this.formData.ca_6_engie,
-            ca_7: this.formData.ca_7,
-            ca_7_comment: this.formData.ca_7_comment,
-            ca_7_impact: this.formData.ca_7_impact,
-            ca_7_engie: this.formData.ca_7_engie,
-            ca_8: this.formData.ca_8,
-            ca_8_comment: this.formData.ca_8_comment,
-            ca_8_impact: this.formData.ca_8_impact,
-            ca_8_engie: this.formData.ca_8_engie,
-            ca_9: this.formData.ca_9,
-            ca_9_comment: this.formData.ca_9_comment,
-            ca_9_impact: this.formData.ca_9_impact,
-            ca_9_engie: this.formData.ca_9_engie,
-            ca_10: this.formData.ca_10,
-            ca_10_comment: this.formData.ca_10_comment,
-            ca_10_impact: this.formData.ca_10_impact,
-            ca_10_engie: this.formData.ca_10_engie,
-            partnerId: this.ca_rules.partnerId,
-          },
-        };
-        this.edit_ca_rules(payload);
-        this.formData = this.ca_rules
-        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)
       }
-    },
-    mounted() {
-      this.formData = this.ca_rules
     }
   }
 </script>

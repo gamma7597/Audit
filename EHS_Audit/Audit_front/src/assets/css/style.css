@@ -146,19 +146,8 @@ form .button_form:hover {
   color: white;
 }
 
-label {
-  margin-bottom: 15px;
-  position: relative;
-  border-bottom: 1px solid #ddd;
-}
-label:focus, label:hover {
-  border: none;
-}
-
 input, select {
   width: 100%;
-  padding: 10px 0px;
-  margin-top: 30px;
   border: none;
   outline: none;
 }
@@ -166,31 +155,6 @@ input:focus, input:hover, select:focus, select:hover {
   border-bottom: 1px solid #00aaff;
 }
 
-input::placeholder, select::placeholder {
-  margin-top: 50px;
-  opacity: 0;
-}
-
-span {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translateY(30px);
-  font-size: 0.825em;
-  transition-duration: 300ms;
-}
-
-label:focus-within > span,
-input:not(:placeholder-shown) + span {
-  color: #00aaff;
-  transform: translateY(0px);
-}
-
-/*label:focus-within > span,
-select:not(:placeholder-shown) + span {
-    color: color.$blue-engie;
-    transform:translateY(0px);
-}*/
 .cards {
   display: flex;
   list-style: none;
@@ -220,6 +184,28 @@ select:not(:placeholder-shown) + span {
   margin: 10px;
   padding: 0;
   width: 30%;
+}
+
+.help {
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.help ul {
+  list-style: none;
+}
+.help button {
+  margin: 2px;
+  background-color: white;
+  border: solid 1px #00aaff;
+  color: #00aaff;
+  border-radius: 5px;
+}
+.help button:hover {
+  background-color: #00aaff;
+  color: white;
 }
 
 /*# sourceMappingURL=style.css.map */

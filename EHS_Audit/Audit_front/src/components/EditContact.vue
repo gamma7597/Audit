@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="verifForm">
+    <form @submit.prevent="verifForm(contact)">
 
       <p v-if="errors.length">
         <b>Veuillez corriger les erreurs :</b>
@@ -9,73 +9,75 @@
         </ul>
       </p>
 
-      <label for="last_nameInput">
-        <input type="text" 
-          id="last_nameInput" 
-          placeholder="Nom du contact" 
-          v-model="formData.last_name" />
-        <span>Nom du contact</span>
-      </label>
+      <label for="last_name">Nom du contact</label>
+      <input type="text" 
+        id="last_name"
+        :value="activeContact.last_name"
+        @input="updateLocalContact($event)" />
 
-      <label for="first_nameInput">
-        <input type="text" 
-          id="first_nameInput" 
-          placeholder="Prenom du contact" 
-          v-model="formData.first_name" />
-        <span>Prenom du contact</span>
-      </label>
+      <label for="first_name">Prenom du contact</label>
+      <input type="text" 
+        id="first_name" 
+        :value="activeContact.first_name"
+        @input="updateLocalContact($event)" />
 
-      <label for="phoneInput">
-        <input type="number" 
-          id="phoneInput" 
-          placeholder="Telephone du contact" 
-          v-model="formData.phone" />
-        <span>Telephone du contact</span>
-      </label>
+      <label for="phone">Telephone du contact</label>
+      <input type="number" 
+        id="phone" 
+        :value="activeContact.phone"
+        @input="updateLocalContact($event)" />
 
-      <label for="mailInput">
-        <input type="text" 
-          id="mailInput" 
-          placeholder="Mail du contact" 
-          v-model="formData.mail" />
-        <span>Mail du contact</span>
-      </label>
+      <label for="mail">Mail du contact</label>
+      <input type="text" 
+        id="mail" 
+        :value="activeContact.mail"
+        @input="updateLocalContact($event)" />
 
-      <label for="jobInput">
-        <input type="text" 
-          id="jobInput" 
-          placeholder="Fonction du contact" 
-          v-model="formData.job" />
-        <span>Fonction du contact</span>
-      </label>
+      <label for="job">Fonction du contact</label>
+      <input type="text" 
+        id="job" 
+        :value="activeContact.job"
+        @input="updateLocalContact($event)" />
 
-      <button class="button_blue" type="submit">Modifier</button>
-      <button class="button_blue"  type="reset">Reinitialiser le formulaire</button>
+      <div>
+        <input class="button_form" type="submit" value="Modifier" />
+        <input class="button_form" type="button" @click="getOneContact(contact)" value="Reinitialiser" />
+      </div>
     </form>
   </div>  
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   export default {
     name: 'EditContact',
     data() {
       return {
         errors: [],
-        formData: {}
+        contact: {}
       }
     },
     computed: {
-      ...mapState('partner', [ 'partner' ]),
-      ...mapState('contact', [ 'contacts' ])
+      ...mapGetters('contact', [ 'activeContact' ]),
+    },
+    watch: {
+      activeContact: {
+        handler(){
+          this.contact = this.activeContact
+        },
+      immediate: true
+      }
     },
     methods: {
-      ...mapActions('partner', [ 'editPartner' ]),
       ...mapActions('contact', [ 'editContact' ]),
-      verifForm() {
+      ...mapActions('contact', [ 'getOneContact' ]),
+      updateLocalContact(e) {
+        this.$set(this.contact, e.target.id, e.target.value);
+      },
+      verifForm(contact) {
         this.errors = [];
 
-        const { last_name, first_name, phone, mail, job } = this.formData
+        const { last_name, first_name, phone, mail, job } = this.contact
         
         if(!last_name) {
           this.errors.push("Le nom du contact ne peut pas être vide !");
@@ -116,32 +118,13 @@
 
         if (this.errors.length != 0)
         {
-          console.log(this.errors.length)
           return true;
         }
         else {
-          this.handleSubmit()
+          this.editContact(contact)
+          this.$parent.afterEdit(contact)
         }
-      },
-      handleSubmit() {
-        const payload = {
-          company: this.partner.company,
-          data: {
-            company: this.partner.company,
-            last_name: this.formData.last_name,
-            first_name: this.formData.first_name,
-            phone: this.formData.phone,
-            mail: this.formData.mail,
-            job: this.formData.job,
-            partnerId: this.partner.id
-          }
-        }
-        this.editContact(payload)
-        this.formData = this.contacts
       }
-    },
-    mounted() {
-      this.formData = this.contacts;
     }
   }
 </script>

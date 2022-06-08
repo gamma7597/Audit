@@ -7,11 +7,12 @@
           <ul class="menu">
             <li class="item"><router-link to="/">Accueil</router-link></li>
             <li class="item" v-if="activeUser && (groups.includes('GG-USR-APPCONFORMITE-ADMIN') || groups.includes('GG-USR-APPCONFORMITE-METIER'))">
-              <router-link  :to="`/partnerList/`" >Liste des partenaires</router-link>
+              <router-link  :to="`/partnerList/`">Liste des partenaires</router-link>
             </li>
             <li class="item" v-else-if="activeUser">
               <router-link  :to="`/partner/${myPartner()}`">{{myPartner()}}</router-link>
             </li>
+            <li><router-link to="/aide/" target="_blank">Aide</router-link></li>
             <li class="item" v-if="!activeUser"><a href="#" @click.prevent="login">Connexion</a></li>
             <li class="item" v-else><a href="#" @click.prevent="logout">Deconnexion</a></li>
           </ul>
@@ -19,7 +20,6 @@
       </header>
     </div>
     <div class="content">
-      {{groups}}
       <router-view />
     </div>
   </div>
@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     myPartner(){
-      const g = this.groups[0].split("-")
+      const g = this.groups[1].split("-")
       return g[3]
     },
     async login() {

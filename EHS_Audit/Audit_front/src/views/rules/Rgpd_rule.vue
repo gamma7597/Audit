@@ -2,7 +2,9 @@
   <div>
     <button class="button_blue" @click="goToRules(partner.company)">Retour</button>
 
-    <form @submit.prevent="verifForm">
+    <h2>Analyse des risques RGPD</h2>
+
+    <form @submit.prevent="verifForm(rgpd_rules)">
 
       <p v-if="errors.length">
         <b>Veuillez corriger les erreurs :</b>
@@ -11,88 +13,78 @@
         </ul>
       </p>
 
-      <label for="rgpd_rules_1">
+      <label for="rgpd_1">La nature de la prestation et des données justifient l’instruction d’un dossier DPIA</label>
         <select
-          id="rgpd_rules_1" 
-          placeholder="La nature de la prestation (finalité du traitement) et des données justifient l’instruction d’un dossier DPIA" 
-          v-model="formData.rgpd_1">
+          id="rgpd_1" 
+          :value="active_rgpd_rules.rgpd_1"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>La nature de la prestation (finalité du traitement) et des données justifient l’instruction d’un dossier DPIA</span>
-      </label>
-      <label for="rgpd_rules_1_comment">
-        <input type="text" 
-          id="rgpd_rules_1_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.rgpd_1_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
 
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rgpd_rules_1_impact">
+      <label for="rgpd_1_comment">Commentaire du partenaire</label>
+        <input type="text" 
+          id="rgpd_1_comment" 
+          :value="active_rgpd_rules.rgpd_1_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rgpd_1_impact">Impact</label>
         <select
-          id="rgpd_rules_1_impact" 
-          placeholder="Impact" 
-          v-model="formData.rgpd_1_impact">
+          id="rgpd_1_impact" 
+          :value="active_rgpd_rules.rgpd_1_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
 
-      <label for="rgpd_rules_1_engie">
+      <label for="rgpd_1_engie">Commentaire EHS</label>
         <input type="text" 
-          id="rgpd_rules_1_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.rgpd_1_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="rgpd_1_engie" 
+          :value="active_rgpd_rules.rgpd_1_engie" 
+          @input="updateLocalContact($event)"/>
 
-      <label for="rgpd_rules_2">
+      <label for="rgpd_2">La protection des données personnelles est prise en compte dès le début des projets (Privacy By Design) et avec le plus haut niveau de protection possible (Privacy By Default)</label>
         <select
-          id="rgpd_rules_2" 
-          placeholder="La protection des données personnelles est prise en compte dès le début des projets (Privacy By Design) et avec le plus haut niveau de protection possible (Privacy By Default)" 
-          v-model="formData.rgpd_2">
+          id="rgpd_2" 
+          :value="active_rgpd_rules.rgpd_2"
+          @input="updateLocalContact($event)">
           <option v-for="option in options" :key="option.value">{{option.text}}</option>
         </select>
-        <span>La protection des données personnelles est prise en compte dès le début des projets (Privacy By Design) et avec le plus haut niveau de protection possible (Privacy By Default)</span>
-      </label>
-      <label for="rgpd_rules_2_comment">
+
+      <label for="rgpd_2_comment">Commentaire du partenaire</label>
         <input type="text" 
-          id="rgpd_rules_2_comment" 
-          placeholder="Commentaire du partenaire" 
-          v-model="formData.rgpd_2_comment" />
-        <span>Commentaire du partenaire</span>
-      </label>
-      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rgpd_rules_2_impact">
+          id="rgpd_2_comment" 
+          :value="active_rgpd_rules.rgpd_2_comment"
+          @input="updateLocalContact($event)" />
+
+      <label v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" for="rgpd_2_impact">Impact</label>
         <select
-          id="rgpd_rules_2_impact" 
-          placeholder="Impact" 
-          v-model="formData.rgpd_2_impact">
+          id="rgpd_2_impact" 
+          :value="active_rgpd_rules.rgpd_2_impact"
+          @input="updateLocalContact($event)">
           <option v-for="option in options2" :key="option.value">{{option.text}}</option>
         </select>
-        <span>Impact</span>
-      </label>
-      <label for="rgpd_rules_2_engie">
+
+      <label for="rgpd_2_engie">Commentaire EHS</label>
         <input type="text" 
-          id="rgpd_rules_2_engie" 
-          placeholder="Commentaire EHS" 
-          v-model="formData.rgpd_2_engie" />
-        <span>Commentaire EHS</span>
-      </label>
+          id="rgpd_2_engie" 
+          :value="active_rgpd_rules.rgpd_2_engie"
+          @input="updateLocalContact($event)" />
       
-      <button class="button_blue" type="submit">Envoyer</button>
-      <button class="button_blue" type="reset" >Reinitialiser</button>
+      <div>
+        <input class="button_form" type="submit" value="Modifier" />
+        <input class="button_form" type="button" @click="get_rgpd_rules(active_rgpd_rules.company)" value="Reinitialiser" />
+      </div>
     </form>
 
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+  import { mapState, mapActions, mapGetters } from "vuex";
   export default {
     data() {
       return {
         errors: [],
-        formData: {},
+        rgpd_rules: {},
         options: [
           { value: "N/A", text: "N/A" },
           { value: "Oui", text: "Oui" },
@@ -109,17 +101,33 @@
       }
     },
     computed: {
-      ...mapState("rgpd_rules", ["rgpd_rules"]),
+      ...mapGetters("rgpd_rules", ["active_rgpd_rules"]),
       ...mapState("partner", ["partner"]),
       ...mapState("user", ["groups"])
     },
+    watch: {
+      active_rgpd_rules: {
+        handler(){
+          this.rgpd_rules = this.active_rgpd_rules
+        },
+      immediate: true
+      }
+    },
     methods: {
+      ...mapActions("rgpd_rules", ["get_rgpd_rules"]),
       ...mapActions("rgpd_rules", ["edit_rgpd_rules"]),
-      verifForm() {
+      updateLocalContact(e) {
+        this.$set(this.rgpd_rules, e.target.id, e.target.value);
+      },
+      verifForm(rgpd_rules) {
+
+        rgpd_rules.rgpd_1_impact = parseInt(rgpd_rules.rgpd_1_impact)
+        rgpd_rules.rgpd_2_impact = parseInt(rgpd_rules.rgpd_2_impact)
+
         this.errors = [];
 
         const { rgpd_1, rgpd_1_comment, rgpd_1_engie, 
-          rgpd_2, rgpd_2_comment, rgpd_2_engie } = this.formData
+          rgpd_2, rgpd_2_comment, rgpd_2_engie } = this.rgpd_rules
         
         if(!rgpd_1 || !rgpd_2) {
           this.errors.push("Vous devez repondre à toutes les questions !");
@@ -132,39 +140,17 @@
 
         if (this.errors.length != 0)
         {
-          console.log(this.errors.length)
+          
           return true;
         }
         else {
-          this.handleSubmit()
+          this.edit_rgpd_rules(rgpd_rules);
+          this.goToRules(this.partner.company)
         }
-      },
-      handleSubmit() {
-        const payload = {
-          company: this.rgpd_rules.company,
-          data: {
-            company: this.rgpd_rules.company,
-            rgpd_1: this.formData.rgpd_1,
-            rgpd_1_comment: this.formData.rgpd_1_comment,
-            rgpd_1_impact: this.formData.rgpd_1_impact,
-            rgpd_1_engie: this.formData.rgpd_1_engie,
-            rgpd_2: this.formData.rgpd_2,
-            rgpd_2_comment: this.formData.rgpd_2_comment,
-            rgpd_2_impact: this.formData.rgpd_2_impact,
-            rgpd_2_engie: this.formData.rgpd_2_engie,
-            partnerId: this.rgpd_rules.partnerId,
-          },
-        };
-        this.edit_rgpd_rules(payload);
-        this.formData = this.rgpd_rules
-        this.goToRules(this.partner.company)
       },
       goToRules(partner){
         this.$router.push("/rules/" + partner)
       }
-    },
-    mounted() {
-      this.formData = this.rgpd_rules
     }
   }
 </script>

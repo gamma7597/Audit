@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     ca_1_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     ca_1_engie: {
       type: Sequelize.STRING
@@ -22,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     ca_2_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     ca_2_engie: {
       type: Sequelize.STRING
@@ -34,7 +34,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     ca_3_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     ca_3_engie: {
       type: Sequelize.STRING
@@ -46,7 +46,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     ca_4_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     ca_4_engie: {
       type: Sequelize.STRING
@@ -58,7 +58,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     ca_5_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     ca_5_engie: {
       type: Sequelize.STRING
@@ -70,7 +70,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     ca_6_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     ca_6_engie: {
       type: Sequelize.STRING
@@ -82,7 +82,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     ca_7_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     ca_7_engie: {
       type: Sequelize.STRING
@@ -94,7 +94,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     ca_8_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     ca_8_engie: {
       type: Sequelize.STRING
@@ -106,7 +106,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     ca_9_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     ca_9_engie: {
       type: Sequelize.STRING
@@ -118,7 +118,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     ca_10_impact: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     ca_10_engie: {
       type: Sequelize.STRING

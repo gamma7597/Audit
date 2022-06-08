@@ -61,7 +61,6 @@ exports.findAll = (req, res) => {
                 if (data) {
                     res.send(data);
                 } else {
-                    console.log("erreur")
                     res.status(404).send({
                         message: `Cannot find Partner with company=${company}.`
                     });

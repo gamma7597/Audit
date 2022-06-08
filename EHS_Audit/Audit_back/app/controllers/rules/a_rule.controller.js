@@ -83,13 +83,13 @@ exports.findAll = (req, res) => {
 exports.update = (req, res) => {
     const company = req.params.company;
 
-    if(req.body.company != null && req.body.a_1 != null && req.body.a_2 != null && req.body.a_3 != null && req.body.a_4 != null && req.body.a_5 != null && req.body.a_6 != null ) {
+    console.log(req.body)
+
+    if(req.body.company != null && req.body.a_1 != null && req.body.a_2 != null && req.body.a_3 != null && req.body.a_4 != null ) {
         if(req.body.company.toUpperCase() && req.body.a_1_comment.length <= 300 && req.body.a_1_engie.length <= 300
             && req.body.a_2_comment.length <= 300 && req.body.a_2_engie.length <= 300
             && req.body.a_3_comment.length <= 300 && req.body.a_3_engie.length <= 300
-            && req.body.a_4_comment.length <= 300 && req.body.a_4_engie.length <= 300
-            && req.body.a_5_comment.length <= 300 && req.body.a_5_engie.length <= 300
-            && req.body.a_6_comment.length <= 300 && req.body.a_6_engie.length <= 300) {
+            && req.body.a_4_comment.length <= 300 && req.body.a_4_engie.length <= 300) {
 
             A_rule.update(req.body, {
                 where: { company: company }
