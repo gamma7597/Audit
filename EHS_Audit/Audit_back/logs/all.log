@@ -5484,3 +5484,9 @@
 {"level":"http","message":"GET - /api/tdt_rules/TEST - 304","timestamp":"2022-07-06 01:23:54.714 PM"}
 {"level":"http","message":"GET - /api/maturites/ - 304","timestamp":"2022-07-06 01:23:57.013 PM"}
 {"level":"http","message":"PUT - /api/maturites/TEST - 200","timestamp":"2022-07-06 01:23:57.016 PM"}
+{"level":"info","message":"Info message","timestamp":"2022-07-06 02:40:04.557 PM"}
+{"level":"error","message":"Error message","timestamp":"2022-07-06 02:40:04.560 PM"}
+{"level":"warn","message":"Warning message","timestamp":"2022-07-06 02:40:04.560 PM"}
+{"level":"info","message":"Info message","timestamp":"2022-07-06 02:40:33.305 PM"}
+{"level":"error","message":"Error message","timestamp":"2022-07-06 02:40:33.310 PM"}
+{"level":"warn","message":"Warning message","timestamp":"2022-07-06 02:40:33.310 PM"}
