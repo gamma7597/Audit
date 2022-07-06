@@ -3,6 +3,9 @@
 
     <button class="button_blue" @click="goToPartner(partner.company)">Retour</button>
 
+    <button class="button_blue" @click="exportPDF(partner.company)">Exporter la db</button>
+    <button class="button_blue" @click="exportPDFBig(partner.company)">Exporter la db complète</button>
+
     <div id="container">
       <h2>Vous pouvez ajouter ou supprimer des fichiers / images sur cette page.</h2>
       <p>
@@ -39,6 +42,7 @@
 
 <script>
 import FileUploadService from "../services/fileUploadService";
+import ExtractPDF from "../services/extractPDF";
 import { mapState } from "vuex";
 
 export default {
@@ -56,6 +60,12 @@ export default {
     ...mapState("partner", ["partner"]),
   },
   methods: {
+    exportPDF(company){
+      ExtractPDF.getJSON(company, 0);
+    },
+    exportPDFBig(company){
+      ExtractPDF.getJSON(company, 1);
+    },
     goToPartner(partner){
       this.$router.push("/partner/" + partner)
     },

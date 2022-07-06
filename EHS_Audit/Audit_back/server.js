@@ -3,24 +3,23 @@ const cors = require("cors");
 
 const path = __dirname + '/app/views/';
 
-const logger = require("./app/middleware/logger");
-
 const OktaJwtVerifier = require('@okta/jwt-verifier');
 const oktaJwtVerifier = new OktaJwtVerifier({
-  //clientId: '0oa2pf2uaeW95u4VH5d7',
-  //issuer: 'https://dev-46549604.okta.com/oauth2/aus4gbwz3qR3wa0v75d7',  
-  clientId: '0oa7n4gwwkvQiWODq0i7',
-  issuer: 'https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7'
+  clientId: '0oa2pf2uaeW95u4VH5d7',
+  issuer: 'https://dev-46549604.okta.com/oauth2/aus4gbwz3qR3wa0v75d7',  
+  //clientId: '0oa7n4gwwkvQiWODq0i7',
+  //issuer: 'https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7'
 });
-const audience = 'https://conformite.engie-homeservices.fr';
-//const audience = 'custom_audit'
+//const audience = 'https://conformite.engie-homeservices.fr';
+const audience = 'custom_audit'
 
 var app = express();
 
 global.__basedir = __dirname;
 
 var corsOptions = {
-  origin: "*"
+  //origin: "https://conformite.engie-homeservices.fr"
+  origin: "http://localhost:8081"
 }
 
 app.use(cors(corsOptions));
@@ -66,6 +65,41 @@ const authenticationRequired = async (req, res, next) => {
   }
 };
 
+const winston = require('winston');
+const morgan = require('morgan');
+const { combine, timestamp, json } = winston.format;
+
+const logger = winston.createLogger({
+  level: 'http',
+  format: combine(
+    timestamp({
+      format: 'YYYY-MM-DD hh:mm:ss.SSS A',
+    }),
+    json()
+  ),
+  transports: [
+    new winston.transports.File({
+      filename: './logs/all.log',
+    }),
+  ],
+});
+
+const morganMiddleware = morgan(
+  ':method - :url - :status',
+  {
+    stream: {
+      // Configure Morgan to use our custom logger with the http severity
+      write: (message) => logger.http(message.trim()),
+    },
+  }
+);
+
+app.use(morganMiddleware);
+
+logger.info('Info message');
+logger.error('Error message');
+logger.warn('Warning message');
+
 
 app.get("/", (req, res) => {
   res.sendFile(path + "index.html");
@@ -75,7 +109,11 @@ app.get("/callback", (req, res) => {
   res.sendFile(path + "index.html");
 });
 
-app.all('*', authenticationRequired); // Require authentication for all routes
+app.get("/aide/", (req, res) => {
+  res.sendFile(path + "index.html");
+});
+
+//app.all('*', authenticationRequired); // Require authentication for all routes
 
 const db = require("./app/models");
 db.sequelize.sync();
@@ -104,9 +142,9 @@ require("./app/routes/file.routes")(app);
 require("./app/routes/maturite.routes")(app);
 
 // set port, listen for requests
-//const PORT = process.env.PORT || 8080;
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8080;
+//const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
-  logger.debug(`Server is running on port ${PORT}.`);
+  console.log(`Server is running on port ${PORT}.`);
 });
 

@@ -83,8 +83,6 @@ exports.findAll = (req, res) => {
 exports.update = (req, res) => {
     const company = req.params.company;
 
-    console.log(req.body)
-
     if(req.body.company != null && req.body.a_1 != null && req.body.a_2 != null && req.body.a_3 != null && req.body.a_4 != null ) {
         if(req.body.company.toUpperCase() && req.body.a_1_comment.length <= 300 && req.body.a_1_engie.length <= 300
             && req.body.a_2_comment.length <= 300 && req.body.a_2_engie.length <= 300

@@ -3,6 +3,7 @@ import store from '../store'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Help from '../views/Help.vue'
+import Doc from '../views/Doc.vue'
 import PartnerList from '../views/PartnerList.vue'
 import Partner from '../views/Partner.vue'
 import Rules from '../views/Rules.vue'
@@ -30,10 +31,10 @@ import OktaVue, { LoginCallback } from '@okta/okta-vue'
 import { OktaAuth } from '@okta/okta-auth-js'
 
 const oktaAuth = new OktaAuth({
-  //issuer: 'https://dev-46549604.okta.com/oauth2/aus4gbwz3qR3wa0v75d7',
-  //clientId: '0oa2pf2uaeW95u4VH5d7',
-  issuer: 'https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7',
-  clientId: '0oa7n4gwwkvQiWODq0i7',
+  issuer: 'https://dev-46549604.okta.com/oauth2/aus4gbwz3qR3wa0v75d7',
+  clientId: '0oa2pf2uaeW95u4VH5d7',
+  //issuer: 'https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7',
+  //clientId: '0oa7n4gwwkvQiWODq0i7',
   redirectUri: window.location.origin + '/callback',
   scopes: ['openid', 'profile', 'email']
 })
@@ -98,7 +99,15 @@ const routes = [
   {
     path: '/aide/',
     name: 'Help',
-    component: Help
+    component: Help,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/doc/',
+    name: 'Doc',
+    component: Doc
   },
   {
     path: '/callback',

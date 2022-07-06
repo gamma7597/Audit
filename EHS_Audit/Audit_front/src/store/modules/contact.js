@@ -62,6 +62,7 @@ const actions = {
     })
   },
   async removeContact({ commit }, payload) {
+    console.log(payload)
     var accessToken = Vue.prototype.$auth.getAccessToken();
     await Axios.delete(url + 'api/contacts/' + payload.company + '/' + payload.last_name, {
       headers: {
@@ -69,6 +70,7 @@ const actions = {
       }
     })
     .then(response => {
+      console.log(response)
       commit('REMOVE_CONTACT', response)
     })  
   }

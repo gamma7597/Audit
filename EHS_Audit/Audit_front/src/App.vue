@@ -13,6 +13,9 @@
               <router-link  :to="`/partner/${myPartner()}`">{{myPartner()}}</router-link>
             </li>
             <li><router-link to="/aide/" target="_blank">Aide</router-link></li>
+            <li class="item" v-if="activeUser && (groups.includes('GG-USR-APPCONFORMITE-ADMIN'))">
+              <router-link  :to="`/doc/`">Documentation</router-link>
+            </li>
             <li class="item" v-if="!activeUser"><a href="#" @click.prevent="login">Connexion</a></li>
             <li class="item" v-else><a href="#" @click.prevent="logout">Deconnexion</a></li>
           </ul>

@@ -79,6 +79,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
+
     const last_name = req.body.last_name;
 
     var phone_regex = new RegExp(/(?:(?:\+|00)33|0)[1-9](?:[\s.-]*\d{2}){4}/)
