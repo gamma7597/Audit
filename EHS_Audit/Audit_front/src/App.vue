@@ -25,6 +25,7 @@
     <div class="content">
       <router-view />
     </div>
+    {{groups}}
   </div>
 </template>
 
@@ -39,6 +40,7 @@ export default {
   },
   async created() {
     await this.refreshActiveUser();
+    console.log(this.activeUser)
   },
   watch: {
     // everytime a route is changed refresh the activeUser
@@ -49,7 +51,7 @@ export default {
   },
   methods: {
     myPartner(){
-      const g = this.groups[1].split("-")
+      const g = this.groups[0].split("-")
       return g[3]
     },
     async login() {
@@ -58,7 +60,18 @@ export default {
     async refreshActiveUser() {
       if (this.authState.isAuthenticated) {
         this.activeUser = await this.$auth.getUser();
-        this.$store.state.user.groups = this.activeUser.groups;
+        var group = []
+        if ("groups_okta" in this.activeUser) {
+          this.activeUser.groups_okta.forEach(element => {
+            group.push(element);
+          })
+        }
+        if ("groups_ad" in this.activeUser) {
+          this.activeUser.groups_ad.forEach(element => {
+            group.push(element);
+          })
+        }
+        this.$store.state.user.groups = group;
       }
     },
     async logout() {
