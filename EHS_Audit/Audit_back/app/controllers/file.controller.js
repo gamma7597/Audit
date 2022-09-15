@@ -1,7 +1,7 @@
 const uploadFile = require("../middleware/upload");
 const fs = require('fs');
-const baseUrl = "http://localhost:8080/api/files/";
-//const baseUrl = "https://conformite.engie-homeservices.fr/api/files/";
+//const baseUrl = "http://localhost:8080/api/files/";
+const baseUrl = "https://conformite.engie-homeservices.fr/api/files/";
 
 const upload = async (req, res) => {
   try {

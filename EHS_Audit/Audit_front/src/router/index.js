@@ -32,11 +32,11 @@ import { OktaAuth } from '@okta/okta-auth-js'
 
 const oktaAuth = new OktaAuth({
   //localhost
-  issuer: 'https://dev-46549604.okta.com/oauth2/aus4gbwz3qR3wa0v75d7',
-  clientId: '0oa2pf2uaeW95u4VH5d7',
+  //issuer: 'https://dev-46549604.okta.com/oauth2/aus4gbwz3qR3wa0v75d7',
+  //clientId: '0oa2pf2uaeW95u4VH5d7',
   //prod
-  //issuer: 'https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7',
-  //clientId: '0oa7n4gwwkvQiWODq0i7',
+  issuer: 'https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7',
+  clientId: '0oa7n4gwwkvQiWODq0i7',
   //poc
   //issuer: 'https://engie-btoc-oie-preview.oktapreview.com/oauth2/aus4c092lcGfLRARP0x7',
   //clientId: '0oa4c08oa16DlRFzW0x7',
