@@ -6,14 +6,14 @@
         <nav>
           <ul class="menu">
             <li class="item"><router-link to="/">Accueil</router-link></li>
-            <li class="item" v-if="activeUser && (groups.includes('GG-USER-APPCONFORMITE-ADMIN') || groups.includes('GG-USER-APPCONFORMITE-METIER'))">
+            <li class="item" v-if="activeUser && (groups.includes('GG-USR-APPCONFORMITE-ADMIN') || groups.includes('GG-USR-APPCONFORMITE-METIER'))">
               <router-link  :to="`/partnerList/`">Liste des partenaires</router-link>
             </li>
             <li class="item" v-else-if="activeUser">
               <router-link  :to="`/partner/${myPartner()}`">{{myPartner()}}</router-link>
             </li>
             <li><router-link to="/aide/" target="_blank">Aide</router-link></li>
-            <li class="item" v-if="activeUser && (groups.includes('GG-USER-APPCONFORMITE-ADMIN'))">
+            <li class="item" v-if="activeUser && (groups.includes('GG-USR-APPCONFORMITE-ADMIN'))">
               <router-link  :to="`/doc/`">Documentation</router-link>
             </li>
             <li class="item" v-if="!activeUser"><a href="#" @click.prevent="login">Connexion</a></li>
@@ -25,7 +25,6 @@
     <div class="content">
       <router-view />
     </div>
-    {{groups}}
   </div>
 </template>
 
@@ -60,7 +59,6 @@ export default {
       if (this.authState.isAuthenticated) {
         this.activeUser = await this.$auth.getUser();
         var group = []
-        console.log(this.activeUser);
         if ("groups_ad" in this.activeUser){
           this.activeUser.groups_ad.forEach(element => {
             if (element != "Everyone") {

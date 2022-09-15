@@ -3,7 +3,7 @@
         
         <h3 id="title">Bienvenue sur le compte {{ activePartner.company }}</h3>
 
-        <button v-if="groups.includes('GG-USER-APPCONFORMITE-ADMIN')" class="button_blue" v-on:click="remove()">Supprimer le partenaire</button>
+        <button v-if="groups.includes('GG-USR-APPCONFORMITE-ADMIN')" class="button_blue" v-on:click="remove()">Supprimer le partenaire</button>
 
         <EditPartner />
         

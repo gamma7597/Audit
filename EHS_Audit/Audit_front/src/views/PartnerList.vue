@@ -2,7 +2,7 @@
     <div>
         <h3 id="title">Les partenaires Engie Home Services</h3>
         <canvas id="bar-chart"></canvas>
-        <AddPartner v-if="!groups.includes('GG-USER-APPCONFORMITE-METIER')" />
+        <AddPartner v-if="!groups.includes('GG-USR-APPCONFORMITE-METIER')" />
         <PartnerTable />
     </div>
 </template>
