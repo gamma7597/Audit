@@ -6,14 +6,14 @@
         <nav>
           <ul class="menu">
             <li class="item"><router-link to="/">Accueil</router-link></li>
-            <li class="item" v-if="activeUser && (groups.includes('OKTA-CONFORMITE-PROD-ADMIN') || groups.includes('OKTA-CONFORMITE-PROD-METIER'))">
+            <li class="item" v-if="activeUser && (groups.includes('GG-USER-APPCONFORMITE-ADMIN') || groups.includes('GG-USER-APPCONFORMITE-METIER'))">
               <router-link  :to="`/partnerList/`">Liste des partenaires</router-link>
             </li>
             <li class="item" v-else-if="activeUser">
               <router-link  :to="`/partner/${myPartner()}`">{{myPartner()}}</router-link>
             </li>
             <li><router-link to="/aide/" target="_blank">Aide</router-link></li>
-            <li class="item" v-if="activeUser && (groups.includes('OKTA-CONFORMITE-PROD-ADMIN'))">
+            <li class="item" v-if="activeUser && (groups.includes('GG-USER-APPCONFORMITE-ADMIN'))">
               <router-link  :to="`/doc/`">Documentation</router-link>
             </li>
             <li class="item" v-if="!activeUser"><a href="#" @click.prevent="login">Connexion</a></li>
