@@ -60,7 +60,14 @@ export default {
       if (this.authState.isAuthenticated) {
         this.activeUser = await this.$auth.getUser();
         var group = []
-        if ("groups" in this.activeUser) {
+        if ("groups_ad" in this.activeUser){
+          this.activeUser.groups.forEach(element => {
+            if (element != "Everyone") {
+              group.push(element);
+            }
+          })
+        }
+        if ("groups_okta" in this.activeUser) {
           this.activeUser.groups.forEach(element => {
             if (element != "Everyone") {
               group.push(element);
