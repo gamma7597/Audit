@@ -1,7 +1,7 @@
 const uploadFile = require("../middleware/upload");
 const fs = require('fs');
-//const baseUrl = "http://localhost:8080/api/files/";
-const baseUrl = "https://conformite.engie-homeservices.fr/api/files/";
+const baseUrl = "http://localhost:8080/api/files/";
+//const baseUrl = "https://conformite.engie-homeservices.fr/api/files/";
 
 const upload = async (req, res) => {
   try {
@@ -17,7 +17,7 @@ const upload = async (req, res) => {
   } catch (err) {
     if (err.code == "LIMIT_FILE_SIZE") {
       return res.status(500).send({
-        message: "File size cannot be larger than 2MB!",
+        message: "File size cannot be larger than 15MB!",
       });
     }
     res.status(500).send({

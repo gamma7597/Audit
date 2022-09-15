@@ -31,10 +31,15 @@ import OktaVue, { LoginCallback } from '@okta/okta-vue'
 import { OktaAuth } from '@okta/okta-auth-js'
 
 const oktaAuth = new OktaAuth({
-  //issuer: 'https://dev-46549604.okta.com/oauth2/aus4gbwz3qR3wa0v75d7',
-  //clientId: '0oa2pf2uaeW95u4VH5d7',
-  issuer: 'https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7',
-  clientId: '0oa7n4gwwkvQiWODq0i7',
+  //localhost
+  issuer: 'https://dev-46549604.okta.com/oauth2/aus4gbwz3qR3wa0v75d7',
+  clientId: '0oa2pf2uaeW95u4VH5d7',
+  //prod
+  //issuer: 'https://engie.okta-emea.com/oauth2/aus7o7nrogwXSVcYn0i7',
+  //clientId: '0oa7n4gwwkvQiWODq0i7',
+  //poc
+  //issuer: 'https://engie-btoc-oie-preview.oktapreview.com/oauth2/aus4c092lcGfLRARP0x7',
+  //clientId: '0oa4c08oa16DlRFzW0x7',
   redirectUri: window.location.origin + '/callback',
   scopes: ['openid', 'profile', 'email']
 })
@@ -129,8 +134,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-        || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+        || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchPartner(to)){
@@ -146,8 +151,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchRules(to)){
@@ -163,8 +168,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "co_rules")){
@@ -180,8 +185,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "tdt_rules")){
@@ -197,8 +202,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "g_rules")){
@@ -214,8 +219,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "rh_rules")){
@@ -231,8 +236,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "pt_rules")){
@@ -248,8 +253,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "a_rules")){
@@ -265,8 +270,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "ca_rules")){
@@ -282,8 +287,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "spe_rules")){
@@ -299,8 +304,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "c_rules")){
@@ -316,8 +321,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "adm_rules")){
@@ -333,8 +338,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "se_rules")){
@@ -350,8 +355,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "rf_rules")){
@@ -367,8 +372,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "gi_rules")){
@@ -384,8 +389,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "gca_rules")){
@@ -401,8 +406,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "ie_rules")){
@@ -418,8 +423,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "rgpd_rules")){
@@ -435,8 +440,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchOneRule(to, "cd_rules")){
@@ -452,8 +457,8 @@ const routes = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if(store.state.user.groups.includes("GG-USR-APPCONFORMITE-METIER")
-      || store.state.user.groups.includes("GG-USR-APPCONFORMITE-ADMIN")){
+      if(store.state.user.groups.includes("OKTA-CONFORMITE-PROD-METIER")
+      || store.state.user.groups.includes("OKTA-CONFORMITE-PROD-ADMIN")){
         next()
       }
       else if(matchFiles(to)){

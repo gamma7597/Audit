@@ -22,10 +22,11 @@
         @input="updateLocalContact($event)" />
 
       <label for="phone">Telephone du contact</label>
-      <input type="number" 
-        id="phone" 
-        :value="activeContact.phone"
-        @input="updateLocalContact($event)" />
+      <MazPhoneNumberInput
+        type="text"
+        id="phone"
+        v-model="activeContact.phone"
+      />
 
       <label for="mail">Mail du contact</label>
       <input type="text" 
@@ -49,7 +50,9 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
+  import { MazPhoneNumberInput } from 'maz-ui'
   export default {
+    components: { MazPhoneNumberInput },
     name: 'EditContact',
     data() {
       return {

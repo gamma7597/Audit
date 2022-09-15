@@ -519,7 +519,7 @@
             Proposition 5 : <br/>
             Merci d'indiquer les mesures de sécurité implémentés.<br/>
             Proposition 6 : <br/>
-            A titre d'exemples : les applications headers, les csp, et les vulnéraibilités présentes dans le top10 OWASP.<br/>
+            A titre d'exemples : les applications headers, les csp, et les vulnérabilités présentes dans le top10 OWASP.<br/>
             Proposition 7 : <br/><br/>
             Nous attendons que vous répondiez soit : 
             <ul>

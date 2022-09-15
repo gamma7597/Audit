@@ -4,7 +4,7 @@
     <button class="button_blue" @click="goToPartner(partner.company)">Retour</button>
     <Overview />
 
-    <ul v-if="!groups.includes('GG-USR-APPCONFORMITE-METIER')" class="cards">
+    <ul v-if="!groups.includes('OKTA-CONFORMITE-PROD-METIER')" class="cards">
       <li class="card_item">
         <div class="card_content">
           <div class="card_title">Connexion</div>
@@ -24,7 +24,7 @@
         </div>
       </li>
     </ul>
-    <ul v-if="!groups.includes('GG-USR-APPCONFORMITE-METIER')" class="cards">
+    <ul v-if="!groups.includes('OKTA-CONFORMITE-PROD-METIER')" class="cards">
       <li class="card_item">
         <div class="card_content">
           <div class="card_title">Gouvernance</div>

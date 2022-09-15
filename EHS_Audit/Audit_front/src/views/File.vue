@@ -10,6 +10,7 @@
       <h2>Vous pouvez ajouter ou supprimer des fichiers / images sur cette page.</h2>
       <p>
         Vous êtes limités aux types : jpeg / png / pdf / word / excel / powerpoint.<br />
+        Avec une taille de maximum de 15 Mb par fichier.<br />
         Nous vous conseillons d'ajouter vos documents cybersécurité tels que : <br />
         PSSI / Schéma de flux / Contrats / Chartes / Etc ...
       </p>

@@ -23,9 +23,10 @@
         v-model="formData.first_name" />
 
       <label for="phone">Telephone du contact</label>
-      <input type="number" 
-        id="phone" 
-        v-model="formData.phone" />
+      <MazPhoneNumberInput
+        id="phone"
+        v-model="formData.phone"
+      />
 
       <label for="mail">Mail du contact</label>
       <input type="text" 
@@ -45,7 +46,9 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex'
+  import { MazPhoneNumberInput } from 'maz-ui'
   export default {
+    components: { MazPhoneNumberInput },
     name: 'AddContact',
     data() {
       return {
@@ -54,7 +57,7 @@
         formData: {
           last_name: '',
           first_name: '',
-          phone: null,
+          phone: '',
           mail: '',
           job: ''
         }
@@ -92,7 +95,7 @@
         }
         var phone_regex = new RegExp(/(?:(?:\+|00)33|0)[1-9](?:[\s.-]*\d{2}){4}/)
         if(!phone_regex.test(phone)) {
-          this.errors.push("Le telephone doit etre de la forme ...")
+          this.errors.push("Le telephone doit etre de la forme indicateur (+33) puis numéro de téléphone !")
         }
 
         if(!mail) {
@@ -100,7 +103,7 @@
         }
         var mail_regex = new RegExp(/\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+/)
         if(!mail_regex.test(mail)) {
-          this.errors.push("Le mail doit etre de la forme ...")
+          this.errors.push("Le mail doit etre de la forme exemple@exemple.exemple !")
         }
 
         if(!job) {

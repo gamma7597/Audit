@@ -6,14 +6,14 @@
         <nav>
           <ul class="menu">
             <li class="item"><router-link to="/">Accueil</router-link></li>
-            <li class="item" v-if="activeUser && (groups.includes('GG-USR-APPCONFORMITE-ADMIN') || groups.includes('GG-USR-APPCONFORMITE-METIER'))">
+            <li class="item" v-if="activeUser && (groups.includes('OKTA-CONFORMITE-PROD-ADMIN') || groups.includes('OKTA-CONFORMITE-PROD-METIER'))">
               <router-link  :to="`/partnerList/`">Liste des partenaires</router-link>
             </li>
             <li class="item" v-else-if="activeUser">
               <router-link  :to="`/partner/${myPartner()}`">{{myPartner()}}</router-link>
             </li>
             <li><router-link to="/aide/" target="_blank">Aide</router-link></li>
-            <li class="item" v-if="activeUser && (groups.includes('GG-USR-APPCONFORMITE-ADMIN'))">
+            <li class="item" v-if="activeUser && (groups.includes('OKTA-CONFORMITE-PROD-ADMIN'))">
               <router-link  :to="`/doc/`">Documentation</router-link>
             </li>
             <li class="item" v-if="!activeUser"><a href="#" @click.prevent="login">Connexion</a></li>
@@ -40,7 +40,6 @@ export default {
   },
   async created() {
     await this.refreshActiveUser();
-    console.log(this.activeUser)
   },
   watch: {
     // everytime a route is changed refresh the activeUser
@@ -61,14 +60,11 @@ export default {
       if (this.authState.isAuthenticated) {
         this.activeUser = await this.$auth.getUser();
         var group = []
-        if ("groups_okta" in this.activeUser) {
-          this.activeUser.groups_okta.forEach(element => {
-            group.push(element);
-          })
-        }
-        if ("groups_ad" in this.activeUser) {
-          this.activeUser.groups_ad.forEach(element => {
-            group.push(element);
+        if ("groups" in this.activeUser) {
+          this.activeUser.groups.forEach(element => {
+            if (element != "Everyone") {
+              group.push(element);
+            }
           })
         }
         this.$store.state.user.groups = group;
