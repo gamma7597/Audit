@@ -13,7 +13,7 @@ Enfin, le front-end dispose de deux services pour gérer les actions sur les fic
 [Voir les services.](./Services.md)
 [Voir le store.](./Store.md)
 [Voir les views.](./Views.md)
-[Voir le components.](./Components.md)
+[Voir la vue App.](./App.md)
 
 Voici les technologies qui sont utilisés pour le front-end :
 
